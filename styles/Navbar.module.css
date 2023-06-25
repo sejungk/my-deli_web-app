@@ -1,12 +1,22 @@
 .container {
-  height: 100px;
-  padding: 0px 50px;
-  background-color: gray;
+  padding: 50px 50px 30px 50px;
+  height: 50px;
   display: flex;
   align-items: center;
+  font-weight: bold;
   justify-content: space-between;
+  width: 700px;
+}
+
+.logo {
+  text-align: center;
+  margin: auto;
 }
 
 .item {
+  font-size: 15px;
+}
 
+.underline {
+  border-top: 1.8px solid #C4CCCF;
 }

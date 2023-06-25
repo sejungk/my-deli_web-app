@@ -1,0 +1,27 @@
+.container {
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  border: 2px solid green;
+}
+
+.categoryText {
+  padding: 20px 0;
+}
+
+h1.category {
+  font-size: 20px;
+  font-weight: 800;
+  padding-bottom: 30px;
+}
+
+.subcategory {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
