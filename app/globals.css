@@ -19,4 +19,5 @@
 body {
   color: rgb(var(--foreground-rgb));
   color: #1F1F1F;
+  font-family: 'Inter';
 }

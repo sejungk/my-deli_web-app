@@ -1,8 +1,27 @@
 .container {
-  width: 45%;
-  height: 120px;
+  width: 46%;
+  height: 150px;
   border-radius: 15px;
   border: 1px solid #C4CCCF;
   padding: 15px 25px;
   margin: 20px 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h5.itemName {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+p.itemDesc {
+  font-size: 14px;
+  color: #31383F;
+}
+
+p.itemPrice {
+  font-size: 14px;
+  font-weight: 500;
+  color: #31383F;
 }

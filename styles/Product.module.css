@@ -1,0 +1,90 @@
+.container {
+  width: 70%;
+  border-radius: 15px;
+  border: 2px solid black;
+  margin: auto;
+  padding: 20px;
+}
+
+.optionWrapper {
+  padding: 20px 0;
+}
+
+.optionDesc {
+  display: flex;
+  justify-content: space-between;
+}
+
+.optionDesc h5 {
+  margin: 0;
+  margin: auto 0;
+}
+
+.requiredOptionalLabel {
+  font-size: 12px;
+  text-align: center;
+  border: 2px solid #C4CCCF;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
+
+.listOption {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.optionChoices{
+  display: flex;
+  flex-direction: column;
+}
+
+.optionListWrapper label {
+  border: 2px solid blue;
+}
+
+.addToOrderSection {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.quantity {
+  border: 1.5px solid #C4CCCF;
+  display: flex;
+  justify-content: space-between;
+  width: 50px;
+  border-radius: 50px;
+  margin: auto 0;
+  padding: 10px 20px;
+  font-weight: 800;
+}
+
+.addToOrderBttn {
+  background-color: #F25353;
+  display: flex;
+  justify-content: space-around;
+  color: #ffffff;
+  width: 250px;
+  border-radius: 50px;
+  margin: auto 0;
+  padding: 12px 20px;
+}
+
+.optionListWrapper {
+  /* border: 2px solid black; */
+  /* background-color: blue; */
+}
+
+/*
+<div className={styles.addToOrderSection}>
+<div className={styles.quantity}>
+  <span>-</span>
+  <span>1</span>
+  <span>+</span>
+</div>
+<div className={styles.addToOrderBttn}>
+  <span>Add to Order</span>
+  <span>$3.99</span>
+</div>
+</div> */
