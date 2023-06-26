@@ -1,9 +1,12 @@
 import Image from 'next/image';
-import Layout from '../component/Layout';
+import MenuItems from '../component/MenuItems'
 
 export default function Home() {
   return (
-   <Layout>
-   </Layout>
+   <div>
+       <MenuItems />
+   </div>
   )
 }
+
+

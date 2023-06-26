@@ -3,11 +3,20 @@
   border-radius: 15px;
   border: 2px solid black;
   margin: auto;
-  padding: 20px;
+  padding: 15px 0;
+}
+
+.itemName {
+  padding: 0px 30px 10px;
+}
+
+.scrollableContent {
+  max-height: 700px;
+  overflow: hidden;
 }
 
 .optionWrapper {
-  padding: 20px 0;
+  padding: 20px 30px;
 }
 
 .optionDesc {
@@ -44,7 +53,7 @@
 }
 
 .addToOrderSection {
-  padding: 20px 0;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
 }
@@ -71,20 +80,14 @@
   padding: 12px 20px;
 }
 
-.optionListWrapper {
-  /* border: 2px solid black; */
-  /* background-color: blue; */
+input.option[type='radio'] {
+  accent-color: #F25353;
+  transform: scale(1.2);
+  margin-right: 20px;
 }
 
-/*
-<div className={styles.addToOrderSection}>
-<div className={styles.quantity}>
-  <span>-</span>
-  <span>1</span>
-  <span>+</span>
-</div>
-<div className={styles.addToOrderBttn}>
-  <span>Add to Order</span>
-  <span>$3.99</span>
-</div>
-</div> */
+hr.sectionDivider {
+  margin: 0 30px;
+}
+
+

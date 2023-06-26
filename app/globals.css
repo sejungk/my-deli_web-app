@@ -21,3 +21,7 @@ body {
   color: #1F1F1F;
   font-family: 'Inter';
 }
+
+hr {
+  margin: 0;
+}
