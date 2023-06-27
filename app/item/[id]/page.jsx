@@ -26,28 +26,28 @@ const Product = () => {
 
             <div className={styles.optionChoices}>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input className={styles.option} type="radio" value="White" name="bread" /> White
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input className={styles.option} type="radio" value="White" name="bread" /> Wheat
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input className={styles.option} type="radio" value="White" name="bread" /> Rye
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input className={styles.option} type="radio" value="White" name="bread" /> Sourdough
                 </label>
@@ -67,14 +67,14 @@ const Product = () => {
 
             <div className={styles.optionChoices}>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input type="radio" value="american" name="cheese" /> American Cheese
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input type="radio" value="swiss" name="cheese" /> Swiss
                 </label>
@@ -94,28 +94,28 @@ const Product = () => {
 
             <div className={styles.optionChoices}>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input type="radio" value="turkey" name="meat" /> Turkey
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input type="radio" value="ham" name="meat" /> Ham
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input type="radio" value="bacon" name="meat" /> Bacon
                 </label>
                 <div>---</div>
               </div>
 
-              <div className={styles.listOption}>
+              <div className={styles.radioButtonListOption}>
                 <label>
                   <input type="radio" value="sausage" name="meat" /> Sausage
                 </label>
@@ -131,11 +131,11 @@ const Product = () => {
         <hr></hr>
         <div className={styles.addToOrderSection}>
           <div className={styles.quantity}>
-            <span>-</span>
+            <span className="pointer">-</span>
             <span>1</span>
-            <span>+</span>
+            <span className="pointer">+</span>
           </div>
-          <div className={styles.addToOrderBttn}>
+          <div className="red-button pointer">
             <span>Add to Order</span>
             <span>|</span>
             <span>$3.99</span>
