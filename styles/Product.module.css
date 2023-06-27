@@ -3,13 +3,14 @@
   border-radius: 15px;
   border: 2px solid black;
   margin: auto;
+  max-width: 650px;
 }
 
 .itemName {
   padding: 30px 30px 25px;
 }
 
-.itemName > *:first-child {
+.itemName h1 {
   margin-bottom: 15px;
 }
 
@@ -97,4 +98,23 @@ hr.sectionDivider {
 .optionSection::-webkit-scrollbar-thumb {
   background: var(--brand-light-blue);
   border-radius: 10px;
+}
+
+.closeButton {
+  position: relative;
+  top: 10px;
+  right: -40px;
+  margin: -50px 0 0 -50px;
+  height: 100px;
+  width: 100px;
+  transform: scale(.18);
+}
+
+.close {
+  position: relative;
+  float: right;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
+  cursor: pointer;
 }

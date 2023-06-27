@@ -12,6 +12,10 @@ const Product = () => {
     <div className={styles.container}>
       <div className={styles.scrollableContent}>
         <div className={styles.itemName}>
+          <svg className={styles.closeButton} width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.999999 1L16 16.3623" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16 1L1.00002 16.3623" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
           <h1 className={styles.title}>{eggSandwich.name}</h1>
           <p className={styles.desc}>{eggSandwich.desc}</p>
         </div>
