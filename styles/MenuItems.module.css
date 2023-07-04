@@ -2,8 +2,7 @@
   padding: 20px 0 20px 50px;
   display: flex;
   flex-direction: column;
-  width: 80%;
-  border: 2px solid green;
+  flex-basis: 75%;
 }
 
 .categoryText {
@@ -24,4 +23,11 @@ h1.category {
 .wrapper {
   display: flex;
   flex-wrap: wrap;
+}
+
+@media (max-width: 1100px) {
+  .container {
+    flex-basis: 70%;
+    padding: 20px 20px 20px 40px;
+  }
 }

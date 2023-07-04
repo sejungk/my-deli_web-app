@@ -1,0 +1,121 @@
+.container {
+  /* position: fixed; */
+  right: 0;
+  margin-top: 50px;
+  margin-right: 50px;
+  flex-basis: 25%;
+  border: 1.5px solid #C4CCCF;
+  border-radius: 20px;
+  height: 88vh;
+}
+
+/* top section - start */
+.pickupDetailSection {
+  padding: 25px 20px;
+}
+
+.logoContainer {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.logoContainer p {
+  font-weight: 400;
+}
+
+.logo {
+  width: 14px;
+  height: 18px;
+  position: relative;
+  margin-right: 5px;
+}
+/* top section - end */
+
+/* middle section - start */
+.addedItemSection {
+  padding: 0 20px;
+  overflow: scroll;
+  max-height: 350px;
+}
+
+.singleItemContainer {
+  padding: 25px 0;
+}
+
+.singleItemHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemQuantity {
+  flex-basis: 15%;
+}
+
+.itemName {
+  flex-basis: 70%;
+}
+
+.itemPrice {
+  flex-basis: 15%;
+}
+
+.singleItemHeader span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.addOnsList {
+  margin: 15px 0 15px 15%;
+  padding: 0;
+}
+
+.addOnsList li {
+  margin-bottom: 5px;
+}
+
+.editRemoveOptions {
+  display: flex;
+}
+
+.editRemoveOptions a {
+  margin-left: 10%;
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: underline;
+}
+/* middle section - end */
+
+/* bottom section - start */
+.subtotalSection{
+  padding: 25px 20px;
+}
+
+.subtotalInfo{
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+/* bottom section - end */
+
+@media (max-width: 1000px) {
+  .container {
+    flex-basis: 30%;
+  }
+
+  .itemQuantity {
+    flex-basis: 10%;
+  }
+
+  .itemName {
+    flex-basis: 80%;
+  }
+
+  .itemPrice {
+    flex-basis: 10%;
+  }
+
+  .addOnsList {
+    margin-left: 10%;
+  }
+}

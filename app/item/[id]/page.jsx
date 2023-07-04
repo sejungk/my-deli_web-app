@@ -139,7 +139,7 @@ const Product = () => {
             <span>1</span>
             <span className="pointer">+</span>
           </div>
-          <div className="red-button pointer">
+          <div className="bttn bttn_red">
             <span>Add to Order</span>
             <span>|</span>
             <span>$3.99</span>
