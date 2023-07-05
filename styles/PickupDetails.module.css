@@ -1,0 +1,37 @@
+.container {
+  padding: 0;
+  border: var(--light-blue_border);
+  border-radius: 15px;
+}
+
+.pickupHeaderSection {
+  padding: 25px 40px;
+}
+
+.deliInfoSection {
+  display: flex;
+  align-items: center;
+  padding: 25px 40px;
+}
+
+.storeLogo {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  flex-basis: 10%;
+  margin-right: auto;
+  border: 2px solid blue;
+}
+
+.storeLogo img {
+  width: auto !important;
+}
+
+.storeInfo {
+  flex-basis: 95%;
+  border: 2px solid blue;
+}
+
+.storeInfo a {
+  font-weight: 500;
+}

@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 50px 0;
+}
+
+.leftSection > * {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bttnWrapper, .orderHeader {
+  margin-bottom: 0;
+  height: 80px;
+}
+
+.leftSection {
+  flex-basis: 60%;
+}
+
+.rightSection {
+  flex-basis: 35%;
+}
+
+.orderHeader {
+  font-size: 35px;
+  line-height: 35px;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    padding: 50px 40px 0;
+  }
+
+  .leftSection {
+    flex-basis: 55%;
+  }
+
+  .rightSection {
+    flex-basis: 40%;
+  }
+}
+
+

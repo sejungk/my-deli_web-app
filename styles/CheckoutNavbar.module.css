@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  border: 1.5px solid #C4CCCF;
+  padding: 20px;
+}
+
+.backBttn {
+  width: 15px;
+  height: 20px;
+  position: relative;
+  margin: 0 10px 0 20px;
+}

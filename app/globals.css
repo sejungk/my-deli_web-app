@@ -8,6 +8,9 @@
   --brand-black: #1F1F1F;
   --brand-light-blue: #C4CCCF;
   --brand-white: #ffffff;
+
+  /* borders */
+  --light-blue_border: 1.5px solid var(--brand-light-blue);
 }
 
 body {
@@ -21,6 +24,7 @@ h1 {
   font-size: 22px;
   line-height: 22px;
 }
+
 
 h5 {
   font-weight: 500;
@@ -37,6 +41,12 @@ hr {
   margin: 0;
 }
 
+a {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -49,6 +59,10 @@ hr {
   margin: auto 0;
   padding: 12px 20px;
   cursor: pointer;
+}
+
+.bttn_auto-width {
+  width: auto;
 }
 
 .bttn_outline {

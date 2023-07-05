@@ -1,12 +1,10 @@
 .container {
-  /* position: fixed; */
   right: 0;
   margin-top: 50px;
   margin-right: 50px;
   flex-basis: 25%;
-  border: 1.5px solid #C4CCCF;
   border-radius: 20px;
-  height: 88vh;
+  border: 1.5px solid var(--brand-light-blue);
 }
 
 /* top section - start */
@@ -39,7 +37,7 @@
 }
 
 .singleItemContainer {
-  padding: 25px 0;
+  padding: 30px 0;
 }
 
 .singleItemHeader {
@@ -78,7 +76,7 @@
 }
 
 .editRemoveOptions a {
-  margin-left: 10%;
+  margin-left: 15%;
   font-size: 14px;
   font-weight: 300;
   text-decoration: underline;
