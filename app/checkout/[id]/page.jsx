@@ -8,7 +8,7 @@ export default function Checkout() {
       <div className={styles.leftSection}>
         <span className={styles.orderHeader}>Let's review your order.</span>
         <PickupDetails />
-        <PickupDetails />
+        <CustomerInfo />
         <PickupDetails />
       </div>
       <div className={styles.rightSection}>

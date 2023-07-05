@@ -1,3 +1,46 @@
 .container {
-  background-color: light-green;
+  padding: 0;
+  border: var(--light-blue_border);
+  border-radius: 15px;
+}
+
+.customerInfoHeaderSection {
+  padding: 25px 40px;
+}
+
+.input{
+    margin: 0.4rem 0;
+    border-radius: 5px;
+    border: 1.5px solid #C4CCCF !important;
+    width: 100%;
+}
+
+.pickupSection {
+  padding: 0 40px;
+
+}
+
+.infoSection {
+  display: flex;
+  align-items: center;
+  padding: 25px 0;
+}
+
+.logoWrapper {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-right: 20px;
+}
+
+.infoWrapper p {
+  font-weight: 400;
+}
+
+.infoWrapper {
+  flex-basis: 88%;
+}
+
+.infoWrapper a {
+  font-weight: 500;
 }
