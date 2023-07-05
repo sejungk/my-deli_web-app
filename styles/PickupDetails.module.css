@@ -8,30 +8,31 @@
   padding: 25px 40px;
 }
 
-.deliInfoSection {
-  display: flex;
-  align-items: center;
-  padding: 25px 40px;
+.pickupSection {
+  padding: 0 40px;
 }
 
-.storeLogo {
+.infoSection {
+  display: flex;
+  align-items: center;
+  padding: 25px 0;
+}
+
+.logoWrapper {
   width: 24px;
   height: 24px;
   position: relative;
-  flex-basis: 10%;
-  margin-right: auto;
-  border: 2px solid blue;
+  margin-right: 20px;
 }
 
-.storeLogo img {
-  width: auto !important;
+.infoWrapper p {
+  font-weight: 400;
 }
 
-.storeInfo {
-  flex-basis: 95%;
-  border: 2px solid blue;
+.infoWrapper {
+  flex-basis: 88%;
 }
 
-.storeInfo a {
+.infoWrapper a {
   font-weight: 500;
 }
