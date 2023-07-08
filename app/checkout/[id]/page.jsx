@@ -1,6 +1,7 @@
 import styles from "../../../styles/Checkout.module.css"
 import PickupDetails from '../../../component/PickupDetails';
 import CustomerInfo from '../../../component/CustomerInfo';
+import Payment from '../../../component/Payment';
 
 export default function Checkout() {
   return (
@@ -9,7 +10,7 @@ export default function Checkout() {
         <span className={styles.orderHeader}>Let's review your order.</span>
         <PickupDetails />
         <CustomerInfo />
-        <PickupDetails />
+        <Payment />
       </div>
       <div className={styles.rightSection}>
         <div className={styles.bttnWrapper}>

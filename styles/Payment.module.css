@@ -8,11 +8,20 @@
   padding: 25px 40px;
 }
 
-.input{
+.input100 {
+  margin: 0.4rem 0;
+  border-radius: 5px;
+  border: 1.5px solid #C4CCCF !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input33 {
     margin: 0.4rem 0;
     border-radius: 5px;
     border: 1.5px solid #C4CCCF !important;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .customerInfoSection {

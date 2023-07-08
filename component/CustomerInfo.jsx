@@ -10,7 +10,7 @@ const CustomerInfo = () => {
 
       <hr></hr>
 
-      <div className={styles.pickupSection}>
+      <div className={styles.customerInfoSection}>
         <div className="flex_row">
           <div>
             <p>First Name</p>
