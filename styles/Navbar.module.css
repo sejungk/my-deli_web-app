@@ -20,3 +20,9 @@
 .underline {
   border-top: 1.8px solid #C4CCCF;
 }
+
+@media (max-width: 768px) {
+  .container {
+    display: none;
+  }
+}

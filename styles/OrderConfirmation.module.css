@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.mainText {
+  font-size: 46px;
+}
+
+.descriptionText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  margin-right: 15px;
+}
