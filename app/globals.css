@@ -101,3 +101,17 @@ input[type='radio'] {
   display: flex;
   justify-content: space-between;
 }
+
+/* tablet  devices */
+@media (max-width: 768px) {
+  h4 {
+    font-size: 18px;
+  }
+}
+
+/* mobile devices */
+@media (max-width: 480px) {
+  h4 {
+    font-size: 12px;
+  }
+}
