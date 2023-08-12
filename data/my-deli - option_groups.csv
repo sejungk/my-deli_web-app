@@ -1,0 +1,23 @@
+name,display_text,allow_multiple,required,free_option_limit
+bread_option,Choose Your Bread,FALSE,TRUE,
+breakfast_meats,Choose Your Protein,FALSE,FALSE,
+breakfast_cheese ,Add Cheese,FALSE,FALSE,
+homefries_toast,Add HomeFries and Toast,TRUE,FALSE,
+breakfast_mods,Extra Add Ons,FALSE,FALSE,
+sub_meats,Choose Your Protein,TRUE,FALSE,1
+sub_cheeses,Choose Your Cheese,TRUE,FALSE,1
+sub_toppings,Choose Your Toppings,TRUE,FALSE,5
+sub_dressing,Choose Your Dressing,TRUE,FALSE,2
+sub_mods,Extra Add Ons,TRUE,FALSE,
+salad_meats,Choose Your Protein,TRUE,FALSE,1
+salad_toppings,Choose Your Toppings,TRUE,FALSE,3
+salad_dressing,Choose Your Dressing,FALSE,FALSE,
+size,Choose a Size,FALSE,TRUE,
+stir-fry_mods,Extra Add Ons,TRUE,FALSE,
+rice-bowl_mods,Extra Add Ons,TRUE,FALSE,
+curry_mods,Extra Add Ons,TRUE,FALSE,
+toasted,Would You Like Your Bread Toasted?,FALSE,TRUE,
+hot_cold,Hot or Cold Sub?,FALSE,TRUE,
+combo_side,Add a Side,FALSE,FALSE,
+combo_drink,Add a Drink,FALSE,FALSE,
+deluxe_sub,Make it a deluxe,FALSE,FALSE,

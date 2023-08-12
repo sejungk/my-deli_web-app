@@ -1,4 +1,7 @@
+
+import { useState, useEffect } from "react";
 import styles from "../styles/MenuItemCard.module.css";
+import axios from "axios";
 
 const MenuItemCard = () => {
   return (

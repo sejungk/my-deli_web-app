@@ -1,0 +1,69 @@
+name,description,base_price,category_id,exclusions
+DIY Breakfast Egg Sandwich,"2 eggs, with your choice of cheese, meat, and your choice of bread.",2.49,3,
+DIY Bagel Breakfast Sandwich ,"2 eggs, with your choice of cheese and meat on a toasted plain bagel.",3.49,3,
+DIY Croissant Breakfast Sandwich ,"2 eggs, with your choice of cheese and meat on a toasted croissant.",3.49,3,
+Bagel with Cream Cheese,Bagel with cream cheese.,2.50,3,
+Plain Croissant,Plain croissant.,1.29,7,
+Pancakes (3 pieces),Homemade buttermilk pancakes.,3.99,7,
+French Toast (3 pieces),Homemade french toast.,3.99,7,
+Home Fries Side,A side of freshly made golden brown home fries.,3.99,7,
+DIY Original Breakfast Burrito,"2 eggs, cheese, and your choice of protein wrapped in a large flour tortilla.",4.99,4,
+Country Burrito,"2 eggs, sausage, home fries, and american cheese wrapped in a large flour tortilla.",5.49,4,"Home Fries, Cheese"
+Beef Country Burrito,"2 eggs, grilled shaved rib eye, grilled onion, home fries, and american cheese wrapped in a large flour tortilla.",5.99,4,"Grilled Onion, Home Fries, Cheese"
+Turkey & Cheese Burrito,"2 eggs, turkey, mushroom, grilled onion, and american cheese wrapped in a large flour tortilla.",5.49,4,"Mushroom, Grilled Onion, Cheese,"
+Two Eggs Platter ,2 eggs served with home fries and 2 slices of your choice of toast.,4.99,5,"Home Fries, Toast"
+DIY Two Eggs & Meat Platter,2 eggs and your choice of protein served with home fries and 2 slices of toast.,5.99,5,"Home Fries, Toast"
+Cheese Omelet,Cheese omelet served with home fries and 2 slices of your choice of toast.,4.99,6,Cheese
+DIY Breakfast Cheese & Meat Omelet,Egg omelet with cheese and your choice of protein served with a side of home fries and 2 slices of toast.,5.99,6,
+Vegetable Omelet,"Egg omelet with cheese, green bell pepper, onion, tomato, and mushroom served with a side of home fries and 2 slices of toast.",5.99,6,"Green Bell Pepper, Onion, Tomato, Mushroom, Cheese"
+Western Omelet,"Egg omelet with ham, cheese, green bell pepper, onion, tomato, and mushroom served with a side of home fries and 2 slices of toast.",6.99,6,"Ham, Green Bell Pepper, Onion, Tomato, Mushroom, Cheese"
+Steak & Cheese Omelet,"Egg omelet with grilled shaved rib eye, cheese, and onion served with a side of home fries and 2 slices of toast.",6.99,6,"Rib Eye, Cheese, Onion"
+Dad's Special Sub (Italian Sub),"Ham, salami, pepperoni, capicola, provolone cheese, lettuce, tomato, onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Ham, Salami, Pepperoni, Capicola, Provolone Cheese, Lettuce, Tomato, Onion, Mayo"
+Mom's Special Sub,"Turkey, roast beef, bacon, provolone cheese, lettuce, tomato, onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Turkey, Roast Beef, Bacon, Provolone Cheese, Lettuce, Tomato, Onion, Mayo"
+Roast Beef Sub,"Roast beef, provolone cheese, lettuce, tomato, onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Roast Beef, Provolone Cheese, Lettuce, Tomato, Onion, Mayo"
+Turkey & Provolone Sub,"Turkey, provolone cheese, lettuce, tomato, onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Turkey, Provolone Cheese, Lettuce, Tomato, Onion, Mayo"
+Ham & Cheese Sub,"Ham, provolone cheese, lettuce, tomato, onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Ham, Provolone Cheese, Lettuce, Tomato, Onion, Mayo"
+Veggie Sub,"Provolone cheese, american cheese, swiss cheese, lettuce, tomato, onion, green bell pepper, carrot, cucumber, mushroom, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Provolone Cheese, American Cheese, Swiss Cheese, Lettuce, Tomato, Onion, Green Bell Pepper, Carrot, Cucumber, Mushroom, Mayo"
+New Yorker Sub,"Corned beef, pastrami, swiss cheese, lettuce, tomato, onion, and spicy mustard served on a 8"" or 12"" white sub.",7.99,8,"Corned Beef, Pastrami, Swiss Cheese, Lettuce, Tomato, Onion, Spicy Mustard"
+Steak & Cheese Sub,"Grilled Shaved Rib Eye, provolone cheese, lettuce, tomato, grilled onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Rib Eye, Provolone Cheese, Lettuce, Tomato, Grilled Onion, Mayo"
+Grilled Chicken & Cheese Sub,"Grilled Chicken Breast, provolone cheese, lettuce, tomato, grilled onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Chicken, Provolone Cheese, Lettuce, Tomato, Grilled Onion, Mayo"
+Teriyaki Steak & Cheese Sub,"Teriyaki glazed grilled shaved rib eye, provolone cheese, lettuce, tomato, grilled onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Rib Eye, Provolone Cheese, Lettuce, Tomato, Grilled Onion, Mayo"
+Teriyaki Chicken & Cheese Sub,"Teriyaki glazed grilled chicken, provolone cheese, lettuce, tomato, grilled onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Chicken, Provolone Cheese, Lettuce, Tomato, Grilled Onion, Mayo"
+Korean Beef Bulgogi Sub,"Marinated korean beef bulgogi in soy sauce, provolone cheese, lettuce, tomato, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Beef Bulgogi, Provolone Cheese, Lettuce, Tomato, Mayo"
+California Chicken Sub,"Grilled chicken breast marinated in italian dressing, provolone cheese, lettuce, tomato, grilled onion, and mayo served on a 8"" or 12"" white sub.",7.99,8,"Chicken, Provolone Cheese, Lettuce, Tomato, Grilled Onion, Mayo"
+Fried Fish Sub,"Fried breaded whiting fish, american cheese, lettuce, tomato, onion, and tartar sauce served on a 8"" or 12"" white sub.",7.99,8,"Fried Fish, American Cheese, Lettuce, Tomato, Onion, Tartar Sauce"
+Royal Chicken Sub,"Grilled chicken, provolone cheese, lettuce, tomato, onion, green bell pepper jalapeno pepper, crushed pepper paste, and mayo served on a 8"" or 12"" white sub.",8.99,8,"Chicken, Provolone Cheese, Lettuce, Tomato, Onion, Green Bell Pepper Jalapeno Pepper, Crushed Pepper Paste, Mayo"
+Cheeseburger Sub,"Ground beef patties, american cheese, lettuce, tomato, onion, pickle, ketchup, mustard, and mayo served on a 8"" or 12"" white sub.",8.99,8,"Beef Patties, American Cheese, Lettuce, Tomato, Onion, Pickle, Ketchup, Mustard, Mayo"
+Super B.L.T Sub,"Double bacon, lettuce, tomato, and mayo served on a 8"" or 12"" white sub.",8.99,8,"Bacon, Lettuce, Tomato, Mayo"
+Build Your Own Sub,"Choose your own protein, toppings, and dressing served on a 8"" or 12"" white sub.",8.99,,
+Chicken Caesar Wrap,"Grilled chicken marinated in italian dressing, mozzarella cheese, lettuce, tomato, and caesar dressing wrapped in a large flour tortilla.",7.99,9,"Chicken, Mozzarella Cheese, Lettuce, Tomato, Caesar Dressing"
+California Turkey Wrap,"Turkey, mozzarella cheese, lettuce, tomato, avocado, cucumber, and honey mustard wrapped in a large flour tortilla.",7.99,9,"Turkey, Mozzarella Cheese, Lettuce, Tomato, Avocado, Cucumber, Honey Mustard"
+Turkey Cusabi Wrap,"Turkey, mozzarella cheese, lettuce, tomato, avocado, and cusabi dressing wrapped in a large flour tortilla.",7.99,9,"Turkey, Mozzarella Cheese, Lettuce, Tomato, Avocado, Cusabi Dressing"
+Tuna Wrap,"Tuna salad, mozzarella cheese, lettuce, tomato, and cucumber wrapped in a large flour tortilla.",7.99,9,"Tuna Salad, Mozzarella Cheese, Lettuce, Tomato, Cucumber"
+Build Your Own Wrap,"Choose your own protein, toppings, and dressing wrapped in a large flour tortilla.",7.99,9,
+Build Your Own Salad,"Choose your own protein, toppings, and dressing on a bed of salad greens.",8.99,9,
+Classic B.L.T Sandwich,"Bacon, lettuce, tomato, and mayo on your choice of bread.",6.99,10,"Bacon, Lettuce, Tomato, Mayo"
+Tuna Salad Sandwich,"Tuna salad, lettuce, tomato, and mayo on your choice of bread.",6.99,10,"Tuna Salad, Lettuce, Tomato, Mayo"
+Reuben Sandwich,"Grilled shaved corned beef, swiss cheese, and sauerkraut on rye.",6.99,10,"Corned Beef, Swiss Cheese, Sauerkraut"
+BBQ Chicken Sandwich,Barbecue chicken and cole slaw on a sesame bun.,6.99,10,"Chicken, Cole Slaw"
+Grilled Cheese Sandwich,Sliced american cheese grilled on your choice of bread.,4.99,10,
+Grilled Ham & Cheese Sandwich,Sliced american cheese and ham grilled on your choice of bread.,5.99,10,
+Combo Club,"Roast beef, turkey, ham, bacon, american cheese, lettuce, tomato, and mayo on your choice of bread.",8.49,11,"Roast Beef, Turkey, Ham, Bacon, American Cheese, Lettuce, Tomato, Mayo"
+Ham & Turkey Club,"Turkey, ham, bacon, american cheese, lettuce, tomato, and mayo on your choice of bread.",7.99,11,"Turkey, Ham, Bacon, American Cheese, Lettuce, Tomato, Mayo"
+Gyro,"Beef, lamb, lettuce, tomato, onion, and cucumber sauce wrapped in pita bread.",7.99,11,"Meat, Lettuce, Tomato, Onion, Cucumber Sauce"
+Fried Chicken Burger,"Fried chicken patty, american cheese, lettuce, tomato, onion, and mayo on a sesame bun.",6.99,12,"American Cheese, Lettuce, Tomato, Onion, Mayo"
+Classic Cheeseburger,"Ground beef patty, american cheese, lettuce, tomato, onion, pickle, ketchup, mustard, and mayo on a sesame bun.",6.99,12,"Beef Patty, American Cheese, Lettuce, Tomato, Onion, Pickle, Ketchup, Mustard, Mayo"
+Bacon Cheeseburger,"Ground beef patty, bacon, american cheese, lettuce, tomato, onion, pickle, ketchup, mustard, and mayo on a sesame bun.",7.99,12,"Beef Patty, Bacon, American Cheese, Lettuce, Tomato, Onion, Pickle, Ketchup, Mustard, Mayo"
+Korean Beef Bulgogi Stir Fry,Grilled marinated korean beef bulgogi in soy sauce with sautéed onions served with a side of steamed rice and salad.,10.99,13,"Beef Bulgogi, Onions, Rice, Salad"
+Teriyaki Stir Fry,"Grilled teriyaki chicken with sautéed onions, carrot, and green bell pepper served with a side of steamed rice and salad.",10.99,13,"Chicken, Onions, Carrot, Green Bell Pepper, Rice, Salad"
+Spicy Chicken Stir Fry,"Grilled spicy chicken with sautéed onions, carrot, and green bell pepper served with a side of steamed rice and salad.",10.99,13,"Chicken, Onions, Carrot, Green Bell Pepper, Rice, Salad"
+Chicken Taco Rice Bowl,"Grilled chicken, shredded lettuce, tomato, black beans, salsa, pico de gallo, sour cream, and cheddar cheese over white rice.",9.99,13,"Chicken, Lettuce, Tomato, Black Beans, Salsa, Pico de Gallo, Sour Cream, Cheddar Cheese, Rice"
+Korean Beef Bulgogi Taco Rice Bowl,"Korean Beef bulgogi, sautéed onions, shredded lettuce, tomato, black beans, and cheddar cheese over white rice and topped with an over easy egg.",9.99,13,"Beef Bulgogi, Onions, Lettuce, Tomato, Black Beans, Cheddar Cheese, Rice, Egg"
+Korean Bibimbap Bowl,"Korean Beef bulgogi, sautéed squash, carrot, bean sprouts, cucumber, and shredded lettuce over white rice and topped with an over easy egg.",9.99,13,"Beef Bulgogi, Squash, Carrot, Bean Sprouts, Cucumber, Lettuce, Rice, Egg"
+Chicken Curry,"Chicken curry with onion, carrot, green bell pepper, and potato, served over white rice.",10.99,13,
+French Fries,,2.99,14,
+Coleslaw,,2.29,14,
+Potato Salad,,2.99,14,
+Onion Rings,,3.99,14,
+Chicken Nuggets,,3.99,14,
+Chicken Noodle Soup,,2.99,14,
