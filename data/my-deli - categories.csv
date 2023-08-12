@@ -1,0 +1,16 @@
+id,name,parent_category_id
+1,Breakfast,null
+2,Lunch,null
+3,Breakfast Sandwich,1
+4,Breakfast Burritos,1
+5,Breakfast Egg Platters,1
+6,Breakfast Omelets,1
+7,"French Toast, Pancakes, and More",1
+8,Subs,2
+9,Salad & Wraps,2
+10,Sandwiches,2
+11,Clubs/Gyro,2
+12,Burgers,2
+13,Rice Bowls & Stir Fry,2
+14,Sides,2
+15,Today's Lunch Special,2
