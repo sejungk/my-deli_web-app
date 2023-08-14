@@ -30,7 +30,7 @@ export default function MyApp({ Component, pageProps }) {
       router.events.off('routeChangeStart', handleRouteChange);
       router.events.off('routeChangeComplete', handleRouteComplete);
     };
-  }, []);
+  }, [router.events]);
 
   return <Component {...pageProps} />;
 }

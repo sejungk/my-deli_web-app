@@ -7,7 +7,7 @@ export default function Checkout() {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <span className={styles.orderHeader}>Let's review your order.</span>
+        <span className={styles.orderHeader}>Let&apos;s review your order.</span>
         <PickupDetails />
         <CustomerInfo />
         <Payment />
