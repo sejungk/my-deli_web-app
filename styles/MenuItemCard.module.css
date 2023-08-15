@@ -1,33 +1,23 @@
 .container {
-  min-width: 300px;
-  width: 46%;
-  height: 150px;
-  border-radius: 15px;
-  border: 1px solid #C4CCCF;
-  padding: 15px 25px;
-  margin: 10px 20px 10px 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-h5.itemName {
-  font-size: 16px;
-  font-weight: 600;
+  justify-content: space-around;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 p.itemDesc {
-  font-size: 14px;
-  color: #31383F;
+  color: var(--primary-grey);
 }
 
 p.itemPrice {
-  font-size: 14px;
-  font-weight: 500;
-  color: #31383F;
+  color: var(--primary-grey);
+  font-weight: 600;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .container {
     width: 100%;
   }

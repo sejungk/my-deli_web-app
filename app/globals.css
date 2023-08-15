@@ -3,18 +3,19 @@
 @tailwind utilities;
 
 :root {
-  /* brand colors */
-  --brand-red: #F25353;
-  --brand-black: #1F1F1F;
-  --brand-light-blue: #C4CCCF;
-  --brand-white: #ffffff;
+  /* primary colors */
+  --primary-red: #F25353;
+  --primary-black: #1F1F1F;
+  --primary-lightest-blue: #C4CCCF;
+  --primary-light-blue: #b6c0c3;
+  --primary-white: #ffffff;
 
   /* borders */
-  --light-blue_border: 1.5px solid var(--brand-light-blue);
+  --light-blue_border: 1.5px solid var(--primary-lightest-blue);
 }
 
 body {
-  color: var(--brand-black);
+  color: var(--primary-black);
   font-family: 'Inter';
   overflow-y: overlay;
 }
@@ -32,13 +33,12 @@ h4 {
 
 h5 {
   font-weight: 500;
-  font-size: 16px;
-  /* line-height: 40px; */
+  font-size: 20px;
 }
 
 p, label {
   font-weight: 300;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 hr {
@@ -70,7 +70,7 @@ a {
 }
 
 .bttn_outline {
-  border: 1.5px solid var(--brand-light-blue);
+  border: 1.5px solid var(--primary-lightest-blue);
 }
 
 .bttn_outline span {
@@ -82,8 +82,8 @@ a {
 }
 
 .bttn_red {
-  background-color: var(--brand-red);
-  color: var(--brand-white);
+  background-color: var(--primary-red);
+  color: var(--primary-white);
 }
 
 .red-button > span {
@@ -92,7 +92,7 @@ a {
 }
 
 input[type='radio'] {
-  accent-color: var(--brand-red);
+  accent-color: var(--primary-red);
   transform: scale(1.5);
   margin-right: 20px;
 }
