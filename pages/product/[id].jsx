@@ -1,5 +1,4 @@
 import styles from "../../styles/Product.module.css";
-// import Layout from "../../component/Layout";
 import Layout from "../../app/Layout";
 
 const Product = () => {
@@ -149,5 +148,7 @@ const Product = () => {
     </Layout>
   )
 }
+
+
 
 export default Product;

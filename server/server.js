@@ -17,29 +17,6 @@ const pool = new Pool({
   port: 5432, // Default PostgreSQL port
 });
 
-// app.get("/api/menu-items", async (req, res) => {
-//   try {
-//     // const query = `
-//     // SELECT c.name AS category_name, m.name AS menu_item_name, m.*
-//     // FROM menu_items m
-//     // INNER JOIN categories c ON m.category_id = c.id
-//     // ORDER BY c.name, m.menu_item_name;
-//     // `;
-
-//     const query = `
-//     SELECT menu_items.id, categories.id
-//     FROM menu_items
-//     INNER JOIN categories ON menu_items.parent_category_id =  menu_items.category_id
-//     `;
-//     console.log("SQL Query:", query);
-
-//     const { rows } = await pool.query(query);
-//     res.json(rows);
-//   } catch (error) {
-//     console.error("Error fetching menu items:", error);
-//     res.status(500).json({ error: "An error occurred while fetching menu items." });
-//   }
-// });
 app.get("/api/menu-items", async (req, res) => {
   try {
     const query = `
