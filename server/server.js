@@ -28,7 +28,7 @@ app.get("/api/menu-items", async (req, res) => {
            categories.name AS category_name
     FROM menu_items
     JOIN categories ON menu_items.category_id = categories.category_id
-    ORDER BY categories.name, menu_items.name;
+    ORDER BY categories.category_id, menu_items.name;
     `;
 
     // console.log("Query:", query); // Log the query
