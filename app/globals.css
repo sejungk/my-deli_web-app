@@ -11,7 +11,8 @@
   --primary-white: #ffffff;
 
   /* borders */
-  --light-blue_border: 1.5px solid var(--primary-lightest-blue);
+  --light-blue-border: 1.5px solid var(--primary-lightest-blue);
+  --black-border: 1.5px solid var(--primary-black);
 
   /* font sizes */
   --p-font-size: 16px;
@@ -104,6 +105,10 @@ input[type='radio'] {
 .flex_row {
   display: flex;
   justify-content: space-between;
+}
+
+.z-index_100 {
+  z-index: 100;
 }
 
 /* tablet  devices */

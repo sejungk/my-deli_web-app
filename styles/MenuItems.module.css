@@ -3,13 +3,14 @@
   display: flex;
   flex-direction: column;
   flex-basis: 75%;
+  z-index: 100;
 }
 
-/* individual item wrapper */
+/* individual item option component */
 .menuItemWrapper {
   min-width: 300px;
   width: 46%;
-  height: 200px;
+  height: 180px;
   border-radius: 15px;
   border: 1.5px solid var(--primary-lightest-blue);
   padding: 15px 25px;

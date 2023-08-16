@@ -1,3 +1,129 @@
 .container {
-  background-color: green;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContainer {
+  background-color: white;
+  width: 70%;
+  border-radius: 15px;
+  border: var(--black-border);
+  padding: 20px;
+  margin: auto;
+  max-width: 650px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.itemName {
+  padding: 30px 30px 25px;
+}
+
+.itemName h1 {
+  margin-bottom: 15px;
+}
+
+.topDivider {
+  position: relative;
+  width: 100%;
+}
+
+.optionSection {
+  max-height: 400px;
+  overflow-y: scroll;
+  margin-right: 3px;
+}
+
+.optionWrapper {
+  padding: 20px 30px;
+}
+
+.optionDesc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.optionChoices{
+  display: flex;
+  flex-direction: column;
+}
+
+.addToOrderSection {
+  padding: 30px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.quantity {
+  border: var(--light-blue-border);
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+  border-radius: 50px;
+  margin: auto 0;
+  padding: 10px 15px;
+  font-weight: 700;
+}
+
+hr.sectionDivider {
+  margin: 0 10px 0 20px;
+}
+
+.listOption {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 5px;
+}
+
+/* required optional label */
+.requiredOptionalLabel {
+  font-size: 12px;
+  color: var(--primary-black);
+  text-align: center;
+  border: 1px solid var(--primary-light-blue);
+  border-radius: 5px;
+  padding: 3px 5px;
+}
+
+/* scrollBar Positioning*/
+.optionSection::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.optionSection::-webkit-scrollbar-track {
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+/* Handle */
+.optionSection::-webkit-scrollbar-thumb {
+  background: var(--primary-light-blue);
+  border-radius: 10px;
+}
+
+.closeButton {
+  position: relative;
+  top: 10px;
+  right: -40px;
+  margin: -50px 0 0 -50px;
+  height: 100px;
+  width: 100px;
+  transform: scale(.18);
+}
+
+.close {
+  position: relative;
+  float: right;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
+  cursor: pointer;
 }
