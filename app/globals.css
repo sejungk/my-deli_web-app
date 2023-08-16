@@ -5,6 +5,7 @@
 :root {
   /* primary colors */
   --primary-red: #F25353;
+  --primary-dark-red: #d93737;
   --primary-black: #1F1F1F;
   --primary-lightest-blue: #C4CCCF;
   --primary-light-blue: #b6c0c3;
@@ -17,8 +18,16 @@
   /* font sizes */
   --p-font-size: 16px;
   --p-line-height: 150%;
+  --h1-font-size: 22px;
   --h1-line-height: 100%;
+  --h3-font-size: 24px;
+  --h3-line-height: 100%;
+  --h4-line-height: 24px;
+  --h5-font-size: 20px;
   --h5-line-height: 125%;
+
+  /* padding and spacing */
+  --product-modal-padding: 20px;
 }
 
 body {
@@ -29,18 +38,24 @@ body {
 
 h1 {
   font-weight: 500;
-  font-size: 22px;
+  font-size: var(--h1-font-size);
   line-height: var(--h1-line-height);
+}
+
+h3 {
+  font-weight: 500;
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height);
 }
 
 h4 {
   font-weight: 400;
-  font-size: 24px;
+  font-size: var(--h4-font-size);
 }
 
 h5 {
   font-weight: 500;
-  font-size: 20px;
+  font-size: var(--h5-font-size);
   line-height: var(--h5-line-height);
 }
 
@@ -58,6 +73,10 @@ a {
   text-decoration: underline;
   cursor: pointer;
   font-size: 14px;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .bttn {
@@ -89,6 +108,11 @@ a {
 .bttn_red {
   background-color: var(--primary-red);
   color: var(--primary-white);
+  transition-duration: .5s;
+}
+
+.bttn_red:hover {
+  background-color: var(--primary-dark-red);
 }
 
 .red-button > span {
