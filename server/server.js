@@ -24,6 +24,7 @@ app.get("/api/menu-items", async (req, res) => {
            menu_items.name AS menu_item_name,
            menu_items.description AS menu_item_description,
            menu_items.base_price AS menu_item_base_price,
+           menu_items.exclusions AS menu_item_exclusions,
            categories.category_id,
            categories.name AS category_name
     FROM menu_items
