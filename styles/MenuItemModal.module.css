@@ -10,27 +10,6 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.headerSection {
-  padding: 10px;
-}
-
-.scrollableContent {
-  padding: 5px;
-}
-
-.optionSection {
-  padding: 0 10px 0 0;
-}
-
-.optionWrapper {
-  padding: 0 20px;
-}
-
-/* option - Choose your bread */
-.optionDesc h5 {
-  margin-bottom: 10px;
-}
-
 .modalContainer {
   background-color: white;
   width: 70%;
@@ -41,10 +20,7 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.headerSection {
-  position: relative;
-}
-
+/* top section */
 .closeIcon {
   position: absolute;
   right: var(--product-modal-padding);
@@ -57,21 +33,15 @@
   height: 40px;
 }
 
-/*
-.close {
-  position: relative;
-  right: var(--product-modal-padding);
-  font-size: 20px;
-  line-height: 20px;
-  font-weight: 600;
-  cursor: pointer;
-}
- */
-
 .closeIcon span {
   font-size: 24px;
   line-height: 1;
   color: black;
+}
+
+.headerSection {
+  position: relative;
+  padding: 10px;
 }
 
 .itemName {
@@ -87,6 +57,11 @@
   width: 100%;
 }
 
+/* middle section */
+.scrollableContent {
+  padding: 0 var(--product-modal-padding);
+}
+
 .optionSection {
   max-height: 400px;
   overflow-y: scroll;
@@ -97,17 +72,28 @@
   padding: 20px 30px;
 }
 
-.optionDesc {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+hr.sectionDivider {
+  margin: 0 10px 0 20px;
 }
 
-.optionChoices{
-  display: flex;
-  flex-direction: column;
+/* scrollBar Positioning */
+.optionSection::-webkit-scrollbar {
+  width: 10px;
 }
 
+/* Track */
+.optionSection::-webkit-scrollbar-track {
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+/* Handle */
+.optionSection::-webkit-scrollbar-thumb {
+  background: var(--primary-light-blue);
+  border-radius: 10px;
+}
+
+/* bottom section */
 .addToOrderSection {
   padding: 30px 30px;
   display: flex;
@@ -123,41 +109,4 @@
   margin: auto 0;
   padding: 10px 15px;
   font-weight: 700;
-}
-
-hr.sectionDivider {
-  margin: 0 10px 0 20px;
-}
-
-.listOption {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 5px;
-}
-
-/* required optional label */
-.requiredOptionalLabel {
-  font-size: 12px;
-  color: var(--primary-black);
-  text-align: center;
-  border: 1px solid var(--primary-light-blue);
-  border-radius: 5px;
-  padding: 3px 5px;
-}
-
-/* scrollBar Positioning*/
-.optionSection::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-.optionSection::-webkit-scrollbar-track {
-  margin: 5px 0;
-  border-radius: 10px;
-}
-
-/* Handle */
-.optionSection::-webkit-scrollbar-thumb {
-  background: var(--primary-light-blue);
-  border-radius: 10px;
 }
