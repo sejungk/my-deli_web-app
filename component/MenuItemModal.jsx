@@ -19,6 +19,13 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
       });
   }, [menuItem]);
 
+  // exit modal if outside is clicked
+  const handleOutsideClick = (e) => {
+    if (e.target.classList.contains(styles.container)) {
+      closeModal();
+    }
+  };
+
   if (!menuItemData) {
     return null; // Return null or a loading indicator while data is being fetched
   }
@@ -35,7 +42,7 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
         <div className={styles.headerSection}>
           {/* Close button */}
@@ -55,14 +62,13 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
       {/* name and description - end */}
       <div className={styles.scrollableContent}>
         <div className={styles.optionSection}>
-          {menuItemData.option_groups.map((optionGroup, index) => (
-            <React.Fragment key={optionGroup.option_group_id}>
-              <ModalOptionGroup optionGroup={optionGroup} />
-              {index !== menuItemData.option_groups.length - 1 && (
-                <hr className={styles.sectionDivider} />
-              )}
-            </React.Fragment>
-          ))}
+            {menuItemData.option_groups[0].option_group_id !== null &&
+              menuItemData.option_groups.map((optionGroup, index) => (
+                <React.Fragment key={optionGroup.option_group_id}>
+                  {index > 0 && <hr className={styles.sectionDivider} />}
+                  <ModalOptionGroup className={styles.optionWrapper} optionGroup={optionGroup} />
+                </React.Fragment>
+            ))}
           </div>
         </div>
 
