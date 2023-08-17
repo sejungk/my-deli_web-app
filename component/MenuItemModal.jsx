@@ -76,7 +76,8 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
           <div className={`bttn bttn_red ${styles.addToOrderBttn}`}>
             <span>Add to Order</span>
             <span>|</span>
-            <span>{totalPrice}</span>
+            <span>${parseFloat(totalPrice).toFixed(2)}</span>
+
           </div>
         </div>
       </div>
