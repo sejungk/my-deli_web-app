@@ -23,7 +23,7 @@ const ModalOptionGroup = ({ optionGroup }) => {
               />{" "}
               {option.name}
             </label>
-            <div>---</div>
+            <div>{option.additional_price === "0.00" ? "---" : `$${option.additional_price}`}</div>
           </div>
         ))}
       </div>
