@@ -30,7 +30,7 @@ const MenuItemCard = ({ name, description, base_price }) => {
 MenuItemCard.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  basePrice: PropTypes.number.isRequired,
+  base_price: PropTypes.number.isRequired,
 };
 
 export default MenuItemCard;

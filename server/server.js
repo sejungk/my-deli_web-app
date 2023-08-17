@@ -66,50 +66,6 @@ app.get("/api/menu-items/:id", async (req, res) => {
   }
 });
 
-// Route to get a options groups for menu item by ID
-// app.get("/api/menu-items/:menuItemId/options", async (req, res) => {
-//   try {
-//     const menuItemId = req.params.menuItemId;
-
-//     // First, fetch the option groups associated with the menu item
-//     const optionGroupsQuery = `
-//       SELECT option_group_id
-//       FROM menuitems_optiongroups
-//       WHERE menu_item_id = $1;
-//     `;
-//     const optionGroupsResult = await pool.query(optionGroupsQuery, [menuItemId]);
-
-//     // Extract the option group IDs from the result
-//     const optionGroupIds = optionGroupsResult.rows.map(row => row.option_group_id);
-
-//     // Create a parameterized list of placeholders for the option group IDs
-//     const placeholders = optionGroupIds.map((id, index) => `$${index + 1}`).join(", ");
-
-//     // Fetch all options for the extracted option group IDs
-//     const optionsQuery = `
-//       SELECT options.id,
-//              options.name AS option_name,
-//              options.additional_price AS option_additional_price,
-//              option_groups.id AS option_group_id,
-//              option_groups.name AS option_group_name,
-//              option_groups.display_text AS option_group_display_text,
-//              option_groups.allow_multiple AS option_group_allow_multiple,
-//              option_groups.required AS option_group_required,
-//              option_groups.free_option_limit AS option_group_free_option_limit
-//       FROM options
-//       JOIN option_groups ON options.option_group_id = option_groups.id
-//       WHERE option_groups.id IN (${placeholders})
-//       ORDER BY option_groups.id, options.id;
-//     `;
-
-//     const { rows } = await pool.query(optionsQuery, optionGroupIds);
-//     res.json(rows);
-//   } catch (error) {
-//     console.error("Error fetching options:", error);
-//     res.status(500).json({ error: "An error occurred while fetching options." });
-//   }
-// });
-
 // app.get("/api/menu-items/:menuItemId/options", async (req, res) => {
 //   try {
 //     const menuItemId = req.params.menuItemId;
@@ -169,6 +125,7 @@ app.get("/api/menu-items/:menuItemId/options", async (req, res) => {
       SELECT menu_items.id AS menu_item_id,
              menu_items.name AS menu_item_name,
              menu_items.description AS menu_item_description,
+             menu_items.base_price AS menu_item_base_price,
              options.id AS option_id,
              options.name AS option_name,
              options.additional_price AS option_additional_price,

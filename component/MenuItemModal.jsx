@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/MenuItemModal.module.css";
+import ModalOptionGroup from "./ModalOptionGroup";
 import axios from "axios";
 
-const MenuItemModal = ({ menuItem, closeModal }) => {
+const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
+  const totalPrice = (base_price) * quantity;
   useEffect(() => {
     // Fetch the data for the selected menu item
     axios
-      .get(`http://localhost:5000/api/menu-items/${menuItem.menu_item_id}`)
+      .get(`http://localhost:5000/api/menu-items/${menuItem.menu_item_id}/options`)
       .then((response) => {
-        setMenuItemData(response.data[0]); // Assuming the response is an array with one menu item
+        setMenuItemData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching menu item data:", error);
@@ -21,28 +22,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   if (!menuItemData) {
     return null; // Return null or a loading indicator while data is being fetched
   }
-
-  // manually added example data
-  const eggSandwich = {
-      id: 10,
-      name: "Country Burrito Burrito",
-      desc: "2 eggs, sausage, home fries, and american cheese wrapped in a large flour tortilla.",
-      base_price: 5.49,
-      category_id: 4,
-      exclusions: "Home Fries, Cheese",
-      options : [{
-        option_name: "homefries_toast",
-        option_display_text: "Add Home Fries and Toast",
-        option_allow_multiple: true,
-        option_required: false,
-        free_option_limit: null,
-        options: {
-          options_name: "Add a Side of Home Fries",
-          options_additional_price: 3.99
-        }
-      }]
-  };
-
+  console.log(menuItemData)
   // increase/decrease quantity
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -54,7 +34,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     setQuantity(quantity + 1);
   };
 
-  const totalPrice = eggSandwich.base_price * quantity;
   return (
     <div className={styles.container}>
       <div className={styles.modalContainer}>
@@ -66,8 +45,8 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
 
           {/* name and description - start */}
           <div className={styles.itemName}>
-            <h3 className={styles.title}>{menuItemData.menu_item_name}</h3>
-            <p className={styles.desc}>{menuItemData.menu_item_description}</p>
+            <h3 className={styles.title}>{menuItemData.name}</h3>
+            <p className={styles.desc}>{menuItemData.description}</p>
           </div>
         </div>
 
@@ -76,113 +55,14 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
       {/* name and description - end */}
       <div className={styles.scrollableContent}>
         <div className={styles.optionSection}>
-
-          <div className={styles.optionWrapper}>
-            <div className={styles.optionDesc}>
-              <h5>Choose your bread</h5>
-              <div className={styles.requiredOptionalLabel}>REQUIRED</div>
-            </div>
-
-            <div className={styles.optionChoices}>
-              <div className={styles.listOption}>
-                <label>
-                  <input className={styles.option} type="radio" value="White" name="bread" /> White
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input className={styles.option} type="radio" value="White" name="bread" /> Wheat
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input className={styles.option} type="radio" value="White" name="bread" /> Rye
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input className={styles.option} type="radio" value="White" name="bread" /> Sourdough
-                </label>
-                <div>---</div>
-              </div>
-
-            </div>
-          </div>
-
-          <hr className={styles.sectionDivider}></hr>
-
-          <div className={styles.optionWrapper}>
-            <div className={styles.optionDesc}>
-              <h5>Add Cheese</h5>
-              <div className={styles.requiredOptionalLabel}>OPTIONAL</div>
-            </div>
-
-            <div className={styles.optionChoices}>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input type="radio" value="american" name="cheese" /> American Cheese
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input type="radio" value="swiss" name="cheese" /> Swiss
-                </label>
-                <div>---</div>
-              </div>
-
-            </div>
-          </div>
-
-          <hr className={styles.sectionDivider}></hr>
-
-          <div className={styles.optionWrapper}>
-            <div className={styles.optionDesc}>
-              <h5>Add meat</h5>
-              <div className={styles.requiredOptionalLabel}>OPTIONAL</div>
-            </div>
-
-            <div className={styles.optionChoices}>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input type="radio" value="turkey" name="meat" /> Turkey
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input type="radio" value="ham" name="meat" /> Ham
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input type="radio" value="bacon" name="meat" /> Bacon
-                </label>
-                <div>---</div>
-              </div>
-
-              <div className={styles.listOption}>
-                <label>
-                  <input type="radio" value="sausage" name="meat" /> Sausage
-                </label>
-                <div>---</div>
-              </div>
-
-            </div>
-          </div>
-
+          {menuItemData.option_groups.map((optionGroup, index) => (
+            <React.Fragment key={optionGroup.option_group_id}>
+              <ModalOptionGroup optionGroup={optionGroup} />
+              {index !== menuItemData.option_groups.length - 1 && (
+                <hr className={styles.sectionDivider} />
+              )}
+            </React.Fragment>
+          ))}
           </div>
         </div>
 
@@ -196,7 +76,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
           <div className={`bttn bttn_red ${styles.addToOrderBttn}`}>
             <span>Add to Order</span>
             <span>|</span>
-            <span>${totalPrice.toFixed(2)}</span>
+            <span>{totalPrice}</span>
           </div>
         </div>
       </div>
