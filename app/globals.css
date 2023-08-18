@@ -26,9 +26,15 @@
   --h5-line-height: 125%;
   --p-font-size: 16px;
   --p-line-height: 150%;
+
   /* padding and spacing */
-  --product-modal-padding: 20px;
   --menu-page-padding: 50px;
+
+  /* modal styling*/
+  --product-modal-padding: 20px;
+  --modal-width: 350px;
+  --modal-items-height: 250px;
+  --modal-addon-text: 14px;
 }
 
 body {

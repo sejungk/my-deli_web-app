@@ -12,7 +12,7 @@ const CartItem = ({ item }) => {
       <ol className={styles.addOnsList}>
         {item.addOns.map((addOn, index) => (
           <li key={index}>
-            <p>{addOn}</p>
+            <span>{addOn}</span>
           </li>
         ))}
       </ol>

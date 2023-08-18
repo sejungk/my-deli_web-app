@@ -2,13 +2,13 @@
   position: fixed;
   top: 50%;
   right: var(--menu-page-padding);
-  transform: translateY(-45%);
+  transform: translateY(-40%);
   max-height: calc(100% - 100px);
   border-radius: 20px;
   border: 1.5px solid var(--primary-lightest-blue);
-  width: 350px;
+  width: var(--modal-width);
   background-color: var(--primary-white);
-  overflow-y: hidden; /* Change this to "hidden" */
+  overflow-y: hidden;
 }
 
 /* top section - start */
@@ -42,7 +42,7 @@
 .addedItemSection {
   padding: 0 20px;
   overflow: scroll;
-  max-height: 300px;
+  max-height: var(--modal-items-height);
 }
 /* middle section - end */
 
