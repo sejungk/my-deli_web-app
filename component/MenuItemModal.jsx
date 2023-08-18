@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
+import { useCart } from '../app/CartContext';
 import axios from "axios";
 
 const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const totalPrice = (base_price) * quantity;
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const { addToCart } = useCart();
+  const totalPrice = base_price * quantity;
+
   useEffect(() => {
+    console.log("Selected Options:", selectedOptions);
     // Fetch the data for the selected menu item
     axios
       .get(`http://localhost:5000/api/menu-items/${menuItem.menu_item_id}/options`)
@@ -19,6 +24,20 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
       });
   }, [menuItem]);
 
+  // Handle option selection
+  const handleOptionChange = (optionGroup, optionName) => {
+    setSelectedOptions((prevSelectedOptions) => {
+      const updatedOptions = {
+        ...prevSelectedOptions,
+        [optionGroup]: optionName,
+      };
+
+      console.log("Updated selectedOptions:", updatedOptions);
+
+      return updatedOptions;
+    });
+  };
+
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.container)) {
@@ -29,7 +48,8 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   if (!menuItemData) {
     return null; // Return null or a loading indicator while data is being fetched
   }
-  console.log(menuItemData)
+  // console.log(menuItemData)
+
   // increase/decrease quantity
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -39,6 +59,28 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
+  };
+
+   // Create a new cart item based on the selected options and quantity
+   const cartItem = {
+    name: menuItemData.name,
+    quantity,
+    price: totalPrice,
+    selectedOptions,
+  };
+
+  const handleAddToCart = () => {
+    console.log("Selected Options:", selectedOptions);
+
+    const cartItem = {
+      name: menuItemData.name,
+      quantity,
+      price: totalPrice,
+      selectedOptions,
+    };
+
+    addToCart(cartItem);
+    closeModal();
   };
 
   return (
@@ -62,13 +104,25 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
       {/* name and description - end */}
       <div className={styles.scrollableContent}>
         <div className={styles.optionSection}>
-            {menuItemData.option_groups[0].option_group_id !== null &&
+            {menuItemData.option_groups.map((optionGroup, index) => (
+              <React.Fragment key={optionGroup.option_group_id}>
+                {index > 0 && <hr className={styles.sectionDivider} />}
+                <ModalOptionGroup
+                  optionGroup={optionGroup}
+                  selectedOption={selectedOptions[optionGroup.option_group_display_text] || ""}
+                  handleOptionChange={(optionGroup, optionName) =>
+                    handleOptionChange(optionGroup, optionName)
+                  }
+                />
+              </React.Fragment>
+            ))}
+            {/* {menuItemData.option_groups[0].option_group_id !== null &&
               menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.option_group_id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
                   <ModalOptionGroup className={styles.optionWrapper} optionGroup={optionGroup} />
                 </React.Fragment>
-            ))}
+            ))} */}
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
-const ModalOptionGroup = ({ optionGroup }) => {
+const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) => {
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>
@@ -12,7 +12,7 @@ const ModalOptionGroup = ({ optionGroup }) => {
       </div>
 
       <div className={styles.optionChoices}>
-        {optionGroup.options.map((option) => (
+        {optionGroup.options.map((option, index) => (
           <div className={styles.listOption} key={option.id}>
             <label>
               <input
@@ -20,6 +20,10 @@ const ModalOptionGroup = ({ optionGroup }) => {
                 type="radio"
                 value={option.name}
                 name={optionGroup.option_group_name}
+                onChange={() => {
+                  console.log("Clicked option modal:", optionGroup.option_group_display_text, optionGroup.options[index].name);
+                  handleOptionChange(optionGroup.option_group_name, option.name);
+                }}
               />{" "}
               {option.name}
             </label>
