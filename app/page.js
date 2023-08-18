@@ -1,5 +1,4 @@
 "use client"
-
 import styles from "../styles/Home.module.css"
 import MenuItems from '../component/MenuItems'
 import Cart from '../component/Cart'

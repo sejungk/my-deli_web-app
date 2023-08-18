@@ -68,12 +68,6 @@ const MenuItems = () => {
       ))}
 
       {isModalOpen && (
-              //   <MenuItemModal
-              //   name={selectedMenuItem.menu_item_name}
-              //   description={selectedMenuItem.menu_item_description}
-              //   base_price={parseFloat(selectedMenuItem.menu_item_base_price)}
-              //   closeModal={closeModal}
-              // />
               <MenuItemModal
               menuItem={selectedMenuItem}
               base_price={parseFloat(selectedMenuItem.menu_item_base_price)}

@@ -16,18 +16,19 @@
   --black-border: 1.5px solid var(--primary-black);
 
   /* font sizes */
-  --p-font-size: 16px;
-  --p-line-height: 150%;
   --h1-font-size: 22px;
   --h1-line-height: 100%;
   --h3-font-size: 24px;
   --h3-line-height: 100%;
-  --h4-line-height: 24px;
-  --h5-font-size: 20px;
+  --h4-font-size: 20px;
+  --h4-line-height: 125%;
+  --h5-font-size: 18px;
   --h5-line-height: 125%;
-
+  --p-font-size: 16px;
+  --p-line-height: 150%;
   /* padding and spacing */
   --product-modal-padding: 20px;
+  --menu-page-padding: 50px;
 }
 
 body {
@@ -49,8 +50,9 @@ h3 {
 }
 
 h4 {
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--h4-font-size);
+  line-height: var(--h4-line-height);
 }
 
 h5 {

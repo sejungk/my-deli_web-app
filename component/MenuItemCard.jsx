@@ -18,7 +18,7 @@ const MenuItemCard = ({ name, description, base_price }) => {
   return (
     <section className={styles.container}>
       <div>
-        <h5 className={styles.itemName}>{name}</h5>
+        <h4 className={styles.itemName}>{name}</h4>
         <p className={styles.itemDesc} style={{ maxHeight: calculateMaxHeight() }}>{description}</p>
       </div>
       <p className={styles.itemPrice}>${parseFloat(base_price).toFixed(2)}</p>

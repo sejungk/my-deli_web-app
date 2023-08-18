@@ -1,0 +1,68 @@
+
+.container {
+  padding: 30px 0;
+}
+
+.singleItemHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemQuantity {
+  flex-basis: 15%;
+}
+
+.itemName {
+  flex-basis: 70%;
+}
+
+.itemPrice {
+  flex-basis: 15%;
+}
+
+.singleItemHeader span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.addOnsList {
+  margin: 15px 0 15px 15%;
+  padding: 0;
+}
+
+.addOnsList li {
+  margin-bottom: 5px;
+}
+
+.editRemoveOptions {
+  display: flex;
+}
+
+.editRemoveOptions a {
+  margin-left: 15%;
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    /* flex-basis: 30%; */
+  }
+
+  .itemQuantity {
+    flex-basis: 10%;
+  }
+
+  .itemName {
+    flex-basis: 80%;
+  }
+
+  .itemPrice {
+    flex-basis: 10%;
+  }
+
+  .addOnsList {
+    margin-left: 10%;
+  }
+}
