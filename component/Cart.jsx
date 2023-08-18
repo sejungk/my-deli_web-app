@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "../styles/Cart.module.css";
+import { useCart } from '../app/CartContext';
 import Image from "next/image";
 import CartItem from "./CartItem";
 
 const Cart = () => {
-  const dummyCartItems = [
-    {
-      quantity: 1,
-      name: "Egg and Cheese Sandwich",
-      price: 2.99,
-      addOns: ["Wheat bread", "American Cheese", "Provolone Cheese"],
-    },
-    {
-      quantity: 2,
-      name: "Ham and Swiss Sandwich",
-      price: 3.49,
-      addOns: ["Rye bread", "Swiss Cheese", "Lettuce"],
-    },
-    // Add more dummy cart items here...
-  ];
+  // const [cartItems, setCartItems] = useState([]);
+  const { cartItems, subtotal, checkout } = useCart();
+
+  const handleCheckout = () => {
+    checkout();
+  };
+  // const dummyCartItems = [
+  //   {
+  //     quantity: 1,
+  //     name: "Egg and Cheese Sandwich",
+  //     price: 2.99,
+  //     addOns: ["Wheat bread", "American Cheese", "Provolone Cheese"],
+  //   },
+  //   {
+  //     quantity: 2,
+  //     name: "Ham and Swiss Sandwich",
+  //     price: 3.49,
+  //     addOns: ["Rye bread", "Swiss Cheese", "Lettuce"],
+  //   },
+  // ];
 
   return (
     <div className={styles.container}>
@@ -39,10 +45,10 @@ const Cart = () => {
 
       {/* middle cart items section */}
       <div className={styles.addedItemSection}>
-        {dummyCartItems.map((item, index) => (
+        {cartItems.map((item, index) => (
           <React.Fragment key={index}>
             <CartItem item={item} />
-            {index < dummyCartItems.length - 1 && <hr />} {/* Add <hr> except for the last item */}
+            {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
         ))}
       </div>
@@ -52,9 +58,9 @@ const Cart = () => {
       <div className={styles.subtotalSection}>
         <div className={styles.subtotalInfo}>
           <h5>Subtotal</h5>
-          <h5>$2.99</h5>
+          <h5>${(subtotal ?? 0).toFixed(2)}</h5>
         </div>
-        <div className="bttn bttn_red bttn_center">
+        <div className="bttn bttn_red bttn_center" onClick={handleCheckout}>
           <span>Checkout</span>
         </div>
       </div>
