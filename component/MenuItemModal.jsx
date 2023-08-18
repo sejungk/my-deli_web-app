@@ -38,6 +38,7 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
     });
   };
 
+
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.container)) {
@@ -69,19 +70,39 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
     selectedOptions,
   };
 
-  const handleAddToCart = () => {
-    console.log("Selected Options:", selectedOptions);
+  const selectedOptionsPrice = Object.values(selectedOptions).reduce(
+    (acc, option) => {
+      const optionGroup = menuItemData.option_groups.find(
+        (group) => group.option_group_display_text === option
+      );
 
-    const cartItem = {
-      name: menuItemData.name,
-      quantity,
-      price: totalPrice,
-      selectedOptions,
-    };
+      if (optionGroup) {
+        const selectedOption = optionGroup.options.find(
+          (opt) => opt.name === selectedOptions[option]
+        );
+        if (selectedOption) {
+          return acc + parseFloat(selectedOption.additional_price);
+        }
+      }
+      return acc;
+    },
+    0
+  );
 
-    addToCart(cartItem);
-    closeModal();
-  };
+  const totalPriceWithSelectedOptions = totalPrice + selectedOptionsPrice;
+  // const handleAddToCart = () => {
+  //   console.log("Selected Options:", selectedOptions);
+
+  //   const cartItem = {
+  //     name: menuItemData.name,
+  //     quantity,
+  //     price: totalPrice,
+  //     selectedOptions,
+  //   };
+
+  //   addToCart(cartItem);
+  //   closeModal();
+  // };
 
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
@@ -136,7 +157,7 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
           <div className={`bttn bttn_red ${styles.addToOrderBttn}`}>
             <span>Add to Order</span>
             <span>|</span>
-            <span>${parseFloat(totalPrice).toFixed(2)}</span>
+            <span>${parseFloat(totalPriceWithSelectedOptions).toFixed(2)}</span>
 
           </div>
         </div>
