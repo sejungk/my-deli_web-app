@@ -9,10 +9,9 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState({});
   const { addToCart } = useCart();
-  const totalPrice = base_price * quantity;
 
   useEffect(() => {
-    console.log("Selected Options:", selectedOptions);
+    // console.log("Selected Options:", selectedOptions);
     // Fetch the data for the selected menu item
     axios
       .get(`http://localhost:5000/api/menu-items/${menuItem.menu_item_id}/options`)
@@ -26,18 +25,16 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
 
   // Handle option selection
   const handleOptionChange = (optionGroup, optionName) => {
+    // console.log("option group:", optionGroup)
     setSelectedOptions((prevSelectedOptions) => {
       const updatedOptions = {
         ...prevSelectedOptions,
-        [optionGroup]: optionName,
+        [optionGroup]: optionName
       };
-
-      console.log("Updated selectedOptions:", updatedOptions);
-
+      // console.log("Updated selected Options:", updatedOptions);
       return updatedOptions;
     });
   };
-
 
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
@@ -62,47 +59,20 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
     setQuantity(quantity + 1);
   };
 
-   // Create a new cart item based on the selected options and quantity
-   const cartItem = {
-    name: menuItemData.name,
-    quantity,
-    price: totalPrice,
-    selectedOptions,
-  };
-
+  // console.log("selected options:", Object.values(selectedOptions))
+console.log(Object.values(selectedOptions))
   const selectedOptionsPrice = Object.values(selectedOptions).reduce(
     (acc, option) => {
-      const optionGroup = menuItemData.option_groups.find(
-        (group) => group.option_group_display_text === option
-      );
-
-      if (optionGroup) {
-        const selectedOption = optionGroup.options.find(
-          (opt) => opt.name === selectedOptions[option]
-        );
-        if (selectedOption) {
-          return acc + parseFloat(selectedOption.additional_price);
-        }
+      if (option.additional_price) {
+        console.log("price, ", acc, parseFloat(option.additional_price));
+        return acc + parseFloat(option.additional_price);
       }
       return acc;
     },
     0
   );
 
-  const totalPriceWithSelectedOptions = totalPrice + selectedOptionsPrice;
-  // const handleAddToCart = () => {
-  //   console.log("Selected Options:", selectedOptions);
-
-  //   const cartItem = {
-  //     name: menuItemData.name,
-  //     quantity,
-  //     price: totalPrice,
-  //     selectedOptions,
-  //   };
-
-  //   addToCart(cartItem);
-  //   closeModal();
-  // };
+  const totalPriceWithSelectedOptions = selectedOptionsPrice * quantity;
 
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
@@ -125,7 +95,8 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
       {/* name and description - end */}
       <div className={styles.scrollableContent}>
         <div className={styles.optionSection}>
-            {menuItemData.option_groups.map((optionGroup, index) => (
+            {menuItemData.option_groups[0].option_group_id !== null &&
+              menuItemData.option_groups.map((optionGroup, index) => (
               <React.Fragment key={optionGroup.option_group_id}>
                 {index > 0 && <hr className={styles.sectionDivider} />}
                 <ModalOptionGroup
@@ -137,13 +108,6 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
                 />
               </React.Fragment>
             ))}
-            {/* {menuItemData.option_groups[0].option_group_id !== null &&
-              menuItemData.option_groups.map((optionGroup, index) => (
-                <React.Fragment key={optionGroup.option_group_id}>
-                  {index > 0 && <hr className={styles.sectionDivider} />}
-                  <ModalOptionGroup className={styles.optionWrapper} optionGroup={optionGroup} />
-                </React.Fragment>
-            ))} */}
           </div>
         </div>
 
