@@ -72,8 +72,8 @@ console.log(Object.values(selectedOptions))
     0
   );
 
-  const totalPriceWithSelectedOptions = selectedOptionsPrice * quantity;
-
+  const totalPriceWithSelectedOptions = (base_price + selectedOptionsPrice) * quantity;
+console.log("base price: ", base_price)
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
