@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
-import { useCart } from '../app/CartContext';
+// import { useCart } from '../app/CartContext';
+import { CartContext } from '../app/CartContext';
 import axios from "axios";
 
 const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState({});
-  const { addToCart } = useCart();
+  const [selectedMenuItem, setSelectedMenuItem] = useState({
+    id: menuItem.id,
+    name: menuItem.name,
+    price: base_price,
+    quantity: 1,
+    selectedOptions: {}, // Start with an empty object
+    description: menuItem.description,
+  });
 
+  const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+console.log(cartItems)
   useEffect(() => {
     // console.log("Selected Options:", selectedOptions);
     // Fetch the data for the selected menu item
@@ -24,18 +34,22 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   }, [menuItem]);
 
   // Handle option selection
-  const handleOptionChange = (optionGroup, optionName) => {
-    // console.log("option group:", optionGroup)
-    setSelectedOptions((prevSelectedOptions) => {
-      const updatedOptions = {
-        ...prevSelectedOptions,
-        [optionGroup]: optionName
-      };
-      // console.log("Updated selected Options:", updatedOptions);
-      return updatedOptions;
-    });
-  };
+  // const handleOptionChange = (optionGroup, optionName) => {
+  //   setSelectedOptions((prevSelectedOptions) => {
+  //     const updatedOptions = {
+  //       ...prevSelectedOptions,
+  //       [optionGroup]: optionName
+  //     };
+  //     return updatedOptions;
+  //   });
+  // };
 
+  const handleOptionChange = (optionGroup, option) => {
+  setSelectedMenuItem((prevItem) => {
+    const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
+    return { ...prevItem, selectedOptions: updatedOptions };
+  });
+};
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.container)) {
@@ -60,7 +74,7 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   };
 
   // console.log("selected options:", Object.values(selectedOptions))
-console.log(Object.values(selectedOptions))
+// console.log(Object.values(selectedOptions))
   const selectedOptionsPrice = Object.values(selectedOptions).reduce(
     (acc, option) => {
       if (option.additional_price) {
@@ -73,7 +87,8 @@ console.log(Object.values(selectedOptions))
   );
 
   const totalPriceWithSelectedOptions = (base_price + selectedOptionsPrice) * quantity;
-console.log("base price: ", base_price)
+
+
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -118,7 +133,7 @@ console.log("base price: ", base_price)
             <span>{quantity}</span>
             <span  className="pointer" onClick={increaseQuantity}>+</span>
           </div>
-          <div className={`bttn bttn_red ${styles.addToOrderBttn}`}>
+          <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => addToCart(menuItemData)}>
             <span>Add to Order</span>
             <span>|</span>
             <span>${parseFloat(totalPriceWithSelectedOptions).toFixed(2)}</span>

@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItems.module.css";
 import MenuItemCard from "./MenuItemCard";
 import MenuItemModal from "./MenuItemModal";
+// import { CartContext } from '../app/CartContext';
 import axios from "axios";
 
 const MenuItems = () => {
@@ -11,6 +12,9 @@ const MenuItems = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState(null); // To store the selected item
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+// const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+
+  // console.log(cartItems)
   useEffect(() => {
     // Fetch menu items from the backend API
     axios
@@ -47,6 +51,7 @@ const MenuItems = () => {
     setSelectedMenuItem(null);
     setIsModalOpen(false);
   };
+
 
   return (
     <div className={styles.container}>
