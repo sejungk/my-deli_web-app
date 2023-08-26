@@ -1,28 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
-// import { useCart } from '../app/CartContext';
 import { CartContext } from '../app/CartContext';
 import axios from "axios";
 
-const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
+const MenuItemModal = ({ menuItem, closeModal }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedMenuItem, setSelectedMenuItem] = useState({
     id: menuItem.menu_item_id,
     name: menuItem.menu_item_name,
-    price: menuItem.menu_item_base_price,
+    base_price: menuItem.menu_item_base_price,
     quantity: 1,
     selectedOptions: {}, // Start with an empty object
     description: menuItem.menu_item_description,
   });
 
+  console.log(menuItem, menuItemData, selectedMenuItem)
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-  useEffect(() => {
 
+  useEffect(() => {
     // Fetch the data for the selected menu item
     axios
-      .get(`http://localhost:5000/api/menu-items/${menuItem.menu_item_id}/options`)
+      .get(`http://localhost:5000/api/menu-items/${menuItem.id}`)
       .then((response) => {
         setMenuItemData(response.data);
       })
@@ -31,6 +31,7 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
       });
   }, [menuItem]);
 
+  // console.log(menuItem.menu_item_)
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
       const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
@@ -45,37 +46,28 @@ const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
     }
   };
 
-  if (!menuItemData) {
-    return null; // Return null or a loading indicator while data is being fetched
-  }
-  console.log(menuItemData)
+  if (!menuItemData) return null; // Return null or a loading indicator while data is being fetched
+
+  // console.log(menuItemData)
 
   // increase/decrease quantity
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+    if (quantity > 1) setQuantity(quantity - 1);
   };
-
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
+  const increaseQuantity = () => setQuantity(quantity + 1);
 
 console.log("selected ",selectedMenuItem)
   const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
     (acc, option) => {
       if (option.additional_price) {
-        console.log("price, ", acc, parseFloat(option.additional_price));
         return acc + parseFloat(option.additional_price);
       }
       return acc;
     },
     0
   );
-
-  console.log(base_price* selectedOptionsPrice,  quantity)
-  const totalPriceWithSelectedOptions = (base_price + selectedOptionsPrice) * quantity;
-console.log(parseFloat(totalPriceWithSelectedOptions).toFixed(2))
+    console.log()
+  const totalPriceWithSelectedOptions = (parseFloat(selectedMenuItem.base_price) + selectedOptionsPrice) * quantity;
 
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
@@ -88,8 +80,8 @@ console.log(parseFloat(totalPriceWithSelectedOptions).toFixed(2))
 
           {/* name and description - start */}
           <div className={styles.itemName}>
-            <h3 className={styles.title}>{menuItemData.name}</h3>
-            <p className={styles.desc}>{menuItemData.description}</p>
+            <h3 className={styles.title}>{menuItem.name}</h3>
+            <p className={styles.desc}>{menuItem.description}</p>
           </div>
         </div>
 
@@ -121,7 +113,7 @@ console.log(parseFloat(totalPriceWithSelectedOptions).toFixed(2))
             <span>{quantity}</span>
             <span  className="pointer" onClick={increaseQuantity}>+</span>
           </div>
-          <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => addToCart(menuItemData)}>
+          <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => addToCart(selectedMenuItem)}>
             <span>Add to Order</span>
             <span>|</span>
             <span>${parseFloat(totalPriceWithSelectedOptions).toFixed(2)}</span>
