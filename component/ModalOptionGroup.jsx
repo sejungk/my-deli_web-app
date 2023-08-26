@@ -21,7 +21,7 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) =
                 value={option.name}
                 name={optionGroup.option_group_name}
                 onChange={() => {
-                  console.log("option group name: ", optionGroup.option_group_name)
+                  // console.log("option group name: ", optionGroup.option_group_name)
                   // console.log("option: ", option, option.additional_price)
                   // handleOptionChange(optionGroup.option_group_name, option.name);
                   handleOptionChange(optionGroup.option_group_name, option);

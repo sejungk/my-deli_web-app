@@ -8,20 +8,18 @@ import axios from "axios";
 const MenuItemModal = ({ menuItem, base_price, closeModal }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedMenuItem, setSelectedMenuItem] = useState({
-    id: menuItem.id,
-    name: menuItem.name,
-    price: base_price,
+    id: menuItem.menu_item_id,
+    name: menuItem.menu_item_name,
+    price: menuItem.menu_item_base_price,
     quantity: 1,
     selectedOptions: {}, // Start with an empty object
-    description: menuItem.description,
+    description: menuItem.menu_item_description,
   });
 
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-console.log(cartItems)
   useEffect(() => {
-    // console.log("Selected Options:", selectedOptions);
+
     // Fetch the data for the selected menu item
     axios
       .get(`http://localhost:5000/api/menu-items/${menuItem.menu_item_id}/options`)
@@ -33,23 +31,13 @@ console.log(cartItems)
       });
   }, [menuItem]);
 
-  // Handle option selection
-  // const handleOptionChange = (optionGroup, optionName) => {
-  //   setSelectedOptions((prevSelectedOptions) => {
-  //     const updatedOptions = {
-  //       ...prevSelectedOptions,
-  //       [optionGroup]: optionName
-  //     };
-  //     return updatedOptions;
-  //   });
-  // };
-
   const handleOptionChange = (optionGroup, option) => {
-  setSelectedMenuItem((prevItem) => {
-    const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
-    return { ...prevItem, selectedOptions: updatedOptions };
-  });
-};
+    setSelectedMenuItem((prevItem) => {
+      const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
+      return { ...prevItem, selectedOptions: updatedOptions };
+    });
+  };
+
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.container)) {
@@ -60,7 +48,7 @@ console.log(cartItems)
   if (!menuItemData) {
     return null; // Return null or a loading indicator while data is being fetched
   }
-  // console.log(menuItemData)
+  console.log(menuItemData)
 
   // increase/decrease quantity
   const decreaseQuantity = () => {
@@ -73,9 +61,8 @@ console.log(cartItems)
     setQuantity(quantity + 1);
   };
 
-  // console.log("selected options:", Object.values(selectedOptions))
-// console.log(Object.values(selectedOptions))
-  const selectedOptionsPrice = Object.values(selectedOptions).reduce(
+console.log("selected ",selectedMenuItem)
+  const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
     (acc, option) => {
       if (option.additional_price) {
         console.log("price, ", acc, parseFloat(option.additional_price));
@@ -86,8 +73,9 @@ console.log(cartItems)
     0
   );
 
+  console.log(base_price* selectedOptionsPrice,  quantity)
   const totalPriceWithSelectedOptions = (base_price + selectedOptionsPrice) * quantity;
-
+console.log(parseFloat(totalPriceWithSelectedOptions).toFixed(2))
 
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
@@ -116,7 +104,7 @@ console.log(cartItems)
                 {index > 0 && <hr className={styles.sectionDivider} />}
                 <ModalOptionGroup
                   optionGroup={optionGroup}
-                  selectedOption={selectedOptions[optionGroup.option_group_display_text] || ""}
+                  selectedOption={selectedMenuItem[optionGroup.option_group_display_text] || ""}
                   handleOptionChange={(optionGroup, optionName) =>
                     handleOptionChange(optionGroup, optionName)
                   }
