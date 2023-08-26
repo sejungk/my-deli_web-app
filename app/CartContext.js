@@ -6,7 +6,14 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
-    setCartItems((prevCartItems) => [...prevCartItems, item]);
+    const cartItem = {
+      id: item.id,
+      name: item.name,
+      option_groups: item.option_groups,
+      quantity: item.quantity
+    }
+    setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
+    console.log("Cart Items: ", cartItems)
   };
 
   const removeFromCart = (itemId) => {
@@ -24,16 +31,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
-
-// For example:
-// const cartItem = {
-//   id: 1,
-//   name: 'Cheeseburger',
-//   price: 5.99,
-//   quantity: 2,
-//   options: [
-//     { name: 'Toppings', value: 'Ketchup, Mustard, Lettuce, Tomato' },
-//     { name: 'Extra Cheese', value: 'Yes' },
-//   ],
-// };
