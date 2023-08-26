@@ -1,20 +1,39 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
-const CartContext = createContext();
+export const CartContext = createContext("");
+
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (cartItem) => {
-    setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
+  const addToCart = (item) => {
+    setCartItems((prevCartItems) => [...prevCartItems, item]);
+  };
+
+  const removeFromCart = (itemId) => {
+    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+    setCartItems(updatedCart);
+  };
+
+  const checkout = () => {
+    // Implement checkout logic
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, checkout }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
+
+// For example:
+// const cartItem = {
+//   id: 1,
+//   name: 'Cheeseburger',
+//   price: 5.99,
+//   quantity: 2,
+//   options: [
+//     { name: 'Toppings', value: 'Ketchup, Mustard, Lettuce, Tomato' },
+//     { name: 'Extra Cheese', value: 'Yes' },
+//   ],
+// };

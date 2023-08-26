@@ -1,30 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from "../styles/Cart.module.css";
-import { useCart } from '../app/CartContext';
+import { CartContext } from '../app/CartContext';
 import Image from "next/image";
 import CartItem from "./CartItem";
 
 const Cart = () => {
-  // const [cartItems, setCartItems] = useState([]);
-  const { cartItems, subtotal, checkout } = useCart();
-
+  // const { cartItems, subtotal, checkout } = useCart();
+  // const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext)
   const handleCheckout = () => {
     checkout();
   };
-  // const dummyCartItems = [
-  //   {
-  //     quantity: 1,
-  //     name: "Egg and Cheese Sandwich",
-  //     price: 2.99,
-  //     addOns: ["Wheat bread", "American Cheese", "Provolone Cheese"],
-  //   },
-  //   {
-  //     quantity: 2,
-  //     name: "Ham and Swiss Sandwich",
-  //     price: 3.49,
-  //     addOns: ["Rye bread", "Swiss Cheese", "Lettuce"],
-  //   },
-  // ];
+
+  //dummy
+  let cartItems = [{price: 20, addOns:[]}];
+  let subtotal = 200;
+  // dummy
 
   return (
     <div className={styles.container}>
@@ -43,7 +33,6 @@ const Cart = () => {
 
       <hr />
 
-      {/* middle cart items section */}
       <div className={styles.addedItemSection}>
         {cartItems.map((item, index) => (
           <React.Fragment key={index}>
