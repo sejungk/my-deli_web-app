@@ -37,11 +37,21 @@ const MenuItems = () => {
   });
 
   // Function to open the modal and set the selected item
+  // const openModal = (menuItem) => {
+  //   console.log("OPEN")
+  //   setSelectedMenuItem(menuItem);
+  //   setIsModalOpen(true);
+  // };
+
   const openModal = (menuItem) => {
-    console.log("OPEN")
+    console.log(selectedMenuItem);
     setSelectedMenuItem(menuItem);
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    console.log(selectedMenuItem); // Log when selectedMenuItem changes
+  }, [selectedMenuItem]);
 
   // Function to close the modal
   const closeModal = () => {
@@ -49,7 +59,6 @@ const MenuItems = () => {
     setIsModalOpen(false);
   };
 
-console.log(groupedMenuItems)
   return (
     <div className={styles.container}>
       {Object.keys(groupedMenuItems).map((categoryName) => (
