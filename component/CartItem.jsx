@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
 
-const CartItem = ({ item }) => {
-  const { cartItems } = useContext(CartContext);
-  console.log();
-
+const CartItem = ({ item, onRemove }) => {
+  const handleRemoveClick = () => {
+    // Call the onRemove callback with the item ID when the "Remove" button is clicked
+    onRemove(item.id);
+  };
+  // console.log();
   return (
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
@@ -22,7 +24,7 @@ const CartItem = ({ item }) => {
       </ol>
       <div className={styles.editRemoveOptions}>
         <a href="url">Edit</a>
-        <a href="url">Remove</a>
+        <a onClick={handleRemoveClick}>Remove</a>
       </div>
     </div>
   );
