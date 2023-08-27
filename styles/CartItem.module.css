@@ -25,15 +25,15 @@
   font-weight: 500;
 }
 
-.addOnsList {
+.optionGroup {
   margin: 8px 0 10px;
 }
 
-.addOnsList li {
+.optionGroup li {
   height: calc(5px + var(--modal-addon-text));
 }
 
-.addOnsList span {
+.optionGroup span {
   font-weight: 300;
   font-size: var(--modal-addon-text);
 }
@@ -62,7 +62,7 @@
     flex-basis: 10%;
   }
 
-  .addOnsList {
+  .optionGroup {
     margin-left: 10%;
   }
 }

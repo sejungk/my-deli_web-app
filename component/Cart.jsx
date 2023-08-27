@@ -14,6 +14,7 @@ const Cart = () => {
   console.log(cartItems)
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+
   return (
     <div className={styles.container}>
       <div className={styles.pickupDetailSection}>
