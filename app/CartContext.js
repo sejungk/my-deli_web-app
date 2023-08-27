@@ -6,14 +6,15 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
+    console.log("Cart Items: ", item)
     const cartItem = {
       id: item.id,
       name: item.name,
-      option_groups: item.option_groups,
-      quantity: item.quantity
+      option_groups: item.selectedOptions,
+      quantity: item.quantity,
+      price: item.total_price
     }
     setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
-    console.log("Cart Items: ", cartItems)
   };
 
   const removeFromCart = (itemId) => {

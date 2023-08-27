@@ -1,18 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { createContext, useContext, useState} from 'react';
 import styles from "../styles/Cart.module.css";
 import { CartContext } from '../app/CartContext';
 import Image from "next/image";
 import CartItem from "./CartItem";
 
 const Cart = () => {
-  // const { cartItems, subtotal, checkout } = useCart();
-  // const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext)
+  const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+
   const handleCheckout = () => {
     checkout();
   };
 
+  console.log()
   //dummy
-  let cartItems = [{price: 20, addOns:[]}];
+  // let cartItems = [{price: 20, addOns:[]}];
   let subtotal = 200;
   // dummy
 
@@ -34,12 +35,12 @@ const Cart = () => {
       <hr />
 
       <div className={styles.addedItemSection}>
-        {cartItems.map((item, index) => (
+        {/* {cartItems.map((item, index) => (
           <React.Fragment key={index}>
             <CartItem item={item} />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
-        ))}
+        ))} */}
       </div>
 
       <hr />

@@ -8,16 +8,19 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedMenuItem, setSelectedMenuItem] = useState({
-    id: menuItem.menu_item_id,
-    name: menuItem.menu_item_name,
-    base_price: menuItem.menu_item_base_price,
+    id: menuItem.id,
+    name: menuItem.name,
+    base_price: menuItem.base_price,
+    total_price: menuItem.base_price,
     quantity: 1,
     selectedOptions: {}, // Start with an empty object
-    description: menuItem.menu_item_description,
+    description: menuItem.description,
   });
 
-  console.log(menuItem, menuItemData, selectedMenuItem)
+
+  // console.log("original: ", menuItem, "data: ",menuItemData)
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+  // console.log(cartItems);
 
   useEffect(() => {
     // Fetch the data for the selected menu item
@@ -31,11 +34,28 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
       });
   }, [menuItem]);
 
-  // console.log(menuItem.menu_item_)
+  if (!menuItem) return null;
+
   const handleOptionChange = (optionGroup, option) => {
+    // Calculate the total_price based on the selected options and quantity
+    const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
+      (acc, option) => {
+        if (option.additional_price) {
+          return acc + parseFloat(option.additional_price);
+        }
+        return acc;
+      },
+      0
+    );
+
+    const totalPriceWithSelectedOptions = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
+
     setSelectedMenuItem((prevItem) => {
+
       const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
-      return { ...prevItem, selectedOptions: updatedOptions };
+      const updatedTotalPrice = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
+console.log("updated ", updatedTotalPrice)
+      return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
 
@@ -48,7 +68,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
 
   if (!menuItemData) return null; // Return null or a loading indicator while data is being fetched
 
-  // console.log(menuItemData)
 
   // increase/decrease quantity
   const decreaseQuantity = () => {
@@ -56,7 +75,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   };
   const increaseQuantity = () => setQuantity(quantity + 1);
 
-console.log("selected ",selectedMenuItem)
+// console.log("selected ",selectedMenuItem)
   const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
     (acc, option) => {
       if (option.additional_price) {
@@ -66,9 +85,11 @@ console.log("selected ",selectedMenuItem)
     },
     0
   );
-    console.log()
-  const totalPriceWithSelectedOptions = (parseFloat(selectedMenuItem.base_price) + selectedOptionsPrice) * quantity;
 
+  // const totalPriceWithSelectedOptions = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
+
+  // console.log("selected Item for cart: ", selectedMenuItem)
+  // console.log("menu items ", menuItem)
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -89,22 +110,23 @@ console.log("selected ",selectedMenuItem)
 
       {/* name and description - end */}
       <div className={styles.scrollableContent}>
-        <div className={styles.optionSection}>
-            {menuItemData.option_groups[0].option_group_id !== null &&
-              menuItemData.option_groups.map((optionGroup, index) => (
-              <React.Fragment key={optionGroup.option_group_id}>
-                {index > 0 && <hr className={styles.sectionDivider} />}
-                <ModalOptionGroup
-                  optionGroup={optionGroup}
-                  selectedOption={selectedMenuItem[optionGroup.option_group_display_text] || ""}
-                  handleOptionChange={(optionGroup, optionName) =>
-                    handleOptionChange(optionGroup, optionName)
-                  }
-                />
-              </React.Fragment>
-            ))}
+          <div className={styles.optionSection}>
+              {menuItem.option_groups && menuItem.option_groups[0] !== null &&
+                menuItemData.option_groups.map((optionGroup, index) => (
+                <React.Fragment key={optionGroup.option_group_id}>
+                  {index > 0 && <hr className={styles.sectionDivider} />}
+                  <ModalOptionGroup
+                    optionGroup={optionGroup}
+                    selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
+                    handleOptionChange={(optionGroup, optionName) =>
+                      handleOptionChange(optionGroup, optionName)
+                    }
+                  />
+                </React.Fragment>
+              ))}
           </div>
         </div>
+
 
         <hr></hr>
         <div className={styles.addToOrderSection}>
@@ -116,7 +138,7 @@ console.log("selected ",selectedMenuItem)
           <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => addToCart(selectedMenuItem)}>
             <span>Add to Order</span>
             <span>|</span>
-            <span>${parseFloat(totalPriceWithSelectedOptions).toFixed(2)}</span>
+            <span>${parseFloat((parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>
 
           </div>
         </div>
