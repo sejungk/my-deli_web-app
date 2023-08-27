@@ -4,7 +4,7 @@ import { CartContext } from '../app/CartContext';
 
 const CartItem = ({ item }) => {
   const { cartItems } = useContext(CartContext);
-  // console.log("Cart Items: ", item, cartItems);
+  console.log();
 
   return (
     <div className={styles.container}>
@@ -13,10 +13,10 @@ const CartItem = ({ item }) => {
         <span className={styles.itemName}>{item.name}</span>
         <span className={styles.itemPrice}>${item.price}</span>
       </div>
-      <ol className={styles.addOnsList}>
-        {cartItems.option_groups && item.option_groups.map((option, index) => (
+      <ol className={styles.optionGroup}>
+        {item.option_groups && Object.keys(item.option_groups).map((optionKey, index) => (
           <li key={index}>
-            <span>{option}</span>
+            <span>{item.option_groups[optionKey].name}</span>
           </li>
         ))}
       </ol>
