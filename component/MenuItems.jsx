@@ -44,14 +44,10 @@ const MenuItems = () => {
   // };
 
   const openModal = (menuItem) => {
-    console.log(selectedMenuItem);
+    // console.log(selectedMenuItem);
     setSelectedMenuItem(menuItem);
     setIsModalOpen(true);
   };
-
-  useEffect(() => {
-    console.log(selectedMenuItem); // Log when selectedMenuItem changes
-  }, [selectedMenuItem]);
 
   // Function to close the modal
   const closeModal = () => {

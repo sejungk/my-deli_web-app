@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../styles/CartItem.module.css";
+import { CartContext } from '../app/CartContext';
 
 const CartItem = ({ item }) => {
-  console.log(item)
+  const { cartItems } = useContext(CartContext);
+  // console.log("Cart Items: ", item, cartItems);
+
   return (
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
         <span className={styles.itemQuantity}>{item.quantity}</span>
         <span className={styles.itemName}>{item.name}</span>
-        <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
+        <span className={styles.itemPrice}>${item.price}</span>
       </div>
       <ol className={styles.addOnsList}>
-        {item.addOns.map((addOn, index) => (
+        {cartItems.option_groups && item.option_groups.map((option, index) => (
           <li key={index}>
-            <span>{addOn}</span>
+            <span>{option}</span>
           </li>
         ))}
       </ol>
