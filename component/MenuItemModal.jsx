@@ -37,24 +37,23 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   if (!menuItem) return null;
 
   const handleOptionChange = (optionGroup, option) => {
-    // Calculate the total_price based on the selected options and quantity
-    const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
-      (acc, option) => {
-        if (option.additional_price) {
-          return acc + parseFloat(option.additional_price);
-        }
-        return acc;
-      },
-      0
-    );
-
-    const totalPriceWithSelectedOptions = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
-
     setSelectedMenuItem((prevItem) => {
-
       const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
+
+      // Calculate the selected options price based on updatedOptions
+      const selectedOptionsPrice = Object.values(updatedOptions).reduce(
+        (acc, option) => {
+          if (option.additional_price) {
+            return acc + parseFloat(option.additional_price);
+          }
+          return acc;
+        },
+        0
+      );
+
+      // Calculate the total price based on the updated selected options and quantity
       const updatedTotalPrice = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
-console.log("updated ", updatedTotalPrice)
+
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };

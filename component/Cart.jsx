@@ -11,12 +11,9 @@ const Cart = () => {
     checkout();
   };
 
-  console.log()
-  //dummy
-  // let cartItems = [{price: 20, addOns:[]}];
-  let subtotal = 200;
-  // dummy
+  console.log(cartItems)
 
+  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
   return (
     <div className={styles.container}>
       <div className={styles.pickupDetailSection}>
@@ -35,12 +32,12 @@ const Cart = () => {
       <hr />
 
       <div className={styles.addedItemSection}>
-        {/* {cartItems.map((item, index) => (
+        {cartItems.map((item, index) => (
           <React.Fragment key={index}>
             <CartItem item={item} />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
-        ))} */}
+        ))}
       </div>
 
       <hr />
