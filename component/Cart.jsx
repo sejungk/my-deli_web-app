@@ -11,7 +11,11 @@ const Cart = () => {
     checkout();
   };
 
-  console.log(cartItems)
+  const handleRemoveItem = (itemId) => {
+    // Call removeFromCart with the item ID to remove it from the cart
+    removeFromCart(itemId);
+  };
+  // console.log(cartItems)
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
 
@@ -35,7 +39,7 @@ const Cart = () => {
       <div className={styles.addedItemSection}>
         {cartItems.map((item, index) => (
           <React.Fragment key={index}>
-            <CartItem item={item} />
+            <CartItem item={item} onRemove={handleRemoveItem} />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
         ))}
