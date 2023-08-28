@@ -7,21 +7,21 @@ const CartItem = ({ item, onRemove }) => {
     // Call the onRemove callback with the item ID when the "Remove" button is clicked
     onRemove(item.id);
   };
-  // console.log();
+
   return (
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
         <span className={styles.itemQuantity}>{item.quantity}</span>
         <span className={styles.itemName}>{item.name}</span>
-        <span className={styles.itemPrice}>${item.price}</span>
+        <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
       </div>
-      <ol className={styles.optionGroup}>
+      <div className={styles.optionGroup}>
         {item.option_groups && Object.keys(item.option_groups).map((optionKey, index) => (
-          <li key={index}>
+          <div className={styles.optionGroupWrapper} key={index}>
             <span>{item.option_groups[optionKey].name}</span>
-          </li>
+          </div>
         ))}
-      </ol>
+      </div>
       <div className={styles.editRemoveOptions}>
         <a href="url">Edit</a>
         <a onClick={handleRemoveClick}>Remove</a>
