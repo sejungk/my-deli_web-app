@@ -83,6 +83,10 @@ a {
   font-size: 14px;
 }
 
+.text-decoration-none {
+  text-decoration: none;
+}
+
 .pointer {
   cursor: pointer;
 }

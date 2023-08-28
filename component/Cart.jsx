@@ -3,6 +3,7 @@ import styles from "../styles/Cart.module.css";
 import { CartContext } from '../app/CartContext';
 import Image from "next/image";
 import CartItem from "./CartItem";
+import Link from 'next/link';
 
 const Cart = () => {
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
@@ -52,9 +53,11 @@ const Cart = () => {
           <h5>Subtotal</h5>
           <h5>${(subtotal ?? 0).toFixed(2)}</h5>
         </div>
+        <Link href="/checkout" className="text-decoration-none">
         <div className="bttn bttn_red bttn_center" onClick={handleCheckout}>
-          <span>Checkout</span>
+            <span>Checkout</span>
         </div>
+        </Link>
       </div>
     </div>
   );

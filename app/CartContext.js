@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { useRouter } from 'next/router'; // Import the router
 
 export const CartContext = createContext("");
 
