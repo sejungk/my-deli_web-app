@@ -17,10 +17,9 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     description: menuItem.description,
   });
 
-
+  console.log("selectedMenuItem ", selectedMenuItem)
   // console.log("original: ", menuItem, "data: ",menuItemData)
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-  // console.log(cartItems);
 
   useEffect(() => {
     // Fetch the data for the selected menu item
@@ -33,6 +32,23 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
         console.error("Error fetching menu item data:", error);
       });
   }, [menuItem]);
+
+  useEffect(() => {
+    setSelectedMenuItem((prevItem) => ({
+      ...prevItem,
+      quantity: quantity,
+      total_price: (parseFloat(menuItem.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions)) * quantity,
+    }));
+  }, [quantity, menuItem]);
+
+  const calculateSelectedOptionsPrice = (selectedOptions) => {
+    return Object.values(selectedOptions).reduce((acc, option) => {
+      if (option.additional_price) {
+        return acc + parseFloat(option.additional_price);
+      }
+      return acc;
+    }, 0);
+  };
 
   if (!menuItem) return null;
 
@@ -52,11 +68,12 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
       );
 
       // Calculate the total price based on the updated selected options and quantity
-      const updatedTotalPrice = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
+      const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
 
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
+
 
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
@@ -84,8 +101,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     },
     0
   );
-
-  // const totalPriceWithSelectedOptions = (parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity;
 
   // console.log("selected Item for cart: ", selectedMenuItem)
   // console.log("menu items ", menuItem)
@@ -134,7 +149,10 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
             <span>{quantity}</span>
             <span  className="pointer" onClick={increaseQuantity}>+</span>
           </div>
-          <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => addToCart(selectedMenuItem)}>
+          <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => {
+            addToCart(selectedMenuItem);
+            closeModal(); // Close the modal when adding to the cart
+          }}>
             <span>Add to Order</span>
             <span>|</span>
             <span>${parseFloat((parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>

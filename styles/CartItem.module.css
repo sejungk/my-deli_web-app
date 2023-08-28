@@ -29,7 +29,7 @@
   margin: 8px 0 10px;
 }
 
-.optionGroup li {
+.optionGroup .optionGroupWrapper {
   height: calc(5px + var(--modal-addon-text));
 }
 
