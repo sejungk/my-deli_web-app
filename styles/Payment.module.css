@@ -1,6 +1,6 @@
 .container {
   padding: 0;
-  border: var(--light-blue_border);
+  border: var(--primary-light-blue);
   border-radius: 15px;
 }
 

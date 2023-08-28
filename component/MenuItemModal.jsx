@@ -17,7 +17,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     description: menuItem.description,
   });
 
-  console.log("selectedMenuItem ", selectedMenuItem)
+  // console.log("selectedMenuItem ", selectedMenuItem)
   // console.log("original: ", menuItem, "data: ",menuItemData)
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
 
