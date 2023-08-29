@@ -1,5 +1,5 @@
 import styles from "../styles/CustomerInfo.module.css";
-import Image from "next/image";
+// import Image from "next/image";
 
 const CustomerInfo = () => {
   return (
