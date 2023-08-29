@@ -1,3 +1,5 @@
+'use client'
+
 import React, { createContext, useContext, useState} from 'react';
 import styles from "../styles/Cart.module.css";
 import { CartContext } from '../app/CartContext';
@@ -6,7 +8,16 @@ import CartItem from "./CartItem";
 import Link from 'next/link';
 
 const Cart = () => {
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   const handleCheckout = () => {
     checkout();
@@ -30,9 +41,12 @@ const Cart = () => {
           </div>
           <p>521 Broadway St, Quantico</p>
         </div>
-        <div className="bttn bttn_outline bttn_center">
+        <div className="bttn bttn_outline bttn_center" >
           <span>Mon, Jun 12 8:45 am</span>
         </div>
+        {/* {isModalOpen && (
+          <PickupTimeModal isOpen={isModalOpen} onClose={closeModal} />
+        )} */}
       </div>
 
       <hr />
@@ -54,9 +68,9 @@ const Cart = () => {
           <h5>${(subtotal ?? 0).toFixed(2)}</h5>
         </div>
         <Link href="/checkout" className="text-decoration-none">
-        <div className="bttn bttn_red bttn_center" onClick={handleCheckout}>
-            <span>Checkout</span>
-        </div>
+          <div className="bttn bttn_red bttn_center" onClick={handleCheckout}>
+              <span>Checkout</span>
+          </div>
         </Link>
       </div>
     </div>
