@@ -14,7 +14,7 @@ const Product = () => {
     <div className={styles.container}>
       <div className={styles.scrollableContent}>
         <div className={styles.itemName}>
-          <h1 className={styles.title}>{eggSandwich.name}</h1>
+          <h3 className={styles.title}>{eggSandwich.name}</h3>
           <p className={styles.desc}>{eggSandwich.desc}</p>
         </div>
         <hr></hr>

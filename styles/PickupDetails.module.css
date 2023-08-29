@@ -1,13 +1,3 @@
-.container {
-  padding: 0;
-  border: var(--primary-light-blue);
-  border-radius: 15px;
-}
-
-.pickupHeaderSection {
-  padding: 25px 40px;
-}
-
 .pickupSection {
   padding: 0 40px;
 }

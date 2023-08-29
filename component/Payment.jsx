@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const Payment = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.customerInfoHeaderSection}>
-        <h1>Payment</h1>
+    <div className="checkout-card-container">
+      <div className="checkout-card-header">
+        <h4>Payment</h4>
       </div>
 
       <hr></hr>

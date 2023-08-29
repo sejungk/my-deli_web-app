@@ -16,7 +16,7 @@ const Product = () => {
           <path d="M0.999999 1L16 16.3623" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
           <path d="M16 1L1.00002 16.3623" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
-          <h1 className={styles.title}>{eggSandwich.name}</h1>
+          <h3 className={styles.title}>{eggSandwich.name}</h3>
           <p className={styles.desc}>{eggSandwich.desc}</p>
         </div>
         <hr></hr>

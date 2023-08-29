@@ -1,20 +1,3 @@
-// 'use client'
-
-// import Footer from '../component/Footer';
-// import Navbar from '../component/Navbar';
-
-// const RootLayout = ({ children }) => {
-//     return (
-//       <div>
-//         <Navbar />
-//         {children}
-//         <Footer />
-//       </div>
-//     );
-// }
-
-// export default RootLayout;
-
 'use client'
 
 import './globals.css';
@@ -27,26 +10,12 @@ export const metadata = {
   description: 'My Deli restaurant located in Quantico, Virginia',
 }
 
-const RootLayout = ({ children }) => {
+export default function RootLayout({children}) {
   return (
     <html lang="en">
       <body className={inter.className}>
         {children}
       </body>
     </html>
-  );
-}
-
-export default RootLayout;
-
-
-
-// export default function RootLayout({ children }) {
-//   return (
-//     <Layout>
-//       <Navbar />
-//       {children}
-//       <Footer />
-//     </Layout>
-//   );
-// }
+  )
+};

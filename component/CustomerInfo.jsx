@@ -3,9 +3,9 @@ import styles from "../styles/CustomerInfo.module.css";
 
 const CustomerInfo = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.customerInfoHeaderSection}>
-        <h1>Customer Info</h1>
+    <div className="checkout-card-container">
+        <div className="checkout-card-header">
+        <h4>Customer Info</h4>
       </div>
 
       <hr></hr>

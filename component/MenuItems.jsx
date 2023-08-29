@@ -59,7 +59,7 @@ const MenuItems = () => {
     <div className={styles.container}>
       {Object.keys(groupedMenuItems).map((categoryName) => (
         <div key={categoryName} className={styles.categoryText}>
-          <h1 className={styles.category}>{categoryName}</h1>
+          <h3 className={styles.category}>{categoryName}</h3>
           <div className={styles.wrapper}>
             {groupedMenuItems[categoryName].map((menuItem) => (
               <div className={styles.menuItemWrapper} key={menuItem.id} onClick={() => openModal(menuItem)}>

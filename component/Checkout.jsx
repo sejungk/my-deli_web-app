@@ -3,6 +3,7 @@ import styles from "../styles/Checkout.module.css"
 import PickupDetails from '../component/PickupDetails';
 import CustomerInfo from '../component/CustomerInfo';
 import Payment from '../component/Payment';
+import OrderSummary from '../component/OrderSummary';
 // import { useContext } from 'react';
 // import { CartContext } from '../CartContext';
 
@@ -12,7 +13,9 @@ const Checkout = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <span className={styles.orderHeader}>Let&apos;s review your order.</span>
+        <div  className={`${styles.orderHeader} vertical-center`}>
+          <h1>Let&apos;s review your order.</h1>
+        </div>
         <PickupDetails />
         <CustomerInfo />
         <Payment />
@@ -25,7 +28,7 @@ const Checkout = () => {
             <span>$3.99</span>
           </div>
         </div>
-        <PickupDetails />
+        <OrderSummary />
       </div>
     </div>
   )
