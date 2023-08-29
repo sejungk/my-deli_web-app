@@ -1,0 +1,103 @@
+/* top section - start */
+.pickupDetailSection h5 {
+  margin-bottom: 10px;
+}
+
+.logoContainer {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.logoContainer p {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.logo {
+  width: 14px;
+  height: 20px;
+  position: relative;
+  margin-right: 5px;
+}
+/* top section - end */
+
+/* middle section - start */
+.addedItemSection {
+  padding: 0 20px;
+  overflow: scroll;
+}
+/* middle section - end */
+
+/* tip - start */
+.tipSection {
+  padding: 25px 20px;
+}
+
+.tipInfo {
+  /* border: 2px solid black; */
+}
+
+.tipCardWrapper {
+  padding-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tipCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-width: 50px; /* Minimum width of 50px for each card */
+  padding: 10px;
+  border: var(--light-blue-border);
+  border-radius: 15px;
+}
+
+@media (max-width: 110px) {
+  .flex_row {
+    flex-wrap: nowrap; /* Prevent wrapping if less than two cards fit */
+  }
+}
+/* tip - end */
+
+/* bottom section - start */
+.priceSection {
+  padding: 25px 20px;
+}
+
+.priceWrapper {
+  padding-bottom: 20px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+/* bottom section - end */
+
+@media (max-width: 1000px) {
+  .container {
+    /* flex-basis: 30%; */
+  }
+
+  .itemQuantity {
+    flex-basis: 10%;
+  }
+
+  .itemName {
+    flex-basis: 80%;
+  }
+
+  .itemPrice {
+    flex-basis: 10%;
+  }
+
+  .addOnsList {
+    margin-left: 10%;
+  }
+}

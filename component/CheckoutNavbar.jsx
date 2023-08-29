@@ -5,7 +5,7 @@ import Image from "next/image";
 const CheckoutNavbar = () => {
   return (
     <div className={styles.container}>
-      <Link href="/">
+      <Link href="/" className="text-decoration-none">
         <div className={styles.backBttn}>
           <Image src="/img/back-arrow.svg" layout="fill" alt="location icon" />
         </div>

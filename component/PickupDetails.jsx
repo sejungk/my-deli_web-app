@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const PickupDetails = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.pickupHeaderSection}>
-        <h1>Pickup Details</h1>
+    <div className="checkout-card-container">
+      <div className="checkout-card-header">
+        <h4>Pickup Details</h4>
       </div>
 
       <hr></hr>

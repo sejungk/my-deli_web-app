@@ -115,7 +115,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
 
           {/* name and description - start */}
           <div className={styles.itemName}>
-            <h3 className={styles.title}>{menuItem.name}</h3>
+            <h2 className={styles.title}>{menuItem.name}</h2>
             <p className={styles.desc}>{menuItem.description}</p>
           </div>
         </div>

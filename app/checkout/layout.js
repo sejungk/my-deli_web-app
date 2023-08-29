@@ -1,12 +1,12 @@
-import Layout from '../layout';
+import RootLayout from '../RootLayout';
 import CheckoutNavbar from '../../component/CheckoutNavbar';
 
 export default function CheckoutLayout({ children }) {
   return (
-    <Layout>
+    <RootLayout>
       <CheckoutNavbar />
       {children}
-    </Layout>
-  );
-}
+    </RootLayout>
+  )
+};
 

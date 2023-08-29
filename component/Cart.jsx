@@ -27,7 +27,7 @@ const Cart = () => {
     // Call removeFromCart with the item ID to remove it from the cart
     removeFromCart(itemId);
   };
-  // console.log(cartItems)
+  console.log(cartItems)
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
 

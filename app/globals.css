@@ -16,14 +16,21 @@
   --black-border: 1.5px solid var(--primary-black);
 
   /* font sizes */
-  --h1-font-size: 22px;
+  --h1-font-size: 32px;
   --h1-line-height: 100%;
-  --h3-font-size: 24px;
+
+  --h2-font-size: 24px;
+  --h2-line-height: 100%;
+
+  --h3-font-size: 22px;
   --h3-line-height: 100%;
+
   --h4-font-size: 20px;
   --h4-line-height: 125%;
+
   --h5-font-size: 18px;
   --h5-line-height: 125%;
+
   --p-font-size: 16px;
   --p-line-height: 150%;
 
@@ -44,9 +51,15 @@ body {
 }
 
 h1 {
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--h1-font-size);
   line-height: var(--h1-line-height);
+}
+
+h2 {
+  font-weight: 500;
+  font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height);
 }
 
 h3 {
@@ -73,8 +86,15 @@ p, label {
   line-height: var(--p-line-height);
 }
 
+b {
+  font-weight: 600;
+}
+
 hr {
-  margin: 0;
+  border: none;
+  height: 1px;
+  color: var(--primary-lightest-blue);  /* old IE */
+  background-color: var(--primary-lightest-blue);
 }
 
 a {
@@ -146,6 +166,24 @@ input[type='radio'] {
 .z-index_100 {
   z-index: 100;
 }
+
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center items */
+}
+
+/* checkout cards */
+.checkout-card-container {
+  padding: 0;
+  border: var(--light-blue-border);
+  border-radius: 15px;
+}
+
+.checkout-card-header {
+  padding: 20px 20px;
+}
+
 
 /* tablet  devices */
 @media (max-width: 768px) {
