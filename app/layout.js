@@ -1,6 +1,8 @@
+import RootLayout from './RootLayout';
 import Footer from '../component/Footer';
 import Navbar from '../component/Navbar';
-import RootLayout from './RootLayout';
+import MenuItems from '../component/MenuItems';
+import Cart from '../component/Cart';
 
 export default function Layout({children}) {
   return (

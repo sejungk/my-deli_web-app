@@ -1,12 +1,15 @@
-import RootLayout from '../RootLayout';
 import CheckoutNavbar from '../../component/CheckoutNavbar';
+import RootLayout from '../RootLayout';
 
 export default function CheckoutLayout({ children }) {
   return (
     <RootLayout>
-      <CheckoutNavbar />
-      {children}
+      <div>
+        <CheckoutNavbar />
+        {children}
+      </div>
     </RootLayout>
   )
 };
+
 

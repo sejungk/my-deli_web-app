@@ -84,7 +84,7 @@ const OrderSummary = () => {
   ];
 
   const handleCheckout = () => {
-    checkout();
+    // checkout();
   };
 
   const handleRemoveItem = (itemId) => {
@@ -121,22 +121,22 @@ const OrderSummary = () => {
           <div className={`${styles.tipCardWrapper} flex_row`}>
             <div className={styles.tipCard}>
               <p>5%</p>
-              <p>$1.23</p>
+              <p>${((subtotal * .05) ?? 0).toFixed(2)}</p>
             </div>
 
             <div className={styles.tipCard}>
-              <p>5%</p>
-              <p>$1.23</p>
+              <p>10%</p>
+              <p>${((subtotal * .1) ?? 0).toFixed(2)}</p>
             </div>
 
             <div className={styles.tipCard}>
-              <p>5%</p>
-              <p>$1.23</p>
+              <p>15%</p>
+              <p>${((subtotal * .15) ?? 0).toFixed(2)}</p>
             </div>
 
             <div className={styles.tipCard}>
-              <p>5%</p>
-              <p>$1.23</p>
+              <p>20%</p>
+              <p>${((subtotal * .2) ?? 0).toFixed(2)}</p>
             </div>
           </div>
         </div>
