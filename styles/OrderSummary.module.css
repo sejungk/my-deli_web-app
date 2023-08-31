@@ -57,6 +57,16 @@
   cursor: pointer;
 }
 
+.selectedTipCard {
+  background-color: var(--primary-red);
+  border: var(--black-border);
+}
+
+.selectedTipCard p {
+  font-weight: 300;
+  color: var(--primary-white);
+}
+
 @media (max-width: 110px) {
   .flex_row {
     flex-wrap: nowrap; /* Prevent wrapping if less than two cards fit */
