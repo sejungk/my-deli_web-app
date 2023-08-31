@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 const OrderSummary = () => {
   const [tipPercentage, setTipPercentage] = useState(0);
+  const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
 
   // const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
 
@@ -85,13 +86,22 @@ const OrderSummary = () => {
     }
   ];
 
+  const tipOptions = [
+    { label: '5%', percentage: 5 },
+    { label: '10%', percentage: 10 },
+    { label: '15%', percentage: 15 },
+    { label: '20%', percentage: 20 },
+  ];
+
   const calculateSubtotal = () => {
     return cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
   };
 
-  const handleTipClick = (percentage) => {
-    const newTipAmount = calculateSubtotal() * (percentage / 100);
+  const handleTipClick = (percentage, index) => {
+    const newSubtotal = calculateSubtotal();
+    const newTipAmount = newSubtotal * (percentage / 100);
     setTipPercentage(percentage);
+    setSelectedTipIndex(index);
   };
 
   const handleCheckout = () => {
@@ -138,25 +148,18 @@ const OrderSummary = () => {
           <p>100% of your tip supports the restaurant.</p>
 
           <div className={`${styles.tipCardWrapper} flex_row`}>
-            <div className={styles.tipCard} onClick={() => handleTipClick(5)}>
-              <p>5%</p>
-              <p>${((subtotal * .05) ?? 0).toFixed(2)}</p>
-            </div>
-
-            <div className={styles.tipCard} onClick={() => handleTipClick(10)}>
-              <p>10%</p>
-              <p>${((subtotal * .1) ?? 0).toFixed(2)}</p>
-            </div>
-
-            <div className={styles.tipCard} onClick={() => handleTipClick(15)}>
-              <p>15%</p>
-              <p>${((subtotal * .15) ?? 0).toFixed(2)}</p>
-            </div>
-
-            <div className={styles.tipCard} onClick={() => handleTipClick(20)}>
-              <p>20%</p>
-              <p>${((subtotal * .2) ?? 0).toFixed(2)}</p>
-            </div>
+            {tipOptions.map((option, index) => (
+              <div
+                key={index}
+                className={`${styles.tipCard} ${
+                  selectedTipIndex === index ? styles.selectedTipCard : ''
+                }`}
+                onClick={() => handleTipClick(option.percentage, index)}
+              >
+                <p>{option.label}</p>
+                <p>${((subtotal * option.percentage / 100) ?? 0).toFixed(2)}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
