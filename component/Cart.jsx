@@ -8,16 +8,7 @@ import CartItem from "./CartItem";
 import Link from 'next/link';
 
 const Cart = () => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
 
   const handleCheckout = () => {
     checkout();
