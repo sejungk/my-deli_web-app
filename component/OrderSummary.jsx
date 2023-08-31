@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState} from 'react';
 import styles from "../styles/OrderSummary.module.css";
 import { CartContext } from '../app/CartContext';
-import Image from "next/image";
 import CartItem from "./CartItem";
 import Link from 'next/link';
 
@@ -11,86 +10,14 @@ const OrderSummary = () => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
 
-  // const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-
-  //dummy data
-  const cartItems = [
-    {
-      id: 3,
-      name: "DIY Croissant Breakfast Sandwich",
-      option_groups: [],
-      price: 3.49,
-      quantity: 1,
-    },
-    {
-      id: 11,
-      name: "Beef Country Burrito",
-      option_groups: {
-        breakfast_mods: {
-          id: 20,
-          name: "Add Extra Cheese",
-          additional_price: "0.50",
-        },
-        homefries_toast: {
-          id: 17,
-          name: "Add a Side of Rye Toast",
-          additional_price: "1.00",
-        },
-      },
-      price: 7.49,
-      quantity: 1,
-    },
-    {
-      id: 11,
-      name: "Beef Country Burrito",
-      option_groups: {
-        homefries_toast: {
-          id: 18,
-          name: "Add a Side of Sourdough Toast",
-          additional_price: "1.00",
-        },
-      },
-      price: 6.99,
-      quantity: 1,
-    },
-    {
-      id: 11,
-      name: "Beef Country Burrito",
-      option_groups: {
-        breakfast_mods: {
-          id: 20,
-          name: "Add Extra Cheese",
-          additional_price: "0.50",
-        },
-        homefries_toast: {
-          id: 17,
-          name: "Add a Side of Rye Toast",
-          additional_price: "1.00",
-        },
-      },
-      price: 7.49,
-      quantity: 1,
-    },
-    {
-      id: 11,
-      name: "Beef Country Burrito",
-      option_groups: {
-        homefries_toast: {
-          id: 18,
-          name: "Add a Side of Sourdough Toast",
-          additional_price: "1.00",
-        },
-      },
-      price: 6.99,
-      quantity: 1,
-    }
-  ];
+  const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+  console.log("order summary ", cartItems)
 
   const tipOptions = [
     { label: '5%', percentage: 5 },
     { label: '10%', percentage: 10 },
     { label: '15%', percentage: 15 },
-    { label: '20%', percentage: 20 },
+    { label: '20%', percentage: 20 }
   ];
 
   const calculateSubtotal = () => {
@@ -112,7 +39,6 @@ const OrderSummary = () => {
     removeFromCart(itemId);
   };
 
-  // let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
    // Calculate the subtotal
    const subtotal = calculateSubtotal();
 

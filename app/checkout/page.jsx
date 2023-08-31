@@ -1,12 +1,8 @@
 import Checkout from '../../component/Checkout'
-import { CartProvider } from '../CartContext';
-import CheckoutLayout from './layout';
 
 const CheckoutPage = () => {
   return (
-    <CartProvider>
-      <Checkout />
-    </CartProvider>
+    <Checkout />
   )
 }
 
