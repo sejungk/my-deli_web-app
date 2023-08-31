@@ -9,25 +9,17 @@ const CartItem = ({ item, onRemove }) => {
   const { removeFromCart } = useContext(CartContext);
 
   const handleRemoveClick = () => {
-    // Show the modal when the "Remove" link is clicked
     setIsModalVisible(true);
   };
 
   const handleCancelRemove = () => {
-    // Close the modal when "Cancel" is clicked
     setIsModalVisible(false);
   };
 
   const handleConfirmRemove = () => {
-    // Remove the item from the cart and close the modal when "Remove" is clicked
     removeFromCart(item.cartItemId);
     setIsModalVisible(false);
   };
-  // const handleRemoveClick = () => {
-  //   // Call the onRemove callback with the item ID when the "Remove" button is clicked
-  //   onRemove(item.cartItemId);
-  //   setIsModalVisible(true);
-  // };
 
   return (
     <div className={styles.container}>

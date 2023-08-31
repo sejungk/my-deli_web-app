@@ -5,39 +5,25 @@ import styles from "../styles/Cart.module.css";
 import { CartContext } from '../app/CartContext';
 import Image from "next/image";
 import CartItem from "./CartItem";
-import Link from 'next/link';
+import Link from "next/link";
+import PickupDateModal from "./PickupDateModal";
 
 const Cart = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-
-
-  // Function to open the modal
-  const handleOpenModal = () => {
-    setIsModalVisible(true);
-  };
-
-  // Function to close the modal
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
-
 
   const handleCheckout = () => {
     checkout();
   };
 
-  // const handleRemoveItem = (itemId) => {
-  //   // Call removeFromCart with the item ID to remove it from the cart
-  //   removeFromCart(itemId);
-  // };
+  const handleToggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   const handleRemoveItem = (itemName) => {
-    // Handle the item removal logic here
-    // Show the modal when you want to confirm the removal
     setIsModalOpen(true);
   };
-  console.log(cartItems)
+  // console.log(cartItems)
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
 
@@ -51,12 +37,14 @@ const Cart = () => {
           </div>
           <p>521 Broadway St, Quantico</p>
         </div>
-        <div className="bttn bttn_outline bttn_center" >
+        <div className="bttn bttn_outline bttn_center" onClick={handleToggleModal}>
           <span>Mon, Jun 12 8:45 am</span>
         </div>
-        {/* {isModalOpen && (
-          <PickupTimeModal isOpen={isModalOpen} onClose={closeModal} />
-        )} */}
+        {isModalVisible && (
+          <PickupDateModal
+            onCancel={handleToggleModal} // Close the modal when the close button is clicked
+          />
+        )}
       </div>
 
       <hr />
