@@ -1,22 +1,3 @@
-// import styles from "../styles/RemoveItemModal.module.css";
-// import React from "react";
-
-// const RemoveItemModal = ({ itemName, onCancel, onConfirm }) => {
-//   return (
-//     <div className={styles.container}>
-//     <div className={styles.modal}>
-//       <p>Delete {itemName} from your order?</p>
-//       <button onClick={onCancel} className={styles.closeButton}>
-//         Cancel
-//       </button>
-//       <button onClick={onConfirm}>Remove</button>
-//     </div>
-//   </div>
-//   );
-// };
-
-// export default RemoveItemModal;
-
 import ReactDOM from 'react-dom';
 import styles from "../styles/RemoveItemModal.module.css";
 
@@ -26,12 +7,28 @@ const RemoveItemModalPortal = ({ itemName, onCancel, onConfirm, isOpen }) => {
   return ReactDOM.createPortal(
     <div className={styles.container}>
       <div className={styles.modal}>
-        <p>Delete {itemName} from your order?</p>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={onConfirm}>Remove</button>
+        <div className={styles.modalContent}>
+          <div className={styles.closeIcon} onClick={onCancel}>
+            <span>&times;</span>
+          </div>
+          <div className={styles.contentWrapper}>
+            <div className={styles.textWrapper}>
+              <h5>Remove Item</h5>
+              <p>Delete {itemName} from your order?</p>
+            </div>
+            <div className={styles.buttonWrapper}>
+              <button className="bttn bttn_red bttn_center" onClick={onConfirm}>
+                <span>Remove</span>
+              </button>
+              <button className="bttn bttn_outline bttn_center" onClick={onCancel}>
+                <span>Cancel</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>,
-    document.body // Attach the modal to the root of the HTML document
+    document.body
   );
 };
 

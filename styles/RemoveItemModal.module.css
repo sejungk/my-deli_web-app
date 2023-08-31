@@ -5,47 +5,45 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center; /* Horizontally center the modal */
-  align-items: center; /* Vertically center the modal */
-  z-index: 999; /* Ensure the modal is above other content */
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .modal {
   background-color: white;
-  padding: 20px;
-  border-radius: 5px;
+  border-radius: var(--modal-border-radius);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-width: 80%; /* Adjust the maximum width as needed */
+  max-width: 80%;
+  z-index: 1000;
+  position: relative;
+}
+
+.contentWrapper {
+  padding: 50px;
   text-align: center;
-  z-index: 1000; /* Ensure modal content is above the background */
 }
 
-/* Close button (if needed) */
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-
-/* top section */
 .closeIcon {
   position: absolute;
-  right: var(--product-modal-padding);
-  padding-top: calc((var(--h3-font-size) / 2) + var(--product-modal-padding));
+  top: 20px;
+  right: 20px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
+  font-size: 30px;
+  line-height: 20px;
 }
 
-.closeIcon span {
-  font-size: 24px;
-  line-height: 1;
-  color: black;
+.buttonWrapper {
+  padding-top: 20px;
 }
+
+.textWrapper h5 {
+  margin-bottom: 10px;
+}
+
+.buttonWrapper button {
+  margin-top: 10px;
+  width: 100%;
+}
+
