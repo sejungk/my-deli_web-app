@@ -1,6 +1,3 @@
-// "use client"
-
-// import CheckoutLayout from './layout';
 import Checkout from '../../component/Checkout'
 import { CartProvider } from '../CartContext';
 import CheckoutLayout from './layout';
@@ -13,24 +10,10 @@ const CheckoutPage = () => {
   )
 }
 
-
-
-CheckoutPage.getLayout = function getLayout(page) {
-  return (
-    <CheckoutLayout>
-       {/* <CheckoutNavbar /> */}
-        {page}
-    </CheckoutLayout>
-  )
-}
-
-export default CheckoutPage;
-
-
-// Page.getLayout = function getLayout(page) {
+// CheckoutPage.getLayout = function getLayout(page) {
 //   return (
-//     <Layout>
-//       <NestedLayout>{page}</NestedLayout>
-//     </Layout>
+//     <CheckoutLayout>{page}</CheckoutLayout>
 //   )
 // }
+
+export default CheckoutPage;

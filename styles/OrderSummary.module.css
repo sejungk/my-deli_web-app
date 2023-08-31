@@ -54,6 +54,7 @@
   padding: 10px;
   border: var(--light-blue-border);
   border-radius: 15px;
+  cursor: pointer;
 }
 
 @media (max-width: 110px) {
