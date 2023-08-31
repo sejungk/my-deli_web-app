@@ -9,6 +9,7 @@
   --primary-black: #1F1F1F;
   --primary-lightest-blue: #C4CCCF;
   --primary-light-blue: #b6c0c3;
+  --primary-dark-blue: #7d8f92;
   --primary-white: #ffffff;
 
   /* borders */
@@ -42,6 +43,7 @@
   --modal-width: 350px;
   --modal-items-height: 250px;
   --modal-addon-text: 14px;
+  --modal-border-radius: 15px;
 }
 
 body {
@@ -131,6 +133,10 @@ a {
 
 .bttn_outline span {
   font-size: 14px;
+}
+
+.bttn_outline:hover {
+  border: 1.5px solid var(--primary-dark-blue);
 }
 
 .bttn_center {
