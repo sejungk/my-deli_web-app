@@ -5,7 +5,7 @@ import { CartContext } from '../app/CartContext';
 const CartItem = ({ item, onRemove }) => {
   const handleRemoveClick = () => {
     // Call the onRemove callback with the item ID when the "Remove" button is clicked
-    onRemove(item.id);
+    onRemove(item.cartItemId);
   };
 
   return (

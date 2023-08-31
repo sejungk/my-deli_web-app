@@ -1,6 +1,7 @@
 "use client"
 
 import React, { createContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export const CartContext = createContext("");
 
@@ -8,7 +9,6 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
-    // Check if an item with the same id and option groups already exists in the cart
     const existingItemIndex = cartItems.findIndex(
       (cartItem) =>
         cartItem.id === item.id &&
@@ -21,7 +21,9 @@ export const CartProvider = ({ children }) => {
       setCartItems(updatedCartItems);
     } else {
       // If the item doesn't exist, add it to the cart
+      const uniqueId = uuidv4(); // Generate a unique ID
       const cartItem = {
+        cartItemId: uniqueId,
         id: item.id,
         name: item.name,
         option_groups: item.selectedOptions,
@@ -30,19 +32,10 @@ export const CartProvider = ({ children }) => {
       };
       setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
     }
-
-    // const cartItem = {
-    //   id: item.id,
-    //   name: item.name,
-    //   option_groups: item.selectedOptions,
-    //   quantity: item.quantity,
-    //   price: item.total_price
-    // }
-    // setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
   };
 
-  const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+  const removeFromCart = (cartItemId) => {
+    const updatedCart = cartItems.filter((item) => item.cartItemId !== cartItemId);
     setCartItems(updatedCart);
   };
 
