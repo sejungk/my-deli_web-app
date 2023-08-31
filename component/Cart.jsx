@@ -8,15 +8,34 @@ import CartItem from "./CartItem";
 import Link from 'next/link';
 
 const Cart = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+
+
+  // Function to open the modal
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
 
   const handleCheckout = () => {
     checkout();
   };
 
-  const handleRemoveItem = (itemId) => {
-    // Call removeFromCart with the item ID to remove it from the cart
-    removeFromCart(itemId);
+  // const handleRemoveItem = (itemId) => {
+  //   // Call removeFromCart with the item ID to remove it from the cart
+  //   removeFromCart(itemId);
+  // };
+  const handleRemoveItem = (itemName) => {
+    // Handle the item removal logic here
+    // Show the modal when you want to confirm the removal
+    setIsModalOpen(true);
   };
   console.log(cartItems)
 
@@ -45,7 +64,11 @@ const Cart = () => {
       <div className={styles.addedItemSection}>
         {cartItems.map((item, index) => (
           <React.Fragment key={index}>
-            <CartItem item={item} onRemove={handleRemoveItem} />
+            <CartItem
+              key={item.cartItemId}
+              item={item}
+              onRemove={() => handleRemoveItem(item.name)}
+              />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
         ))}
