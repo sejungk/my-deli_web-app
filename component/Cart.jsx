@@ -10,26 +10,24 @@ import PickupDateModal from "./PickupDateModal";
 import MenuItemModal from './MenuItemModal';
 
 const Cart = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
   const { cartItems, checkout, editItemData, setEditItem } = useContext(CartContext);
 
   const handleCheckout = () => {
     checkout();
   };
 
-  const handleToggleModal = () => {
-    setIsModalVisible(!isModalVisible);
+  const handleTogglePickupDateModal = () => {
+    setIsPickupDateModalVisible(!isPickupDateModalVisible);
   };
-
-  const handleRemoveItem = (itemName) => {
-    setIsModalOpen(true);
-  };
-  // console.log(cartItems)
 
   // Function to handle editing an item
   const handleEditItem = (item) => {
-    setEditItem(item); // Set editItemData when editing
+    setEditItemData(item);
+    setIsMenuItemModalVisible(true);
   };
+
+
   // Function to handle saving the edited item
   const handleSaveEdit = (updatedItemData) => {
     // Implement your update logic here
@@ -41,12 +39,18 @@ const Cart = () => {
       }
       return item;
     });
-    // Update the cart with the edited data
-    setCartItems(updatedCartItems);
+
+    // Update the cart with the edited data (assuming you have a function for this in your CartContext)
+    // For example, if you have a setCartItems function in CartContext:
+    // setCartItems(updatedCartItems);
+
     // Close the modal
-    setIsModalVisible(false);
+    setIsMenuItemModalVisible(false);
   };
 
+  const closeModal = () => {
+    setIsMenuItemModalVisible(false);
+  };
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
 
@@ -60,12 +64,12 @@ const Cart = () => {
           </div>
           <p>521 Broadway St, Quantico</p>
         </div>
-        <div className="bttn bttn_outline bttn_center" onClick={handleToggleModal}>
+        <div className="bttn bttn_outline bttn_center" onClick={handleTogglePickupDateModal}>
           <span>Mon, Jun 12 8:45 am</span>
         </div>
-        {isModalVisible && (
+        {isPickupDateModalVisible && (
           <PickupDateModal
-            onCancel={handleToggleModal} // Close the modal when the close button is clicked
+            onCancel={handleTogglePickupDateModal}
           />
         )}
       </div>
@@ -78,8 +82,8 @@ const Cart = () => {
             <CartItem
               key={item.cartItemId}
               item={item}
-              closeModal={() => setEditItem(null)} // Close the modal when adding to the cart
               editItemData={editItemData}
+              onEditItem={handleEditItem}
             />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
@@ -99,14 +103,14 @@ const Cart = () => {
           </div>
         </Link>
       </div>
-      {isModalVisible && (
+      {/* {isMenuItemModalVisible && (
         <MenuItemModal
           menuItem={editItemData}
-          closeModal={() => setIsModalVisible(false)}
+          closeModal={closeModal}
           editItemData={editItemData}
           onSaveEdit={handleSaveEdit}
         />
-      )}
+      )} */}
     </div>
   );
 };

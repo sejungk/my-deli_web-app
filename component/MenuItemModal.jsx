@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
 import { CartContext } from '../app/CartContext';
+import ReactDOM from "react-dom";
 import axios from "axios";
 
 const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
@@ -90,8 +91,15 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
   };
 
   // exit modal if outside is clicked
+  // const handleOutsideClick = (e) => {
+  //   if (e.target.classList.contains(styles.container)) {
+  //     closeModal();
+  //   }
+  // };
   const handleOutsideClick = (e) => {
-    if (e.target.classList.contains(styles.container)) {
+    // Check if the click occurred outside the modal container
+    const modalContainer = document.querySelector(`.${styles.container}`);
+    if (modalContainer && !modalContainer.contains(e.target)) {
       closeModal();
     }
   };
@@ -117,7 +125,7 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
   if (isLoading) {
     return <div>Loading...</div>; // You can replace this with a loading spinner or message
   }
-  return (
+  return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
         <div className={styles.headerSection}>
@@ -171,44 +179,11 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
 export default MenuItemModal;
 
 
-
-
-      // {/* name and description - end */}
-      // <div className={styles.scrollableContent}>
-      //     <div className={styles.optionSection}>
-
-      //         {menuItem.option_groups && menuItem.option_groups[0] !== null &&
-      //           menuItemData.option_groups.map((optionGroup, index) => (
-      //           <React.Fragment key={optionGroup.id}>
-      //             {index > 0 && <hr className={styles.sectionDivider} />}
-      //             <ModalOptionGroup
-      //               optionGroup={optionGroup}
-      //               selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
-      //               handleOptionChange={(optionGroup, optionName) =>
-      //                 handleOptionChange(optionGroup, optionName)
-      //               }
-      //             />
-      //           </React.Fragment>
-      //         ))}
-      //         {menuItem.option_groups && menuItem.option_groups[0] !== null &&
-      //           menuItem.option_groups.map((optionGroup, index) => (
-      //           <React.Fragment key={optionGroup.option_group_id}>
-      //             {index > 0 && <hr className={styles.sectionDivider} />}
-      //             <ModalOptionGroup
-      //               optionGroup={optionGroup}
-      //               selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
-      //               handleOptionChange={(optionGroup, optionName) =>
-      //                 handleOptionChange(optionGroup, optionName)
-      //               }
-      //             />
-      //           </React.Fragment>
-      //         ))}
-      //     </div>
-      //   </div>
