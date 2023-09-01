@@ -31,18 +31,18 @@ app.get("/api/menu-items", async (req, res) => {
         categories.name AS category_name,
         COALESCE(json_agg(
           json_build_object(
-            'option_group_id', option_groups.id,
-            'option_group_name', option_groups.name,
-            'option_group_display_text', option_groups.display_text,
-            'option_group_allow_multiple', option_groups.allow_multiple,
-            'option_group_required', option_groups.required,
-            'option_group_free_option_limit', option_groups.free_option_limit,
+            'id', option_groups.id,
+            'name', option_groups.name,
+            'display_text', option_groups.display_text,
+            'allow_multiple', option_groups.allow_multiple,
+            'required', option_groups.required,
+            'free_option_limit', option_groups.free_option_limit,
             'options', (
               SELECT COALESCE(json_agg(
                 json_build_object(
-                  'option_id', options.id,
-                  'option_name', options.name,
-                  'option_additional_price', options.additional_price
+                  'id', options.id,
+                  'name', options.name,
+                  'additional_price', options.additional_price
                 )
               ), '[]'::json)
               FROM options
@@ -64,6 +64,53 @@ app.get("/api/menu-items", async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching menu items." });
   }
 });
+
+// app.get("/api/menu-items", async (req, res) => {
+//   try {
+//     const query = `
+//       SELECT
+//         menu_items.id AS id,
+//         menu_items.name AS name,
+//         menu_items.description AS description,
+//         menu_items.base_price AS base_price,
+//         menu_items.exclusions AS exclusions,
+//         categories.category_id,
+//         categories.name AS category_name,
+//         COALESCE(json_agg(
+//           json_build_object(
+//             'option_group_id', option_groups.id,
+//             'option_group_name', option_groups.name,
+//             'option_group_display_text', option_groups.display_text,
+//             'option_group_allow_multiple', option_groups.allow_multiple,
+//             'option_group_required', option_groups.required,
+//             'option_group_free_option_limit', option_groups.free_option_limit,
+//             'options', (
+//               SELECT COALESCE(json_agg(
+//                 json_build_object(
+//                   'option_id', options.id,
+//                   'option_name', options.name,
+//                   'option_additional_price', options.additional_price
+//                 )
+//               ), '[]'::json)
+//               FROM options
+//               WHERE options.option_group_id = option_groups.id
+//             )
+//           )
+//         ), '[]'::json) AS option_groups
+//       FROM menu_items
+//       JOIN categories ON menu_items.category_id = categories.category_id
+//       LEFT JOIN menuitems_optiongroups ON menu_items.id = menuitems_optiongroups.menu_item_id
+//       LEFT JOIN option_groups ON menuitems_optiongroups.option_group_id = option_groups.id
+//       GROUP BY menu_items.id, categories.category_id
+//       ORDER BY categories.category_id, menu_items.name;
+//     `;
+//     const { rows } = await pool.query(query);
+//     res.json(rows);
+//   } catch (error) {
+//     console.error("Error fetching menu items:", error);
+//     res.status(500).json({ error: "An error occurred while fetching menu items." });
+//   }
+// });
 
 
 // app.get("/api/menu-items", async (req, res) => {

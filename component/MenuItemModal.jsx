@@ -2,10 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
 import { CartContext } from '../app/CartContext';
-import axios from "axios";
 
 const MenuItemModal = ({ menuItem, closeModal }) => {
-  const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedMenuItem, setSelectedMenuItem] = useState({
     id: menuItem.id,
@@ -17,7 +15,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     description: menuItem.description,
   });
 
-  console.log("selectedMenuItem ", selectedMenuItem)
+  // console.log("selectedMenuItem ", selectedMenuItem)
   // console.log("original: ", menuItem, "data: ",menuItemData)
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
 
@@ -62,7 +60,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     });
   };
 
-
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.container)) {
@@ -76,7 +73,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   };
   const increaseQuantity = () => setQuantity(quantity + 1);
 
-// console.log("selected ",selectedMenuItem)
+console.log("selected ",menuItem)
   const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
     (acc, option) => {
       if (option.additional_price) {
@@ -88,7 +85,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   );
 
   // console.log("selected Item for cart: ", selectedMenuItem)
-  console.log("menu items ", menuItemData)
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -112,7 +108,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
           <div className={styles.optionSection}>
               {menuItem.option_groups && menuItem.option_groups[0] !== null &&
                 menuItem.option_groups.map((optionGroup, index) => (
-                <React.Fragment key={optionGroup.option_group_id}>
+                <React.Fragment key={optionGroup.id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
                   <ModalOptionGroup
                     optionGroup={optionGroup}
@@ -123,6 +119,19 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
                   />
                 </React.Fragment>
               ))}
+              {/* {menuItem.option_groups && menuItem.option_groups[0].option_group_id !== null &&
+                menuItem.option_groups.map((optionGroup, index) => (
+                <React.Fragment key={optionGroup.option_group_id}>
+                  {index > 0 && <hr className={styles.sectionDivider} />}
+                  <ModalOptionGroup
+                    optionGroup={optionGroup}
+                    selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
+                    handleOptionChange={(optionGroup, optionName) =>
+                      handleOptionChange(optionGroup, optionName)
+                    }
+                  />
+                </React.Fragment>
+              ))} */}
           </div>
         </div>
 
@@ -171,7 +180,7 @@ export default MenuItemModal;
       //             />
       //           </React.Fragment>
       //         ))}
-      //         {/* {menuItem.option_groups && menuItem.option_groups[0] !== null &&
+      //         {menuItem.option_groups && menuItem.option_groups[0] !== null &&
       //           menuItem.option_groups.map((optionGroup, index) => (
       //           <React.Fragment key={optionGroup.option_group_id}>
       //             {index > 0 && <hr className={styles.sectionDivider} />}
@@ -183,6 +192,6 @@ export default MenuItemModal;
       //               }
       //             />
       //           </React.Fragment>
-      //         ))} */}
+      //         ))}
       //     </div>
       //   </div>
