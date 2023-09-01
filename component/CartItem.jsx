@@ -3,26 +3,21 @@ import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
 import MenuItemModal from '../component/MenuItemModal';
 
-const CartItem = ({ item, closeModal, editItemData }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
+const CartItem = ({ item, editItemData }) => {
+  const [isMenuItemModalVisible, setisMenuItemModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
 
   const handleRemoveClick = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleCancelRemove = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleConfirmRemove = () => {
-    removeFromCart(item.cartItemId);
-    setIsModalVisible(false);
+    setisMenuItemModalVisible(true);
   };
 
   const handleEditClick = () => {
-    setIsModalVisible(true); // Open the edit modal
+    setisMenuItemModalVisible(true); // Open the edit modal
+  };
+
+   // Function to close the modal
+   const closeModal = () => {
+    setisMenuItemModalVisible(false);
   };
 
   return (
@@ -48,10 +43,8 @@ const CartItem = ({ item, closeModal, editItemData }) => {
             <a onClick={handleRemoveClick}>Remove</a>
           </React.Fragment>
         )}
-        {/* <a onClick={handleEditClick}>Edit</a>
-        <a onClick={handleRemoveClick}>Remove</a> */}
       </div>
-      {isModalVisible && (
+      {isMenuItemModalVisible && (
         <MenuItemModal
           menuItem={item}
           closeModal={closeModal}
