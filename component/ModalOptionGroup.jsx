@@ -2,6 +2,8 @@ import React from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
 const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) => {
+
+  console.log(optionGroup);
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>
@@ -26,7 +28,7 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) =
               />{" "}
               {option.name}
             </label>
-            <div>{option.additional_price === "0.00" ? "---" : `$${option.additional_price.toFixed(2)}`}</div>
+            <div>{option.additional_price === "00.00" ? "---" : `$${option.additional_price.toFixed(2)}`}</div>
           </div>
         ))}
       </div>

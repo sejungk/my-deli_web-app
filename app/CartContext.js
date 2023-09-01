@@ -7,6 +7,7 @@ export const CartContext = createContext("");
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [editItemData, setEditItemData] = useState(null);
 
   const addToCart = (item) => {
     const existingItemIndex = cartItems.findIndex(
@@ -43,8 +44,12 @@ export const CartProvider = ({ children }) => {
     // Implement checkout logic
   };
 
+  const setEditItem = (item) => {
+    setEditItemData(item); // Set the editItemData state
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, checkout }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, checkout, editItemData, setEditItem }}>
       {children}
     </CartContext.Provider>
   );
