@@ -22,18 +22,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
 
   useEffect(() => {
-    // Fetch the data for the selected menu item
-    axios
-      .get(`http://localhost:5000/api/menu-items/${menuItem.id}`)
-      .then((response) => {
-        setMenuItemData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching menu item data:", error);
-      });
-  }, [menuItem]);
-
-  useEffect(() => {
     setSelectedMenuItem((prevItem) => ({
       ...prevItem,
       quantity: quantity,
@@ -82,9 +70,6 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     }
   };
 
-  if (!menuItemData) return null; // Return null or a loading indicator while data is being fetched
-
-
   // increase/decrease quantity
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
@@ -126,7 +111,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
       <div className={styles.scrollableContent}>
           <div className={styles.optionSection}>
               {menuItem.option_groups && menuItem.option_groups[0] !== null &&
-                menuItemData.option_groups.map((optionGroup, index) => (
+                menuItem.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.option_group_id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
                   <ModalOptionGroup
