@@ -17,7 +17,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     description: menuItem.description,
   });
 
-  // console.log("selectedMenuItem ", selectedMenuItem)
+  console.log("selectedMenuItem ", selectedMenuItem)
   // console.log("original: ", menuItem, "data: ",menuItemData)
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
 
@@ -103,7 +103,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   );
 
   // console.log("selected Item for cart: ", selectedMenuItem)
-  // console.log("menu items ", menuItem)
+  console.log("menu items ", menuItemData)
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -115,7 +115,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
 
           {/* name and description - start */}
           <div className={styles.itemName}>
-            <h2 className={styles.title}>{menuItem.name}</h2>
+            <h3 className={styles.title}>{menuItem.name}</h3>
             <p className={styles.desc}>{menuItem.description}</p>
           </div>
         </div>
@@ -167,3 +167,37 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
 export default MenuItemModal;
 
 
+
+
+      // {/* name and description - end */}
+      // <div className={styles.scrollableContent}>
+      //     <div className={styles.optionSection}>
+
+      //         {menuItem.option_groups && menuItem.option_groups[0] !== null &&
+      //           menuItemData.option_groups.map((optionGroup, index) => (
+      //           <React.Fragment key={optionGroup.id}>
+      //             {index > 0 && <hr className={styles.sectionDivider} />}
+      //             <ModalOptionGroup
+      //               optionGroup={optionGroup}
+      //               selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
+      //               handleOptionChange={(optionGroup, optionName) =>
+      //                 handleOptionChange(optionGroup, optionName)
+      //               }
+      //             />
+      //           </React.Fragment>
+      //         ))}
+      //         {/* {menuItem.option_groups && menuItem.option_groups[0] !== null &&
+      //           menuItem.option_groups.map((optionGroup, index) => (
+      //           <React.Fragment key={optionGroup.option_group_id}>
+      //             {index > 0 && <hr className={styles.sectionDivider} />}
+      //             <ModalOptionGroup
+      //               optionGroup={optionGroup}
+      //               selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
+      //               handleOptionChange={(optionGroup, optionName) =>
+      //                 handleOptionChange(optionGroup, optionName)
+      //               }
+      //             />
+      //           </React.Fragment>
+      //         ))} */}
+      //     </div>
+      //   </div>

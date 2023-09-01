@@ -36,13 +36,6 @@ const MenuItems = () => {
     groupedMenuItems[categoryName].push(menuItem);
   });
 
-  // Function to open the modal and set the selected item
-  // const openModal = (menuItem) => {
-  //   console.log("OPEN")
-  //   setSelectedMenuItem(menuItem);
-  //   setIsModalOpen(true);
-  // };
-
   const openModal = (menuItem) => {
     // console.log(selectedMenuItem);
     setSelectedMenuItem(menuItem);
@@ -75,11 +68,10 @@ const MenuItems = () => {
       ))}
 
       {isModalOpen && (
-              <MenuItemModal
-              menuItem={selectedMenuItem}
-              closeModal={closeModal}
-              />
-        // <MenuItemModal menuItem={selectedMenuItem} closeModal={closeModal} />
+        <MenuItemModal
+        menuItem={selectedMenuItem}
+        closeModal={closeModal}
+        />
       )}
     </div>
   );
