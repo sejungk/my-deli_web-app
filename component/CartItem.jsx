@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
-import RemoveItemModal from '../component/RemoveItemModal';
+import MenuItemModal from '../component/MenuItemModal';
 
-const CartItem = ({ item, onRemove }) => {
+const CartItem = ({ item, closeModal, editItemData }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { removeFromCart } = useContext(CartContext);
@@ -21,6 +21,10 @@ const CartItem = ({ item, onRemove }) => {
     setIsModalVisible(false);
   };
 
+  const handleEditClick = () => {
+    setIsModalVisible(true); // Open the edit modal
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
@@ -36,16 +40,22 @@ const CartItem = ({ item, onRemove }) => {
         ))}
       </div>
       <div className={styles.editRemoveOptions}>
-        <a href="url">Edit</a>
-        <a onClick={handleRemoveClick}>Remove</a>
+        {editItemData ? (
+          <a onClick={""}>Save Edit</a>
+        ) : (
+          <React.Fragment>
+            <a onClick={handleEditClick}>Edit</a>
+            <a onClick={handleRemoveClick}>Remove</a>
+          </React.Fragment>
+        )}
+        {/* <a onClick={handleEditClick}>Edit</a>
+        <a onClick={handleRemoveClick}>Remove</a> */}
       </div>
-      {/* Render the modal if it's visible */}
       {isModalVisible && (
-        <RemoveItemModal
-          itemName={item.name} // Pass the correct item name
-          onCancel={handleCancelRemove}
-          onConfirm={handleConfirmRemove}
-          isOpen={isModalVisible}
+        <MenuItemModal
+          menuItem={item}
+          closeModal={closeModal}
+          operationType="edit"
         />
       )}
     </div>

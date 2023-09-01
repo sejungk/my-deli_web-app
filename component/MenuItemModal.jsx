@@ -2,9 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
 import { CartContext } from '../app/CartContext';
+import axios from "axios";
 
-const MenuItemModal = ({ menuItem, closeModal }) => {
+const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
   const [quantity, setQuantity] = useState(1);
+  const [menuItemData, setMenuItemData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Added loading state
   const [selectedMenuItem, setSelectedMenuItem] = useState({
     id: menuItem.id,
     name: menuItem.name,
@@ -17,7 +20,22 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
 
   // console.log("selectedMenuItem ", selectedMenuItem)
   // console.log("original: ", menuItem, "data: ",menuItemData)
-  const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+  const { cartItems, addToCart, removeFromCart, checkout, editItemData } = useContext(CartContext);
+
+  useEffect(() => {
+    // Fetch the data for the selected menu item
+    axios
+      .get(`http://localhost:5000/api/menu-items/${menuItem.id}`)
+      .then((response) => {
+        setMenuItemData(response.data);
+        setIsLoading(false); // Set loading to false when data is fetched
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error("Error fetching menu item data:", error);
+        setIsLoading(false); // Ensure loading is set to false on error too
+      });
+  }, [menuItem]);
 
   useEffect(() => {
     setSelectedMenuItem((prevItem) => ({
@@ -60,6 +78,17 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
     });
   };
 
+  const handleSaveEdit = () => {
+    if (operationType === "edit") { // Check the operation type
+      // Handle the editing logic here
+      // You can use the "editItemData" prop to identify the item being edited
+    } else {
+      // Handle the add to cart logic here
+      addToCart(selectedMenuItem);
+    }
+    closeModal(); // Close the modal in both cases
+  };
+
   // exit modal if outside is clicked
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.container)) {
@@ -73,7 +102,7 @@ const MenuItemModal = ({ menuItem, closeModal }) => {
   };
   const increaseQuantity = () => setQuantity(quantity + 1);
 
-console.log("selected ",menuItem)
+  // console.log("selected ",menuItem)
   const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
     (acc, option) => {
       if (option.additional_price) {
@@ -83,8 +112,11 @@ console.log("selected ",menuItem)
     },
     0
   );
-
+  console.log(menuItem, menuItem.option_groups);
   // console.log("selected Item for cart: ", selectedMenuItem)
+  if (isLoading) {
+    return <div>Loading...</div>; // You can replace this with a loading spinner or message
+  }
   return (
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -101,13 +133,13 @@ console.log("selected ",menuItem)
           </div>
         </div>
 
-      <hr></hr>
+        <hr />
 
-      {/* name and description - end */}
-      <div className={styles.scrollableContent}>
+        {/* name and description - end */}
+        <div className={styles.scrollableContent}>
           <div className={styles.optionSection}>
-              {menuItem.option_groups && menuItem.option_groups[0] !== null &&
-                menuItem.option_groups.map((optionGroup, index) => (
+            {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
+              menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
                   <ModalOptionGroup
@@ -119,38 +151,23 @@ console.log("selected ",menuItem)
                   />
                 </React.Fragment>
               ))}
-              {/* {menuItem.option_groups && menuItem.option_groups[0].option_group_id !== null &&
-                menuItem.option_groups.map((optionGroup, index) => (
-                <React.Fragment key={optionGroup.option_group_id}>
-                  {index > 0 && <hr className={styles.sectionDivider} />}
-                  <ModalOptionGroup
-                    optionGroup={optionGroup}
-                    selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
-                    handleOptionChange={(optionGroup, optionName) =>
-                      handleOptionChange(optionGroup, optionName)
-                    }
-                  />
-                </React.Fragment>
-              ))} */}
           </div>
         </div>
 
+        <hr />
 
-        <hr></hr>
         <div className={styles.addToOrderSection}>
           <div className={styles.quantity}>
             <span className="pointer" onClick={decreaseQuantity}>-</span>
             <span>{quantity}</span>
             <span  className="pointer" onClick={increaseQuantity}>+</span>
           </div>
-          <div className={`bttn bttn_red ${styles.addToOrderBttn}`} onClick={() => {
-            addToCart(selectedMenuItem);
-            closeModal(); // Close the modal when adding to the cart
-          }}>
-            <span>Add to Order</span>
+          <div
+            className={`bttn bttn_red ${styles.addToOrderBttn}`}
+            onClick={handleSaveEdit}>
+            {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}
             <span>|</span>
             <span>${parseFloat((parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>
-
           </div>
         </div>
       </div>

@@ -7,10 +7,11 @@ import Image from "next/image";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import PickupDateModal from "./PickupDateModal";
+import MenuItemModal from './MenuItemModal';
 
 const Cart = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+  const { cartItems, checkout, editItemData, setEditItem } = useContext(CartContext);
 
   const handleCheckout = () => {
     checkout();
@@ -24,6 +25,28 @@ const Cart = () => {
     setIsModalOpen(true);
   };
   // console.log(cartItems)
+
+  // Function to handle editing an item
+  const handleEditItem = (item) => {
+    setEditItem(item); // Set editItemData when editing
+  };
+  // Function to handle saving the edited item
+  const handleSaveEdit = (updatedItemData) => {
+    // Implement your update logic here
+    // Find the item in cartItems based on some unique identifier, e.g., cartItemId
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.cartItemId === updatedItemData.cartItemId) {
+        // Update the item with the edited data
+        return updatedItemData;
+      }
+      return item;
+    });
+    // Update the cart with the edited data
+    setCartItems(updatedCartItems);
+    // Close the modal
+    setIsModalVisible(false);
+  };
+
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
 
@@ -55,8 +78,9 @@ const Cart = () => {
             <CartItem
               key={item.cartItemId}
               item={item}
-              onRemove={() => handleRemoveItem(item.name)}
-              />
+              closeModal={() => setEditItem(null)} // Close the modal when adding to the cart
+              editItemData={editItemData}
+            />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>
         ))}
@@ -75,6 +99,14 @@ const Cart = () => {
           </div>
         </Link>
       </div>
+      {isModalVisible && (
+        <MenuItemModal
+          menuItem={editItemData}
+          closeModal={() => setIsModalVisible(false)}
+          editItemData={editItemData}
+          onSaveEdit={handleSaveEdit}
+        />
+      )}
     </div>
   );
 };
