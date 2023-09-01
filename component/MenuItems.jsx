@@ -25,7 +25,7 @@ const MenuItems = () => {
       });
   }, []);
 
-  const groupedMenuItems = {}; // Object to store grouped menu items
+  const groupedMenuItems = {};
 
   // Group menu items by category
   menuItems.forEach((menuItem) => {
@@ -37,7 +37,6 @@ const MenuItems = () => {
   });
 
   const openModal = (menuItem) => {
-    // console.log(selectedMenuItem);
     setSelectedMenuItem(menuItem);
     setIsModalOpen(true);
   };
