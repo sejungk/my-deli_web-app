@@ -2,8 +2,7 @@ import React from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
 const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType }) => {
-// console.log(Object.values(selectedOption)[0])
-// console.log(selectedOption)
+  console.log(selectedOption)
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>
@@ -19,8 +18,8 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
             <label>
               {/* {console.log(Object.values(selectedOption)[0], option)} */}
               {operationType === "edit" &&
-                  Object.values(selectedOption)[0] &&
-                  Object.values(selectedOption)[0].name === option.name ? (
+                  selectedOption &&
+                  selectedOption.id === option.id ? (
                 <input
                   className={styles.option}
                   type="radio"
