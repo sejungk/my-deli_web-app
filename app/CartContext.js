@@ -35,8 +35,9 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+  const removeFromCart = (cartItemId) => {
+    console.log(cartItems, cartItemId)
+    const updatedCart = cartItems.filter((item) => item.cartItemId !== cartItemId);
     setCartItems(updatedCart);
   };
 
@@ -46,6 +47,18 @@ export const CartProvider = ({ children }) => {
 
   const setEditItem = (item) => {
     setEditItemData(item); // Set the editItemData state
+  };
+
+  const editCartItem = (updatedItem) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.cartItemId === updatedItem.cartItemId) {
+        // Update the item with the edited data
+        return updatedItem;
+      }
+      return item;
+    });
+
+    setCartItems(updatedCartItems);
   };
 
   return (

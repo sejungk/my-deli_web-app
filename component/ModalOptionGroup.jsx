@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
-const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) => {
-
-  // console.log(optionGroup);
+const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType }) => {
+// console.log(Object.values(selectedOption)[0])
+// console.log(selectedOption)
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>
@@ -17,15 +17,32 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) =
         {optionGroup.options.map((option, index) => (
           <div className={styles.listOption} key={option.id}>
             <label>
-              <input
-                className={styles.option}
-                type="radio"
-                value={option.name}
-                name={optionGroup.name}
-                onChange={() => {
-                  handleOptionChange(optionGroup.name, option);
-                }}
-              />{" "}
+              {/* {console.log(Object.values(selectedOption)[0], option)} */}
+              {operationType === "edit" &&
+                  Object.values(selectedOption)[0] &&
+                  Object.values(selectedOption)[0].name === option.name ? (
+                <input
+                  className={styles.option}
+                  type="radio"
+                  value={option.name}
+                  name={optionGroup.name}
+                  checked={true}
+                  // checked={selectedOptions[optionGroup.name].id === option.id}
+                  onChange={() => {
+                    handleOptionChange(optionGroup, option);
+                  }}
+                />
+              ) : (
+                <input
+                  className={styles.option}
+                  type="radio"
+                  value={option.name}
+                  name={optionGroup.name}
+                  onChange={() => {
+                    handleOptionChange(optionGroup, option);
+                  }}
+                />
+              )}
               {option.name}
             </label>
             <div>{option.additional_price === "00.00" ? "---" : `$${option.additional_price.toFixed(2)}`}</div>
