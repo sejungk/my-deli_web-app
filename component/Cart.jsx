@@ -11,7 +11,7 @@ import MenuItemModal from './MenuItemModal';
 
 const Cart = () => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
-  const { cartItems, checkout, editItemData, setEditItem } = useContext(CartContext);
+  const { cartItems, checkout, editItemData, setEditItem, removeFromCart } = useContext(CartContext);
 
   const handleCheckout = () => {
     checkout();
@@ -27,6 +27,11 @@ const Cart = () => {
     setIsMenuItemModalVisible(true);
   };
 
+  const handleRemoveItem = (itemId) => {
+    // Call removeFromCart with the item ID to remove it from the cart
+    console.log(itemId)
+    removeFromCart(itemId);
+  };
 
   // Function to handle saving the edited item
   const handleSaveEdit = (updatedItemData) => {
@@ -84,6 +89,7 @@ const Cart = () => {
               item={item}
               editItemData={editItemData}
               onEditItem={handleEditItem}
+              onRemove={handleRemoveItem}
             />
             {index < cartItems.length - 1 && <hr />}
           </React.Fragment>

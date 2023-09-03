@@ -3,7 +3,7 @@ import styles from "../styles/ModalOptionGroup.module.css";
 
 const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange }) => {
 
-  console.log(optionGroup);
+  // console.log(optionGroup);
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>

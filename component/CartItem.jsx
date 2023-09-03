@@ -3,12 +3,17 @@ import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
 import MenuItemModal from '../component/MenuItemModal';
 
-const CartItem = ({ item, editItemData }) => {
+const CartItem = ({ item, onRemove, editItemData }) => {
   const [isMenuItemModalVisible, setisMenuItemModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
 
+  // const handleRemoveClick = () => {
+  //   removeFromCart(item.id)
+  // };
+
   const handleRemoveClick = () => {
-    setisMenuItemModalVisible(true);
+    // Call the onRemove callback with the item ID when the "Remove" button is clicked
+    removeFromCart(item.id)
   };
 
   const handleEditClick = () => {

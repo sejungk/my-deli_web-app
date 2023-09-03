@@ -8,43 +8,44 @@ import axios from "axios";
 const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
   const [quantity, setQuantity] = useState(1);
   const [menuItemData, setMenuItemData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Added loading state
-  const [selectedMenuItem, setSelectedMenuItem] = useState({
-    id: menuItem.id,
-    name: menuItem.name,
-    base_price: menuItem.base_price,
-    total_price: menuItem.base_price,
-    quantity: 1,
-    selectedOptions: {}, // Start with an empty object
-    description: menuItem.description,
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
 
-  // console.log("selectedMenuItem ", selectedMenuItem)
-  // console.log("original: ", menuItem, "data: ",menuItemData)
   const { cartItems, addToCart, removeFromCart, checkout, editItemData } = useContext(CartContext);
 
   useEffect(() => {
-    // Fetch the data for the selected menu item
     axios
       .get(`http://localhost:5000/api/menu-items/${menuItem.id}`)
       .then((response) => {
         setMenuItemData(response.data);
         setIsLoading(false); // Set loading to false when data is fetched
+        console.log(response.data)
+        // Assign values to selectedMenuItem here
+        setSelectedMenuItem({
+          id: response.data.id,
+          name: response.data.name,
+          base_price: response.data.base_price,
+          total_price: response.data.base_price,
+          quantity: 1,
+          selectedOptions: {},
+          description: response.data.description,
+        });
       })
       .catch((error) => {
-        // Handle errors here
         console.error("Error fetching menu item data:", error);
-        setIsLoading(false); // Ensure loading is set to false on error too
+        setIsLoading(false);
       });
-  }, [menuItem]);
+  }, [menuItem.id]);
 
   useEffect(() => {
-    setSelectedMenuItem((prevItem) => ({
-      ...prevItem,
-      quantity: quantity,
-      total_price: (parseFloat(menuItem.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions)) * quantity,
-    }));
-  }, [quantity, menuItem]);
+    if (menuItemData) {
+      setSelectedMenuItem((prevItem) => ({
+        ...prevItem,
+        quantity: quantity,
+        total_price: (parseFloat(menuItemData.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions)) * quantity,
+      }));
+    }
+  }, [quantity, menuItemData]);
 
   const calculateSelectedOptionsPrice = (selectedOptions) => {
     return Object.values(selectedOptions).reduce((acc, option) => {
@@ -55,7 +56,7 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
     }, 0);
   };
 
-  if (!menuItem) return null;
+  if (!menuItemData) return null;
 
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
@@ -91,15 +92,8 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
   };
 
   // exit modal if outside is clicked
-  // const handleOutsideClick = (e) => {
-  //   if (e.target.classList.contains(styles.container)) {
-  //     closeModal();
-  //   }
-  // };
   const handleOutsideClick = (e) => {
-    // Check if the click occurred outside the modal container
-    const modalContainer = document.querySelector(`.${styles.container}`);
-    if (modalContainer && !modalContainer.contains(e.target)) {
+    if (e.target.classList.contains(styles.container)) {
       closeModal();
     }
   };
@@ -120,7 +114,7 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
     },
     0
   );
-  console.log(menuItem, menuItem.option_groups);
+  console.log(menuItemData);
   // console.log("selected Item for cart: ", selectedMenuItem)
   if (isLoading) {
     return <div>Loading...</div>; // You can replace this with a loading spinner or message
@@ -136,8 +130,8 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
 
           {/* name and description - start */}
           <div className={styles.itemName}>
-            <h3 className={styles.title}>{menuItem.name}</h3>
-            <p className={styles.desc}>{menuItem.description}</p>
+            <h3 className={styles.title}>{menuItemData.name}</h3>
+            <p className={styles.desc}>{menuItemData.description}</p>
           </div>
         </div>
 
@@ -175,7 +169,7 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
             onClick={handleSaveEdit}>
             {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}
             <span>|</span>
-            <span>${parseFloat((parseFloat(menuItem.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>
+            <span>${parseFloat((parseFloat(menuItemData.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>
           </div>
         </div>
       </div>
