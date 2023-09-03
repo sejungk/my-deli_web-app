@@ -136,10 +136,9 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
     0
   );
   // console.log(menuItemData);
-  console.log("selected Item for cart: ", selectedMenuItem.selectedOptions[0])
 
   if (isLoading) return <div>Loading...</div>;
-  console.log(operationType, selectedMenuItem.selectedOptions)
+  // console.log(operationType, selectedMenuItem.selectedOptions)
   return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -165,9 +164,14 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
               menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
+                  {/* {console.log(selectedMenuItem.selectedOptions[optionGroup.name])} */}
                   <ModalOptionGroup
                     optionGroup={optionGroup}
-                    selectedOption={operationType === "edit" ? selectedMenuItem.selectedOptions : ""}
+                    selectedOption={
+                      operationType === "edit" && selectedMenuItem.selectedOptions.hasOwnProperty(optionGroup.name)
+                        ? selectedMenuItem.selectedOptions[optionGroup.name]
+                        : ""
+                    }
                     handleOptionChange={(optionGroup, optionName) => handleOptionChange(optionGroup, optionName)}
                     operationType={operationType}
                   />
