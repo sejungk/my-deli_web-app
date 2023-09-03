@@ -3,23 +3,22 @@ import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
 import { CartContext } from '../app/CartContext';
 import ReactDOM from "react-dom";
+import Image from "next/image";
 import axios from "axios";
 
-const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
-  const [quantity, setQuantity] = useState(1);
+const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) => {
   const [menuItemData, setMenuItemData] = useState(null);
+  const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
-
-  const { cartItems, addToCart, removeFromCart, checkout, editItemData } = useContext(CartContext);
+  const { addToCart, checkout, editItemData } = useContext(CartContext);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/menu-items/${menuItem.id}`)
+      .get(`http://localhost:5000/api/menu-items/${itemId}`)
       .then((response) => {
         setMenuItemData(response.data);
         setIsLoading(false); // Set loading to false when data is fetched
-        console.log(response.data)
         // Assign values to selectedMenuItem here
         setSelectedMenuItem({
           id: response.data.id,
@@ -35,7 +34,31 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
         console.error("Error fetching menu item data:", error);
         setIsLoading(false);
       });
-  }, [menuItem.id]);
+  }, [itemId]);
+
+  useEffect(() => {
+    if (operationType === "edit" && selectedOptions && menuItemData && menuItemData.option_groups) {
+      setSelectedMenuItem((prevItem) => {
+        const updatedSelectedOptions = {};
+
+        // Map the keys in selectedOptions to match the option group names
+        Object.keys(selectedOptions).forEach((optionGroupKey) => {
+          // Find the option group by its key
+          const optionGroup = menuItemData.option_groups.find(
+            (group) => group.name === optionGroupKey
+          );
+          if (optionGroup) {
+            updatedSelectedOptions[optionGroup.name] = selectedOptions[optionGroupKey];
+            console.log(optionGroup)
+          }
+        });
+        return {
+          ...prevItem,
+          selectedOptions: updatedSelectedOptions,
+        };
+      });
+    }
+  }, [operationType, selectedOptions, menuItemData]);
 
   useEffect(() => {
     if (menuItemData) {
@@ -60,8 +83,8 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
 
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
-      const updatedOptions = { ...prevItem.selectedOptions, [optionGroup]: option };
-
+      // const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
+      const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
       // Calculate the selected options price based on updatedOptions
       const selectedOptionsPrice = Object.values(updatedOptions).reduce(
         (acc, option) => {
@@ -75,17 +98,15 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
 
       // Calculate the total price based on the updated selected options and quantity
       const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
-
+      // console.log(updatedOptions )
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
 
   const handleSaveEdit = () => {
     if (operationType === "edit") { // Check the operation type
-      // Handle the editing logic here
-      // You can use the "editItemData" prop to identify the item being edited
+      editItemData({ ...selectedMenuItem, cartItemId: cartItemId });
     } else {
-      // Handle the add to cart logic here
       addToCart(selectedMenuItem);
     }
     closeModal(); // Close the modal in both cases
@@ -114,18 +135,18 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
     },
     0
   );
-  console.log(menuItemData);
-  // console.log("selected Item for cart: ", selectedMenuItem)
-  if (isLoading) {
-    return <div>Loading...</div>; // You can replace this with a loading spinner or message
-  }
+  // console.log(menuItemData);
+  console.log("selected Item for cart: ", selectedMenuItem.selectedOptions[0])
+
+  if (isLoading) return <div>Loading...</div>;
+  console.log(operationType, selectedMenuItem.selectedOptions)
   return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
         <div className={styles.headerSection}>
           {/* Close button */}
           <div className={styles.closeIcon} onClick={closeModal}>
-            <span>&times;</span>
+            <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon" />
           </div>
 
           {/* name and description - start */}
@@ -146,10 +167,9 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
                   {index > 0 && <hr className={styles.sectionDivider} />}
                   <ModalOptionGroup
                     optionGroup={optionGroup}
-                    selectedOption={selectedMenuItem.selectedOptions[optionGroup.option_group_display_text] || ""}
-                    handleOptionChange={(optionGroup, optionName) =>
-                      handleOptionChange(optionGroup, optionName)
-                    }
+                    selectedOption={operationType === "edit" ? selectedMenuItem.selectedOptions : ""}
+                    handleOptionChange={(optionGroup, optionName) => handleOptionChange(optionGroup, optionName)}
+                    operationType={operationType}
                   />
                 </React.Fragment>
               ))}
@@ -166,7 +186,10 @@ const MenuItemModal = ({ menuItem, closeModal, operationType }) => {
           </div>
           <div
             className={`bttn bttn_red ${styles.addToOrderBttn}`}
-            onClick={handleSaveEdit}>
+            onClick={() => {
+              addToCart(selectedMenuItem);
+              closeModal()
+            }}>
             {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}
             <span>|</span>
             <span>${parseFloat((parseFloat(menuItemData.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>

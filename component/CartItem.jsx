@@ -3,21 +3,17 @@ import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
 import MenuItemModal from '../component/MenuItemModal';
 
-const CartItem = ({ item, onRemove, editItemData }) => {
+const CartItem = ({ item, editItemData }) => {
   const [isMenuItemModalVisible, setisMenuItemModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
 
-  // const handleRemoveClick = () => {
-  //   removeFromCart(item.id)
-  // };
-
   const handleRemoveClick = () => {
-    // Call the onRemove callback with the item ID when the "Remove" button is clicked
-    removeFromCart(item.id)
+    console.log(item)
+    removeFromCart(item.cartItemId)
   };
 
   const handleEditClick = () => {
-    setisMenuItemModalVisible(true); // Open the edit modal
+    setisMenuItemModalVisible(true);
   };
 
    // Function to close the modal
@@ -33,6 +29,11 @@ const CartItem = ({ item, onRemove, editItemData }) => {
         <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
+        {item.selectedOptions && Object.values(item.selectedOptions).map((option, index) => (
+          <div className={styles.optionGroupWrapper} key={index}>
+            <span>{option.name}</span>
+          </div>
+        ))}
         {item.option_groups && Object.keys(item.option_groups).map((optionKey, index) => (
           <div className={styles.optionGroupWrapper} key={index}>
             <span>{item.option_groups[optionKey].name}</span>
@@ -51,9 +52,11 @@ const CartItem = ({ item, onRemove, editItemData }) => {
       </div>
       {isMenuItemModalVisible && (
         <MenuItemModal
-          menuItem={item}
+          itemId={item.id}
+          cartItemId={item.cartItemId}
           closeModal={closeModal}
           operationType="edit"
+          selectedOptions={item.option_groups}
         />
       )}
     </div>

@@ -40,6 +40,11 @@
   color: black;
 }
 
+.closeIcon, .icon {
+  height: 15px;
+  width: 15px;
+}
+
 .headerSection {
   position: relative;
   padding: 10px;

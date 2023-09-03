@@ -45,10 +45,6 @@ const Cart = () => {
       return item;
     });
 
-    // Update the cart with the edited data (assuming you have a function for this in your CartContext)
-    // For example, if you have a setCartItems function in CartContext:
-    // setCartItems(updatedCartItems);
-
     // Close the modal
     setIsMenuItemModalVisible(false);
   };
