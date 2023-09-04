@@ -10,6 +10,7 @@ const MenuItems = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null); // To store the selected item
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
   // console.log(cartItems)
   useEffect(() => {
@@ -25,10 +26,23 @@ const MenuItems = () => {
       });
   }, []);
 
+  const isBefore1030 = new Date() < time1030;
+
+  const filteredMenuItems = menuItems.filter((menuItem) => {
+    if (isBefore1030) {
+      // Display all items before 10:30 AM
+      return true;
+    } else {
+      // Display items that do not belong to categories 1-7 after 10:30 AM
+      const categoryId = menuItem.category_id;
+      return categoryId < 1 || categoryId > 7;
+    }
+  });
+
   const groupedMenuItems = {};
 
   // Group menu items by category
-  menuItems.forEach((menuItem) => {
+  filteredMenuItems.forEach((menuItem) => {
     const categoryName = menuItem.category_name;
     if (!groupedMenuItems[categoryName]) {
       groupedMenuItems[categoryName] = [];
@@ -68,7 +82,7 @@ const MenuItems = () => {
 
       {isModalOpen && (
         <MenuItemModal
-        itemId={selectedMenuItem.id}
+        menuItem={selectedMenuItem}
         closeModal={closeModal}
         />
       )}

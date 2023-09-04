@@ -63,21 +63,6 @@ const PickupDateModal = ({ onCancel }) => {
 
         nextAvailableTime = new Date(nextAvailableTime.getTime() + interval);
       }
-      //   if (currentTime.getTime() > time230.getTime()) {
-      //     const timeString = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${
-      //       hours >= 12 ? 'PM' : 'AM'
-      //     }`;
-      //     options.push(timeString);
-      //     nextAvailableTime = new Date(nextAvailableTime.getTime() + interval);
-      //   }
-      //   else if (timeDifference >= 15) {
-      //     const timeString = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${
-      //       hours >= 12 ? 'PM' : 'AM'
-      //     }`;
-      //     options.push(timeString);
-      //     nextAvailableTime = new Date(nextAvailableTime.getTime() + interval);
-      //   }
-      // }
 
       return options;
     };
