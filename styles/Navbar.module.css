@@ -1,5 +1,16 @@
-.container {
-  padding: 50px 50px 30px 50px;
+.logoWrapper {
+  position: relative;
+  text-align: center;
+  height: 20px;
+  top: 20px;
+  font-size: 30px;
+  line-height: 20px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.linksContainer {
+  padding: 60px 50px 20px 50px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -8,13 +19,13 @@
   width: 700px;
 }
 
-.logo {
-  text-align: center;
-  margin: auto;
+.link {
+  text-decoration: none;
 }
 
 .item {
   font-size: 15px;
+  font-weight: 500;
 }
 
 .underline {
