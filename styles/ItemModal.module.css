@@ -15,7 +15,8 @@
   background-color: white;
   border-radius: var(--modal-border-radius);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  width: 60%;
+  max-width: 500px;
+  width: 80%;
   z-index: 1000;
   position: relative;
 }

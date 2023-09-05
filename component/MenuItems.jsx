@@ -71,7 +71,6 @@ const MenuItems = () => {
     <div className={styles.container}>
       {Object.keys(groupedMenuItems).map((categoryName) => (
         <div key={categoryName} id={formatId(categoryName)} className={styles.categoryText}>
-          {console.log(formatId(categoryName))}
           <h3 className={styles.category}>{categoryName}</h3>
           <div className={styles.wrapper}>
             {groupedMenuItems[categoryName].map((menuItem) => (
