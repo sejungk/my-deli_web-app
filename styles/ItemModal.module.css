@@ -9,6 +9,7 @@
   align-items: center;
   z-index: 999;
   background: rgba(0, 0, 0, 0.5);
+  border: 1px solid black;
 }
 
 .modal {
@@ -60,12 +61,15 @@
 .selectWrapper {
   border: var(--light-blue-border);
   border-radius: var(--modal-border-radius);
-  padding: 15px;
+  padding: 0 10px 0 0;
 }
 
 .selectBox {
+  border-radius: var(--modal-border-radius);
   width: 100%;
   height: 100%;
+  padding: 15px;
+  outline: none;
 }
 
 .selectContainer .selectWrapper:not(:last-child) {

@@ -110,8 +110,6 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (itemId) => {
-    // Call removeFromCart with the item ID to remove it from the cart
-    console.log(itemId)
     removeFromCart(itemId);
   };
 

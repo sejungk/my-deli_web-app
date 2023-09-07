@@ -1,16 +1,15 @@
 "use client"
+import React, { useContext, useState } from 'react';
 import styles from "../styles/Checkout.module.css"
 import PickupDetails from '../component/PickupDetails';
 import CustomerInfo from '../component/CustomerInfo';
 import Payment from '../component/Payment';
 import OrderSummary from '../component/OrderSummary';
-import { useContext } from 'react';
 import { CartContext } from '../app/CartContext';
 
 const Checkout = () => {
+  const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
   const { cartItems } = useContext(CartContext);
-  console.log("checkout cart items: ", cartItems)
-
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
 
   return (
@@ -20,7 +19,11 @@ const Checkout = () => {
           <h1>Let&apos;s review your order.</h1>
         </div>
         <PickupDetails />
-        <CustomerInfo />
+        <CustomerInfo
+          onCustomerInfoChange={(info) => {
+            setCustomerInfo((prevInfo) => ({ ...prevInfo, ...info }));
+          }}
+        />
         <Payment />
       </div>
       <div className={styles.rightSection}>
@@ -31,11 +34,10 @@ const Checkout = () => {
             <span>${(subtotal ?? 0).toFixed(2)}</span>
           </div>
         </div>
-        <OrderSummary />
+        <OrderSummary customerInfo={customerInfo}/>
       </div>
     </div>
   )
 }
-
 
 export default Checkout;

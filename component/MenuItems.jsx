@@ -88,8 +88,9 @@ const MenuItems = () => {
 
       {isModalOpen && (
         <MenuItemModal
-        menuItem={selectedMenuItem}
+        itemId={selectedMenuItem.id}
         closeModal={closeModal}
+        operationType={"add"}
         />
       )}
     </div>
