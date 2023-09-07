@@ -1,10 +1,40 @@
 import React, { useState } from 'react';
 import styles from "../styles/CustomerInfo.module.css";
+import { parsePhoneNumber, isValidNumber } from 'libphonenumber-js';
 
 const CustomerInfo = ({ onCustomerInfoChange }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handlePhoneNumberChange = (e) => {
+    let inputPhoneNumber = e.target.value;
+    inputPhoneNumber = inputPhoneNumber.replace(/\D/g, '');
+
+    // Automatically add dashes to format the phone number
+    if (inputPhoneNumber.length <= 3) {
+      setPhoneNumber(inputPhoneNumber);
+    } else if (inputPhoneNumber.length <= 6) {
+      setPhoneNumber(`${inputPhoneNumber.slice(0, 3)}-${inputPhoneNumber.slice(3)}`);
+    } else if (inputPhoneNumber.length <= 10) {
+      setPhoneNumber(`${inputPhoneNumber.slice(0, 3)}-${inputPhoneNumber.slice(3, 6)}-${inputPhoneNumber.slice(6)}`);
+    } else {
+      // If more than 10 digits are entered, truncate the input
+      inputPhoneNumber = inputPhoneNumber.slice(0, 10);
+      setPhoneNumber(`${inputPhoneNumber.slice(0, 3)}-${inputPhoneNumber.slice(3, 6)}-${inputPhoneNumber.slice(6)}`);
+    }
+
+    // Check if the formatted phone number is valid
+    const parsedPhoneNumber = parsePhoneNumber(inputPhoneNumber, 'US');
+
+    if (isValidNumber(parsedPhoneNumber.number, 'US')) {
+      console.log("VALID NUMBER")
+      onCustomerInfoChange({ phoneNumber: e.target.value });
+    } else {
+      console.log("INVALID NUMBER")
+      onCustomerInfoChange({ phoneNumber: '' }); // Clear the phone number if it's invalid
+    }
+  }
 
   return (
     <div className="checkout-card-container">
@@ -59,10 +89,7 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
             required
             minLength="1"
             value={phoneNumber}
-            onChange={(e) => {
-              setPhoneNumber(e.target.value);
-              onCustomerInfoChange({ phoneNumber: e.target.value });
-            }}>
+            onChange={handlePhoneNumberChange}>
           </input>
         </div>
       </div>

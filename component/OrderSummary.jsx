@@ -19,11 +19,10 @@ const OrderSummary = ({ customerInfo }) => {
     { label: '15%', percentage: 15 },
     { label: '20%', percentage: 20 }
   ];
-
   const calculateSubtotal = () => {
     return cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
   };
-
+console.log(customerInfo)
   const handleTipClick = (percentage, index) => {
     const newSubtotal = calculateSubtotal();
     setTipPercentage(percentage);
