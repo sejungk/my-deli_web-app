@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
-
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -15,6 +14,35 @@ const pool = new Pool({
   database: "mydeli",
   password: "691220",
   port: 5432, // Default PostgreSQL port
+});
+
+// Endpoint to create an order
+app.post('/api/orders', async (req, res) => {
+  try {
+    // Extract order data from the request body
+    const { customer_name, items } = req.body;
+
+    // Insert the order into the 'orders' table and retrieve its ID
+    const { rows } = await pool.query(
+      'INSERT INTO orders (customer_name) VALUES ($1) RETURNING id',
+      [customer_name]
+    );
+
+    const orderId = rows[0].id;
+
+    // Insert order items into the 'order_items' table
+    for (const item of items) {
+      await pool.query(
+        'INSERT INTO order_items (order_id, product_name, quantity, price) VALUES ($1, $2, $3, $4)',
+        [orderId, item.product_name, item.quantity, item.price]
+      );
+    }
+
+    res.status(201).json({ message: 'Order created successfully' });
+  } catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ error: 'An error occurred while creating the order' });
+  }
 });
 
 // Route to get all menu items
@@ -67,7 +95,7 @@ app.get("/api/menu-items", async (req, res) => {
 
 app.get("/api/menu-items/:id", async (req, res) => {
   try {
-    const menuItemId = req.params.id; // Get the menu item ID from the URL parameter
+    const menuItemId = req.params.id;
 
     const query = `
     SELECT

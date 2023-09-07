@@ -5,14 +5,14 @@ import styles from "../styles/OrderSummary.module.css";
 import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
 import Link from 'next/link';
+import { createOrder } from '../app/app';
 
-const OrderSummary = () => {
+const OrderSummary = ({ customerInfo }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
-
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const currentTime = new Date();
   const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
-  console.log("order summary ", cartItems)
-
   const tipOptions = [
     { label: '5%', percentage: 5 },
     { label: '10%', percentage: 10 },
@@ -26,28 +26,46 @@ const OrderSummary = () => {
 
   const handleTipClick = (percentage, index) => {
     const newSubtotal = calculateSubtotal();
-    const newTipAmount = newSubtotal * (percentage / 100);
     setTipPercentage(percentage);
     setSelectedTipIndex(index);
   };
 
-  const handleCheckout = () => {
-    // checkout();
+   // Calculate the subtotal
+   const subtotal = calculateSubtotal();
+   const tipAmount = (subtotal * (tipPercentage / 100)) || 0;
+   const total = subtotal + tipAmount;
+
+  // Function to handle placing the order
+  const handlePlaceOrder = async () => {
+    const orderData = {
+      customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
+      phone_number: customerInfo.phoneNumber,
+      total_amount: subtotal,
+      order_date: currentTime.getTime(),
+      pickup_time: "",
+      pickup_date: "",
+      payment_method: "",
+      taxes: 0,
+      items: cartItems,
+      status_name: "pending",
+      tip_amount: parseFloat(tipAmount.toFixed(2)),
+    };
+    console.log("order, ",orderData)
+    try {
+      // Send the order to the server
+      await createOrder(orderData);
+
+      // Set a flag indicating that the order was successfully placed
+      setOrderPlaced(true);
+    } catch (error) {
+      console.error('Error placing order:', error);
+      // Handle the error (e.g., display an error message to the user)
+    }
   };
 
   const handleRemoveItem = (itemId) => {
     removeFromCart(itemId);
   };
-
-   // Calculate the subtotal
-   const subtotal = calculateSubtotal();
-
-   // Calculate the tip amount based on the tip percentage
-   const tipAmount = (subtotal * (tipPercentage / 100)) || 0;
-
-   // Calculate the total by adding the subtotal and tip amount
-   const total = subtotal + tipAmount;
-
 
   return (
     <div className="checkout-card-container">
@@ -112,7 +130,8 @@ const OrderSummary = () => {
           </div>
         </div>
         <Link href="/checkout" className="text-decoration-none">
-          <div className="bttn bttn_red bttn_center" onClick={handleCheckout}>
+          <div className="bttn bttn_red bttn_center"
+            onClick={handlePlaceOrder}>
               <span>Checkout</span>
           </div>
         </Link>

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
 const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType }) => {
-  console.log(selectedOption)
+
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>

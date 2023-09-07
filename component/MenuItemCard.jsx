@@ -27,11 +27,11 @@ const MenuItemCard = ({ name, description, base_price }) => {
 };
 
 // define the expected types and requirements of the props
-MenuItemCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  base_price: PropTypes.number.isRequired,
-};
+// MenuItemCard.propTypes = {
+//   name: PropTypes.string.isRequired,
+//   description: PropTypes.string.isRequired,
+//   base_price: PropTypes.number.isRequired,
+// };
 
 export default MenuItemCard;
 
