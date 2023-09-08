@@ -12,7 +12,7 @@ const OrderSummary = ({ customerInfo }) => {
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const currentTime = new Date();
-  const { cartItems, addToCart, removeFromCart, checkout } = useContext(CartContext);
+  const { cartItems, addToCart, removeFromCart, checkout, selectedPickupDateTime } = useContext(CartContext);
   const tipOptions = [
     { label: '5%', percentage: 5 },
     { label: '10%', percentage: 10 },
@@ -22,7 +22,8 @@ const OrderSummary = ({ customerInfo }) => {
   const calculateSubtotal = () => {
     return cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
   };
-console.log(customerInfo)
+
+// console.log(customerInfo)
   const handleTipClick = (percentage, index) => {
     const newSubtotal = calculateSubtotal();
     setTipPercentage(percentage);
@@ -39,17 +40,17 @@ console.log(customerInfo)
     const orderData = {
       customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
       phone_number: customerInfo.phoneNumber,
-      total_amount: subtotal,
-      order_date: currentTime.getTime(),
-      pickup_time: "",
-      pickup_date: "",
       payment_method: "",
-      taxes: 0,
-      items: cartItems,
-      status_name: "pending",
+      total_amount: subtotal,
       tip_amount: parseFloat(tipAmount.toFixed(2)),
+      taxes: 0,
+      status_id: 1,
+      order_time: currentTime.toLocaleTimeString(),
+      order_date: currentTime.toLocaleDateString(),
+      pickup_time: selectedPickupDateTime?.time || '',
+      pickup_date: selectedPickupDateTime?.date || '',
     };
-    console.log("order, ",orderData)
+    console.log("order, ", orderData)
     try {
       // Send the order to the server
       await createOrder(orderData);

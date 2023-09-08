@@ -7,18 +7,17 @@ import Image from "next/image";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import PickupDateModal from "./PickupDateModal";
-import MenuItemModal from './MenuItemModal';
 
 const Cart = () => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
+  const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime} = useContext(CartContext);
   const [selectedPickupDateTime, setSelectedPickupDateTime] = useState(null);
   const [dateOptions, setDateOptions] = useState([]);
   const [timeOptions, setTimeOptions] = useState([]);
   const time230 = new Date(0, 0, 0, 2, 30, 0, 0);
 
-  console.log(selectedPickupDateTime);
   // setSelectedPickupDateTime({ date, time });
-  const { cartItems, checkout, editItemData, setEditItem, removeFromCart } = useContext(CartContext);
+  // const { cartItems, checkout, editItemData, setEditItem, removeFromCart } = useContext(CartContext);
 
   useEffect(() => {
     // Function to generate an array of dates for the next 2 weeks
@@ -83,20 +82,30 @@ const Cart = () => {
     setTimeOptions(timeOpts);
 
     // Set initial values for selectedDate and selectedTime
-    setSelectedPickupDateTime({ date: dateOpts[0], time: timeOpts[0] });
+    setSelectedPickupDateTime({
+      date: dateOpts[0], // Set the initial pickup date to the earliest date
+      time: timeOpts[0], // Set the initial pickup time to the earliest time
+    });
+
+    // setPickupDate(dateOpts[0]); // Set the initial pickup date
+    // setPickupTime(timeOpts[0]); // Set the initial pickup time
   }, []);
 
   const handleCheckout = () => {
-    checkout();
+    const { date, time } = selectedPickupDateTime;
+    console.log(date, time)
+    updateSelectedPickupDateTime(date, time);
+    // checkout();
   };
 
   // Callback function to handle the selected date and time
   const handlePickupDateTimeSelection = (date, time) => {
     // Only update the state if a different date or time is selected
-    if (date !== selectedPickupDateTime.date || time !== selectedPickupDateTime.time) {
-      setSelectedPickupDateTime({ date, time });
-      // You can also perform any other actions you need with the selected date and time here
-    }
+    setPickupDate(date);
+    setPickupTime(time);
+    // if (date !== selectedPickupDateTime.date || time !== selectedPickupDateTime.time) {
+    //   setSelectedPickupDateTime({ date, time });
+    // }
   };
 
   const handleTogglePickupDateModal = () => {
@@ -134,7 +143,7 @@ const Cart = () => {
   };
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
-
+  console.log(selectedPickupDateTime)
   return (
     <div className={styles.container}>
       <div className={styles.pickupDetailSection}>

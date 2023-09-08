@@ -8,6 +8,7 @@ export const CartContext = createContext("");
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [editItemData, setEditItemData] = useState(null);
+  const [selectedPickupDateTime, setSelectedPickupDateTime] = useState(null);
 
   const addToCart = (item) => {
     const existingItemIndex = cartItems.findIndex(
@@ -49,6 +50,11 @@ export const CartProvider = ({ children }) => {
     setEditItemData(item); // Set the editItemData state
   };
 
+  // Function to update selected pickup date and time
+  const updateSelectedPickupDateTime = (date, time) => {
+    setSelectedPickupDateTime({ date, time });
+  };
+
   const editCartItem = (updatedItem) => {
     const updatedCartItems = cartItems.map((item) => {
       if (item.cartItemId === updatedItem.cartItemId) {
@@ -62,7 +68,16 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, checkout, editItemData, setEditItem }}>
+    <CartContext.Provider value={{
+      cartItems,
+      addToCart,
+      removeFromCart,
+      checkout,
+      editItemData,
+      setEditItem,
+      selectedPickupDateTime,
+      updateSelectedPickupDateTime,
+      }}>
       {children}
     </CartContext.Provider>
   );
