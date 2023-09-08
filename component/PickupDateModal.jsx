@@ -6,11 +6,12 @@ import Image from "next/image";
 const PickupDateModal = ({ onCancel, onSelectDateTime, dateOptions, timeOptions }) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
-
+console.log(dateOptions)
   const handleDateTimeSelection = () => {
     // Call the callback function with the selected date and time
     onSelectDateTime(selectedDate, selectedTime);
     onCancel(); // Close the modal or perform other actions
+    console.log(selectedDate)
   };
 
   return ReactDOM.createPortal(
