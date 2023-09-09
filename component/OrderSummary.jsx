@@ -37,6 +37,7 @@ const OrderSummary = ({ customerInfo }) => {
 
   // Function to handle placing the order
   const handlePlaceOrder = async () => {
+    // format orderData for orders database
     const orderData = {
       customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
       phone_number: customerInfo.phoneNumber,
@@ -52,9 +53,7 @@ const OrderSummary = ({ customerInfo }) => {
       pickup_date: selectedPickupDateTime?.date || '',
     };
 
-
     try {
-      // console.log(orderData, cartItems)
       await createOrder(orderData, cartItems);
       setOrderPlaced(true);
     } catch (error) {

@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const { format } = require('date-fns');
 const { Pool } = require("pg");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,8 +20,6 @@ const pool = new Pool({
 app.post('/api/orders', async (req, res) => {
   try {
     const { orderData, cartItems } = req.body;
-    console.log("server, ", orderData, cartItems);
-
     // Extract order data from the request body
     const {
       customer_name,
@@ -54,6 +51,7 @@ app.post('/api/orders', async (req, res) => {
       );
     }
     res.status(201).json({ message: 'Order created successfully' });
+    console.log(`Order id: ${orderId} created successfully`);
   } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).json({ error: 'An error occurred while creating the order' });
