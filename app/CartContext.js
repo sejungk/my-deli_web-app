@@ -26,11 +26,11 @@ export const CartProvider = ({ children }) => {
       const uniqueId = uuidv4(); // Generate a unique ID
       const cartItem = {
         cartItemId: uniqueId,
-        id: item.id,
-        name: item.name,
-        option_groups: item.selectedOptions,
+        item_id: item.id,
         quantity: item.quantity,
-        price: item.total_price,
+        item_price:item.total_price,
+        item_name: item.name,
+        option_groups: item.selectedOptions,
       };
       setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
     }

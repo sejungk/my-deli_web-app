@@ -5,7 +5,7 @@ import styles from "../styles/OrderSummary.module.css";
 import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
 import Link from 'next/link';
-import { createOrder } from '../app/app';
+import { createOrder } from '../app/api';
 
 const OrderSummary = ({ customerInfo }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
@@ -20,10 +20,10 @@ const OrderSummary = ({ customerInfo }) => {
     { label: '20%', percentage: 20 }
   ];
   const calculateSubtotal = () => {
-    return cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+    return cartItems.reduce((acc, item) => acc + parseFloat(item.item_price), 0);
   };
 
-// console.log(customerInfo)
+// console.log(cartItems)
   const handleTipClick = (percentage, index) => {
     const newSubtotal = calculateSubtotal();
     setTipPercentage(percentage);
@@ -41,25 +41,24 @@ const OrderSummary = ({ customerInfo }) => {
       customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
       phone_number: customerInfo.phoneNumber,
       payment_method: "",
-      total_amount: subtotal,
+      total_amount: parseFloat(total.toFixed(2)),
+      subtotal_amount: subtotal,
       tip_amount: parseFloat(tipAmount.toFixed(2)),
-      taxes: 0,
+      taxes_amount: 0,
       status_id: 1,
       order_time: currentTime.toLocaleTimeString(),
       order_date: currentTime.toLocaleDateString(),
       pickup_time: selectedPickupDateTime?.time || '',
       pickup_date: selectedPickupDateTime?.date || '',
     };
-    console.log("order, ", orderData)
-    try {
-      // Send the order to the server
-      await createOrder(orderData);
 
-      // Set a flag indicating that the order was successfully placed
+
+    try {
+      // console.log(orderData, cartItems)
+      await createOrder(orderData, cartItems);
       setOrderPlaced(true);
     } catch (error) {
       console.error('Error placing order:', error);
-      // Handle the error (e.g., display an error message to the user)
     }
   };
 
