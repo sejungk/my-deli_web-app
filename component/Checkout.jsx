@@ -15,7 +15,7 @@ const Checkout = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div  className={`${styles.orderHeader} vertical-center`}>
+        <div className={`${styles.orderHeader} vertical-center`}>
           <h1>Let&apos;s review your order.</h1>
         </div>
         <PickupDetails />

@@ -14,6 +14,7 @@ const Cart = () => {
   const [selectedPickupDateTime, setSelectedPickupDateTime] = useState(null);
   const [dateOptions, setDateOptions] = useState([]);
   const [timeOptions, setTimeOptions] = useState([]);
+
   const time230 = new Date(0, 0, 0, 2, 30, 0, 0);
 
   useEffect(() => {
@@ -80,24 +81,28 @@ const Cart = () => {
     setTimeOptions(timeOpts);
 
     // Set initial values for selectedDate and selectedTime
-    setSelectedPickupDateTime({
-      date: dateOpts[0],
-      time: timeOpts[0],
-    });
+    setSelectedPickupDateTime({ date: dateOpts[0], time: timeOpts[0]});
   }, []);
 
   const handleCheckout = () => {
     const { date, time } = selectedPickupDateTime;
     updateSelectedPickupDateTime(date, time);
-    // checkout();
   };
 
-  // Callback function to handle the selected date and time
-  const handlePickupDateTimeSelection = (date, time) => {
+   // Callback function to handle the selected date and time
+   const handlePickupDateTimeSelection = (date, time) => {
+     if (!date) date = selectedPickupDateTime.date;
+     if (!time) time = selectedPickupDateTime.time;
+
     // Only update the state if a different date or time is selected
-    setPickupDate(date);
-    setPickupTime(time);
+    if (date !== selectedPickupDateTime.date || time !== selectedPickupDateTime.time) {
+      setSelectedPickupDateTime({ date, time });
+    }
   };
+
+  const toggleModal = () => {
+    setIsPickupDateModalVisible((prev) => !prev);
+  }
 
   const handleTogglePickupDateModal = () => {
     setIsPickupDateModalVisible(!isPickupDateModalVisible);
@@ -126,11 +131,7 @@ const Cart = () => {
     });
 
     // Close the modal
-    setIsMenuItemModalVisible(false);
-  };
-
-  const closeModal = () => {
-    setIsMenuItemModalVisible(false);
+    closeModal();
   };
 
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.item_price), 0);
@@ -145,7 +146,7 @@ const Cart = () => {
           </div>
           <p>521 Broadway St, Quantico</p>
         </div>
-        <div className="bttn bttn_outline bttn_center" onClick={handleTogglePickupDateModal}>
+        <div className="bttn bttn_outline bttn_center" onClick={toggleModal}>
           {selectedPickupDateTime ? (
             <span>{`${selectedPickupDateTime.date} ${selectedPickupDateTime.time}`}</span>
           ) : (
@@ -158,6 +159,8 @@ const Cart = () => {
             onSelectDateTime={handlePickupDateTimeSelection}
             dateOptions={dateOptions}
             timeOptions={timeOptions}
+            toggleModal={toggleModal}
+            selectedPickupDateTime={selectedPickupDateTime}
           />
         )}
       </div>

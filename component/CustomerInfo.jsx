@@ -25,14 +25,15 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
     }
 
     // Check if the formatted phone number is valid
-    const parsedPhoneNumber = parsePhoneNumber(inputPhoneNumber, 'US');
-
-    if (isValidNumber(parsedPhoneNumber.number, 'US')) {
-      console.log("VALID NUMBER")
-      onCustomerInfoChange({ phoneNumber: e.target.value });
-    } else {
-      console.log("INVALID NUMBER")
-      onCustomerInfoChange({ phoneNumber: '' }); // Clear the phone number if it's invalid
+    if (inputPhoneNumber.length === 10) {
+      const parsedPhoneNumber = parsePhoneNumber(inputPhoneNumber, 'US');
+      if (isValidNumber(parsedPhoneNumber.number, 'US')) {
+        console.log("VALID NUMBER")
+        onCustomerInfoChange({ phoneNumber: e.target.value });
+      } else {
+        console.log("INVALID NUMBER")
+        onCustomerInfoChange({ phoneNumber: '' }); // Clear the phone number if it's invalid
+      }
     }
   }
 
@@ -53,7 +54,6 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
               type="text"
               id="firstName"
               name="firstName"
-              minlength="1"
               value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -69,7 +69,6 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
               type="text"
               id="lastName"
               name="lastName"
-              minLength="1"
               value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
@@ -87,7 +86,6 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
             id="phoneNumber"
             name="phoneNumber"
             required
-            minLength="1"
             value={phoneNumber}
             onChange={handlePhoneNumberChange}>
           </input>
