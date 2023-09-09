@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { format } = require('date-fns');
 const { Pool } = require("pg");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,25 +20,39 @@ const pool = new Pool({
 // Endpoint to create an order
 app.post('/api/orders', async (req, res) => {
   try {
+    const { orderData, cartItems } = req.body;
+    console.log("server, ", orderData, cartItems);
+
     // Extract order data from the request body
-    const { customer_name, items } = req.body;
+    const {
+      customer_name,
+      phone_number,
+      payment_method,
+      total_amount,
+      tip_amount,
+      subtotal_amount,
+      taxes_amount,
+      status_id,
+      order_time,
+      order_date,
+      pickup_time,
+      pickup_date
+    } = orderData;
 
     // Insert the order into the 'orders' table and retrieve its ID
     const { rows } = await pool.query(
-      'INSERT INTO orders (customer_name) VALUES ($1) RETURNING id',
-      [customer_name]
+      'INSERT INTO orders (customer_name, phone_number, payment_method, total_amount, tip_amount, subtotal_amount, taxes_amount, status_id, order_time, order_date, pickup_time, pickup_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id',
+      [customer_name, phone_number, payment_method, total_amount, tip_amount, subtotal_amount, taxes_amount, status_id, order_time, order_date, pickup_time, pickup_date]
     );
 
     const orderId = rows[0].id;
-
-    // Insert order items into the 'order_items' table
-    for (const item of items) {
+     // Insert order items into the 'order_items' table
+     for (const item of cartItems) {
       await pool.query(
-        'INSERT INTO order_items (order_id, product_name, quantity, price) VALUES ($1, $2, $3, $4)',
-        [orderId, item.product_name, item.quantity, item.price]
+        'INSERT INTO order_items (order_id, item_name, quantity, item_price) VALUES ($1, $2, $3, $4)',
+        [orderId, item.item_name, item.quantity, item.item_price]
       );
     }
-
     res.status(201).json({ message: 'Order created successfully' });
   } catch (error) {
     console.error('Error creating order:', error);

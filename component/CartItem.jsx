@@ -8,7 +8,6 @@ const CartItem = ({ item, editItemData }) => {
   const { removeFromCart } = useContext(CartContext);
 
   const handleRemoveClick = () => {
-    console.log(item)
     removeFromCart(item.cartItemId)
   };
 
@@ -25,8 +24,8 @@ const CartItem = ({ item, editItemData }) => {
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
         <span className={styles.itemQuantity}>{item.quantity}</span>
-        <span className={styles.itemName}>{item.name}</span>
-        <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
+        <span className={styles.itemName}>{item.item_name}</span>
+        <span className={styles.itemPrice}>${item.item_price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
         {item.selectedOptions && Object.values(item.selectedOptions).map((option, index) => (
@@ -52,7 +51,7 @@ const CartItem = ({ item, editItemData }) => {
       </div>
       {isMenuItemModalVisible && (
         <MenuItemModal
-          itemId={item.id}
+          itemId={item.item_id}
           cartItemId={item.cartItemId}
           closeModal={closeModal}
           operationType="edit"
