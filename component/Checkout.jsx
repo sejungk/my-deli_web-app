@@ -18,7 +18,7 @@ const Checkout = () => {
         <div className={`${styles.orderHeader} vertical-center`}>
           <h1>Let&apos;s review your order.</h1>
         </div>
-        <PickupDetails />
+        <PickupDetails/>
         <CustomerInfo
           onCustomerInfoChange={(info) => {
             setCustomerInfo((prevInfo) => ({ ...prevInfo, ...info }));

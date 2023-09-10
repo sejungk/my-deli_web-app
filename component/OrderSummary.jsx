@@ -12,7 +12,7 @@ const OrderSummary = ({ customerInfo }) => {
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const currentTime = new Date();
-  const { cartItems, addToCart, removeFromCart, checkout, selectedPickupDateTime } = useContext(CartContext);
+  const { cartItems, removeFromCart, selectedPickupDateTime } = useContext(CartContext);
   const tipOptions = [
     { label: '5%', percentage: 5 },
     { label: '10%', percentage: 10 },
