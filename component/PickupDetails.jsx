@@ -1,7 +1,11 @@
 import styles from "../styles/PickupDetails.module.css";
+import { CartContext } from '../app/CartContext';
+import React, { useContext } from 'react';
 import Image from "next/image";
 
+
 const PickupDetails = () => {
+  const { selectedPickupDateTime } = useContext(CartContext);
   return (
     <div className="checkout-card-container">
       <div className="checkout-card-header">
@@ -28,7 +32,7 @@ const PickupDetails = () => {
             <Image className={styles.logo} src="/img/time-icon.svg" layout="fill" alt="time icon"/>
           </div>
           <div className={styles.infoWrapper}>
-            <p>Today at 6 pm</p>
+            <p>{selectedPickupDateTime.date} at {selectedPickupDateTime.time}</p>
           </div>
         </div>
       </div>
