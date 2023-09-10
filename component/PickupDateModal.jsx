@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import styles from "../styles/ItemModal.module.css";
 import Image from "next/image";
 
-const PickupDateModal = ({ onCancel, onSelectDateTime, dateOptions, timeOptions, toggleModal, selectedPickupDateTime }) => {
+const PickupDateModal = ({ onCancel, handlePickupDateTimeSelection, dateOptions, timeOptions, toggleModal, selectedPickupDateTime }) => {
   const [selectedDate, setSelectedDate] = useState(selectedPickupDateTime.date || '');
   const [selectedTime, setSelectedTime] = useState(selectedPickupDateTime.time || '');
 
   const handleDateTimeSelection = () => {
-    onSelectDateTime(selectedDate, selectedTime);
+    handlePickupDateTimeSelection(selectedDate, selectedTime);
     toggleModal();
   };
 
