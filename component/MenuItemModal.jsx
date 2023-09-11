@@ -6,20 +6,19 @@ import ReactDOM from "react-dom";
 import Image from "next/image";
 import axios from "axios";
 
-const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) => {
+const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }) => {
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
-  const { addToCart, checkout, editItemData } = useContext(CartContext);
+  const { addToCart, setEditItem, editCartItem } = useContext(CartContext);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/menu-items/${itemId}`)
+      .get(`http://localhost:5000/api/menu-items/${id}`)
       .then((response) => {
         setMenuItemData(response.data);
-        setIsLoading(false); // Set loading to false when data is fetched
-        // Assign values to selectedMenuItem here
+        setIsLoading(false);
         setSelectedMenuItem({
           id: response.data.id,
           name: response.data.name,
@@ -34,7 +33,7 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
         console.error("Error fetching menu item data:", error);
         setIsLoading(false);
       });
-  }, [itemId]);
+  }, [id]);
 
   useEffect(() => {
     if (operationType === "edit" && selectedOptions && menuItemData && menuItemData.option_groups) {
@@ -49,7 +48,6 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
           );
           if (optionGroup) {
             updatedSelectedOptions[optionGroup.name] = selectedOptions[optionGroupKey];
-            console.log(optionGroup)
           }
         });
         return {
@@ -83,7 +81,6 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
 
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
-      // const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
       const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
       // Calculate the selected options price based on updatedOptions
       const selectedOptionsPrice = Object.values(updatedOptions).reduce(
@@ -98,17 +95,20 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
 
       // Calculate the total price based on the updated selected options and quantity
       const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
-      // console.log(updatedOptions )
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
 
-  const handleSaveEdit = () => {
-    if (operationType === "edit") { // Check the operation type
-      editItemData({ ...selectedMenuItem, cartItemId: cartItemId });
-    } else {
-      addToCart(selectedMenuItem);
-    }
+  // const handleSaveEdit = () => {
+  //   console.log(selectedMenuItem)
+  //   setEditItem({ ...selectedMenuItem });
+  //   console.log(setEditItem)
+  //   closeModal(); // Close the modal in both cases
+  // };
+  const handleSaveEdit = (selectedItem) => {
+    console.log(itemId)
+    // editCartItem({ ...selectedMenuItem });
+    editCartItem(selectedItem, itemId);
     closeModal(); // Close the modal in both cases
   };
 
@@ -135,8 +135,8 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
     },
     0
   );
-  // console.log(menuItemData);
 
+  // console.log(selectedMenuItem, selectedOptions)
   if (isLoading) return <div>Loading...</div>;
   // console.log(operationType, selectedMenuItem.selectedOptions)
   return ReactDOM.createPortal(
@@ -191,7 +191,9 @@ const MenuItemModal = ({ itemId, closeModal, operationType, selectedOptions }) =
           <div
             className={`bttn bttn_red ${styles.addToOrderBttn}`}
             onClick={() => {
-              addToCart(selectedMenuItem);
+              if (operationType === "add") addToCart(selectedMenuItem);
+              else if (operationType === "edit") handleSaveEdit(selectedMenuItem);
+              // addToCart(selectedMenuItem);
               closeModal()
             }}>
             {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}

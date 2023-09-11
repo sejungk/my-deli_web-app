@@ -7,25 +7,17 @@ const CartItem = ({ item, editItemData }) => {
   const [isMenuItemModalVisible, setisMenuItemModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
 
-  const handleRemoveClick = () => {
-    removeFromCart(item.cartItemId)
-  };
+  const handleRemoveClick = () => removeFromCart(item.itemId);
+  const handleEditClick = () => setisMenuItemModalVisible(true);
+  const closeModal = () => setisMenuItemModalVisible(false);
 
-  const handleEditClick = () => {
-    setisMenuItemModalVisible(true);
-  };
-
-   // Function to close the modal
-   const closeModal = () => {
-    setisMenuItemModalVisible(false);
-  };
-
+  // console.log(editItemData)
   return (
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
         <span className={styles.itemQuantity}>{item.quantity}</span>
-        <span className={styles.itemName}>{item.item_name}</span>
-        <span className={styles.itemPrice}>${item.item_price.toFixed(2)}</span>
+        <span className={styles.itemName}>{item.name}</span>
+        <span className={styles.itemPrice}>${item.base_price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
         {item.selectedOptions && Object.values(item.selectedOptions).map((option, index) => (
@@ -33,29 +25,18 @@ const CartItem = ({ item, editItemData }) => {
             <span>{option.name}</span>
           </div>
         ))}
-        {item.option_groups && Object.keys(item.option_groups).map((optionKey, index) => (
-          <div className={styles.optionGroupWrapper} key={index}>
-            <span>{item.option_groups[optionKey].name}</span>
-          </div>
-        ))}
       </div>
       <div className={styles.editRemoveOptions}>
-        {editItemData ? (
-          <a onClick={""}>Save Edit</a>
-        ) : (
-          <React.Fragment>
-            <a onClick={handleEditClick}>Edit</a>
-            <a onClick={handleRemoveClick}>Remove</a>
-          </React.Fragment>
-        )}
+        <a onClick={handleEditClick}>Edit</a>
+        <a onClick={handleRemoveClick}>Remove</a>
       </div>
       {isMenuItemModalVisible && (
         <MenuItemModal
-          itemId={item.item_id}
-          cartItemId={item.cartItemId}
+          itemId={item.itemId}
+          id={item.id}
           closeModal={closeModal}
           operationType="edit"
-          selectedOptions={item.option_groups}
+          selectedOptions={item.selectedOptions}
         />
       )}
     </div>

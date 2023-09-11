@@ -59,7 +59,7 @@ const Cart = () => {
     closeModal();
   };
 
-  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.item_price), 0);
+  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
 
   return (
     <div className={styles.container}>

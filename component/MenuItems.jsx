@@ -12,9 +12,7 @@ const MenuItems = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
-  // console.log(cartItems)
   useEffect(() => {
-    // Fetch menu items from the backend API
     axios
       .get("http://localhost:5000/api/menu-items")
       .then((response) => {
@@ -88,7 +86,8 @@ const MenuItems = () => {
 
       {isModalOpen && (
         <MenuItemModal
-        itemId={selectedMenuItem.id}
+        itemId={selectedMenuItem.itemId}
+        id={selectedMenuItem.id}
         closeModal={closeModal}
         operationType={"add"}
         />
