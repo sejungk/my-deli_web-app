@@ -2,17 +2,20 @@ import React, { useState, useContext } from "react";
 import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
 import RemoveItemModal from '../component/RemoveItemModal';
+import MenuItemModal from './MenuItemModal';
 
-const CartItem = ({ item }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const CartItem = ({ item, editItemData }) => {
+  const [isMenuItemModalVisible, setIsMenuItemModalVisible] = useState(false);
+  const [isPickupModalVisible, setIsPickupModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
 
-  const handleEditClick = () => setisMenuItemModalVisible(true);
-  const handleRemoveClick = () => setIsModalVisible(true);
-  const handleCancelRemove = () => setIsModalVisible(false);
+  const closeModal = () => setIsMenuItemModalVisible(false);
+  const handleEditClick = () => setIsMenuItemModalVisible(true);
+  const handleRemoveClick = () => setIsPickupModalVisible(true);
+  const handleCancelRemove = () => setIsPickupModalVisible(false);
   const handleConfirmRemove = () => {
     removeFromCart(item.itemId);
-    setIsModalVisible(false);
+    setIsPickupModalVisible(false);
   };
 
   return (
@@ -33,13 +36,22 @@ const CartItem = ({ item }) => {
         <a onClick={handleEditClick}>Edit</a>
         <a onClick={handleRemoveClick}>Remove</a>
       </div>
+      {isMenuItemModalVisible && (
+        <MenuItemModal
+          itemId={item.itemId}
+          id={item.id}
+          closeModal={closeModal}
+          operationType="edit"
+          selectedOptions={item.selectedOptions}
+        />
+      )}
       {/* Render the modal if it's visible */}
-      {isModalVisible && (
+      {isPickupModalVisible && (
         <RemoveItemModal
           itemName={item.name} // Pass the correct item name
           onCancel={handleCancelRemove}
           onConfirm={handleConfirmRemove}
-          isOpen={isModalVisible}
+          isOpen={isPickupModalVisible}
         />
       )}
     </div>
