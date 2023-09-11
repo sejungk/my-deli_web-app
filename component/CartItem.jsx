@@ -1,17 +1,20 @@
 import React, { useState, useContext } from "react";
 import styles from "../styles/CartItem.module.css";
 import { CartContext } from '../app/CartContext';
-import MenuItemModal from '../component/MenuItemModal';
+import RemoveItemModal from '../component/RemoveItemModal';
 
-const CartItem = ({ item, editItemData }) => {
-  const [isMenuItemModalVisible, setisMenuItemModalVisible] = useState(false);
+const CartItem = ({ item }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
 
-  const handleRemoveClick = () => removeFromCart(item.itemId);
   const handleEditClick = () => setisMenuItemModalVisible(true);
-  const closeModal = () => setisMenuItemModalVisible(false);
+  const handleRemoveClick = () => setIsModalVisible(true);
+  const handleCancelRemove = () => setIsModalVisible(false);
+  const handleConfirmRemove = () => {
+    removeFromCart(item.itemId);
+    setIsModalVisible(false);
+  };
 
-  // console.log(editItemData)
   return (
     <div className={styles.container}>
       <div className={styles.singleItemHeader}>
@@ -30,13 +33,13 @@ const CartItem = ({ item, editItemData }) => {
         <a onClick={handleEditClick}>Edit</a>
         <a onClick={handleRemoveClick}>Remove</a>
       </div>
-      {isMenuItemModalVisible && (
-        <MenuItemModal
-          itemId={item.itemId}
-          id={item.id}
-          closeModal={closeModal}
-          operationType="edit"
-          selectedOptions={item.selectedOptions}
+      {/* Render the modal if it's visible */}
+      {isModalVisible && (
+        <RemoveItemModal
+          itemName={item.name} // Pass the correct item name
+          onCancel={handleCancelRemove}
+          onConfirm={handleConfirmRemove}
+          isOpen={isModalVisible}
         />
       )}
     </div>
