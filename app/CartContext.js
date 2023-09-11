@@ -4,7 +4,6 @@ import React, { createContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 export const CartContext = createContext("");
-
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [editItemData, setEditItemData] = useState(null);
@@ -14,34 +13,34 @@ export const CartProvider = ({ children }) => {
   const time230 = new Date(0, 0, 0, 2, 30, 0, 0);
 
   const addToCart = (item) => {
+    // if an existing item is added, increase quantity
     const existingItemIndex = cartItems.findIndex(
       (cartItem) =>
-        cartItem.id === item.id &&
-        JSON.stringify(cartItem.option_groups) === JSON.stringify(item.selectedOptions)
+        cartItem.id === item.id
+        && JSON.stringify(cartItem.selectedOptions) === JSON.stringify(item.selectedOptions)
     );
     if (existingItemIndex !== -1) {
-      // If the item already exists, update its quantity
       const updatedCartItems = [...cartItems];
       updatedCartItems[existingItemIndex].quantity += item.quantity;
       setCartItems(updatedCartItems);
     } else {
       // If the item doesn't exist, add it to the cart
-      const uniqueId = uuidv4(); // Generate a unique ID
+      const uniqueId = uuidv4();
       const cartItem = {
-        cartItemId: uniqueId,
-        item_id: item.id,
+        itemId: uniqueId,
+        id: item.id,
         quantity: item.quantity,
-        item_price:item.total_price,
-        item_name: item.name,
-        option_groups: item.selectedOptions,
+        base_price:item.total_price,
+        name: item.name,
+        selectedOptions: item.selectedOptions,
       };
       setCartItems((prevCartItems) => [...prevCartItems, cartItem]);
     }
   };
 
-  const removeFromCart = (cartItemId) => {
-    console.log(cartItems, cartItemId)
-    const updatedCart = cartItems.filter((item) => item.cartItemId !== cartItemId);
+  const removeFromCart = (itemId) => {
+    const updatedCart = cartItems.filter((item) => item.itemId !== itemId);
+    console.log(updatedCart, itemId)
     setCartItems(updatedCart);
   };
 
@@ -50,7 +49,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const setEditItem = (item) => {
-    setEditItemData(item); // Set the editItemData state
+    setEditItemData(item);
   };
 
   // Function to update selected pickup date and time
@@ -58,15 +57,11 @@ export const CartProvider = ({ children }) => {
     setSelectedPickupDateTime({ date, time });
   };
 
-  const editCartItem = (updatedItem) => {
+  const editCartItem = (selectedItem, itemId) => {
+    console.log(cartItems, itemId)
     const updatedCartItems = cartItems.map((item) => {
-      if (item.cartItemId === updatedItem.cartItemId) {
-        // Update the item with the edited data
-        return updatedItem;
-      }
-      return item;
+      if (item.itemId === itemId) return selectedItem;
     });
-
     setCartItems(updatedCartItems);
   };
 
@@ -146,6 +141,7 @@ export const CartProvider = ({ children }) => {
       checkout,
       editItemData,
       setEditItem,
+      editCartItem,
       selectedPickupDateTime,
       updateSelectedPickupDateTime,
       dateOptions,

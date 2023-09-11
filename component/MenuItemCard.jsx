@@ -1,17 +1,13 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import styles from "../styles/MenuItemCard.module.css";
 
 const MenuItemCard = ({ name, description, base_price }) => {
-
-  // function to calculate max height of description text container
   const calculateMaxHeight = () => {
     const fontSize = parseFloat(getComputedStyle(document.body).getPropertyValue("--p-font-size"));
     const numberOfLines = 3; // Adjust this as needed
     const lineHeightPercentage = parseFloat(getComputedStyle(document.body).getPropertyValue("--p-line-height")) / 100;
-
     return `${fontSize * lineHeightPercentage * numberOfLines}px`;
   };
 
@@ -25,13 +21,6 @@ const MenuItemCard = ({ name, description, base_price }) => {
     </section>
   );
 };
-
-// define the expected types and requirements of the props
-// MenuItemCard.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-//   base_price: PropTypes.number.isRequired,
-// };
 
 export default MenuItemCard;
 
