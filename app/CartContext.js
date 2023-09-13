@@ -12,6 +12,17 @@ export const CartProvider = ({ children }) => {
   const [timeOptions, setTimeOptions] = useState([]);
   const time230 = new Date(0, 0, 0, 2, 30, 0, 0);
 
+  useEffect(() => {
+    const dateOpts = generateDateOptions();
+    const timeOpts = generateTimeOptions();
+    setDateOptions(dateOpts);
+    setTimeOptions(timeOpts);
+    // Set initial values for selectedDate and selectedTime
+    if (!selectedPickupDateTime) {
+      setSelectedPickupDateTime({ date: dateOpts[0], time: timeOpts[0] });
+    }
+  }, []);
+
   const addToCart = (item) => {
     // if an existing item is added, increase quantity
     const existingItemIndex = cartItems.findIndex(
@@ -120,17 +131,6 @@ export const CartProvider = ({ children }) => {
     }
     return options;
   };
-
-  useEffect(() => {
-    const dateOpts = generateDateOptions();
-    const timeOpts = generateTimeOptions();
-    setDateOptions(dateOpts);
-    setTimeOptions(timeOpts);
-    // Set initial values for selectedDate and selectedTime
-    if (!selectedPickupDateTime) {
-      setSelectedPickupDateTime({ date: dateOpts[0], time: timeOpts[0] });
-    }
-  }, [selectedPickupDateTime]);
 
   return (
     <CartContext.Provider value={{

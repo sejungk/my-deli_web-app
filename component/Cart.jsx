@@ -10,7 +10,21 @@ import PickupDateModal from "./PickupDateModal";
 
 const Cart = () => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
+  const [isPickupTimeValid, setIsPickupTimeValid] = useState(true); // State to track time validity
   const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, dateOptions, timeOptions } = useContext(CartContext);
+
+  // Real-time time validation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTime = new Date();
+      const selectedTime = new Date(selectedPickupDateTime.date + ' ' + selectedPickupDateTime.time);
+
+      // Check if the selected time is in the past
+      setIsPickupTimeValid(selectedTime >= currentTime);
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, [selectedPickupDateTime]);
 
   const handleCheckout = () => {
     const { date, time } = selectedPickupDateTime;
