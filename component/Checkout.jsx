@@ -12,6 +12,7 @@ const Checkout = () => {
   const { cartItems } = useContext(CartContext);
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
 
+  console.log(cartItems)
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
@@ -41,3 +42,5 @@ const Checkout = () => {
 }
 
 export default Checkout;
+
+

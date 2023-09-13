@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import styles from "../styles/ItemModal.module.css";
+import { CartContext } from '../app/CartContext';
 import Image from "next/image";
 
-const PickupDateModal = ({ onCancel, handlePickupDateTimeSelection, dateOptions, timeOptions, toggleModal, selectedPickupDateTime }) => {
+const PickupDateModal = ({ onCancel, handlePickupDateTimeSelection, toggleModal }) => {
+  const { selectedPickupDateTime, dateOptions, timeOptions } = useContext(CartContext);
   const [selectedDate, setSelectedDate] = useState(selectedPickupDateTime.date || '');
   const [selectedTime, setSelectedTime] = useState(selectedPickupDateTime.time || '');
 

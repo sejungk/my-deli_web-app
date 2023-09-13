@@ -12,6 +12,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const { addToCart, setEditItem, editCartItem } = useContext(CartContext);
+  const [allRequiredOptionsSelected, setAllRequiredOptionsSelected] = useState(true);
 
   useEffect(() => {
     axios
@@ -68,6 +69,36 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     }
   }, [quantity, menuItemData]);
 
+  //console logging can be deleted
+  useEffect(() => {
+    if (selectedMenuItem && selectedMenuItem.selectedOptions) {
+      console.log(selectedMenuItem.selectedOptions);
+    }
+  }, [selectedMenuItem]);
+
+  useEffect(() => {
+    const allRequiredSelected = areAllRequiredOptionsSelected();
+    setAllRequiredOptionsSelected(allRequiredSelected);
+    console.log(allRequiredOptionsSelected)
+  }, [selectedMenuItem]);
+
+  const areAllRequiredOptionsSelected = () => {
+    if (!menuItemData || !menuItemData.option_groups) {
+      return false;
+    }
+
+    const requiredOptionGroups = menuItemData.option_groups.filter(
+      (optionGroup) => optionGroup.required
+    );
+
+    for (const optionGroup of requiredOptionGroups) {
+      if (!selectedMenuItem.selectedOptions[optionGroup.name]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const calculateSelectedOptionsPrice = (selectedOptions) => {
     return Object.values(selectedOptions).reduce((acc, option) => {
       if (option.additional_price) {
@@ -82,6 +113,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
       const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
+
       // Calculate the selected options price based on updatedOptions
       const selectedOptionsPrice = Object.values(updatedOptions).reduce(
         (acc, option) => {
@@ -95,16 +127,11 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
 
       // Calculate the total price based on the updated selected options and quantity
       const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
+
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
 
-  // const handleSaveEdit = () => {
-  //   console.log(selectedMenuItem)
-  //   setEditItem({ ...selectedMenuItem });
-  //   console.log(setEditItem)
-  //   closeModal(); // Close the modal in both cases
-  // };
   const handleSaveEdit = (selectedItem) => {
     console.log(itemId)
     // editCartItem({ ...selectedMenuItem });
@@ -191,11 +218,23 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
           <div
             className={`bttn bttn_red ${styles.addToOrderBttn}`}
             onClick={() => {
-              if (operationType === "add") addToCart(selectedMenuItem);
-              else if (operationType === "edit") handleSaveEdit(selectedMenuItem);
-              // addToCart(selectedMenuItem);
-              closeModal()
-            }}>
+              if (operationType === "add") {
+                if (allRequiredOptionsSelected) {
+                  addToCart(selectedMenuItem);
+                  closeModal();
+                } else {
+                  alert("Please select all required options.");
+                }
+              } else if (operationType === "edit") {
+                if (allRequiredOptionsSelected) {
+                  handleSaveEdit(selectedMenuItem);
+                  closeModal();
+                } else {
+                  alert("Please select all required options.");
+                }
+              }
+            }}
+            >
             {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}
             <span>|</span>
             <span>${parseFloat((parseFloat(menuItemData.base_price) + selectedOptionsPrice) * quantity).toFixed(2)}</span>
@@ -208,5 +247,3 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
 };
 
 export default MenuItemModal;
-
-
