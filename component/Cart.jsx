@@ -96,10 +96,7 @@ const Cart = () => {
           <PickupDateModal
             onCancel={handleTogglePickupDateModal}
             handlePickupDateTimeSelection={handlePickupDateTimeSelection}
-            dateOptions={dateOptions}
-            timeOptions={timeOptions}
             toggleModal={toggleModal}
-            selectedPickupDateTime={selectedPickupDateTime}
           />
         )}
       </div>

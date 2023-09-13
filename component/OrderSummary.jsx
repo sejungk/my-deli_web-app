@@ -4,8 +4,9 @@ import React, { createContext, useContext, useState} from 'react';
 import styles from "../styles/OrderSummary.module.css";
 import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
-import Link from 'next/link';
 import { createOrder } from '../app/api';
+import Link from 'next/link';
+
 
 const OrderSummary = ({ customerInfo }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
@@ -129,7 +130,7 @@ const OrderSummary = ({ customerInfo }) => {
             <p><b>${(total ?? 0).toFixed(2)}</b></p>
           </div>
         </div>
-        <Link href="/checkout" className="text-decoration-none">
+        <Link href="/order-confirmation" className="text-decoration-none">
           <div className="bttn bttn_red bttn_center"
             onClick={handlePlaceOrder}>
               <span>Checkout</span>

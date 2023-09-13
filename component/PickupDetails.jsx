@@ -3,10 +3,9 @@ import { CartContext } from '../app/CartContext';
 import React, { useContext } from 'react';
 import Image from "next/image";
 
-
 const PickupDetails = () => {
-  const { selectedPickupDateTime } = useContext(CartContext);
-  console.log(selectedPickupDateTime)
+  const { selectedPickupDateTime, dateOptions } = useContext(CartContext);
+  console.log(selectedPickupDateTime, dateOptions);
   return (
     <div className="checkout-card-container">
       <div className="checkout-card-header">

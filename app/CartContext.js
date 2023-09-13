@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [selectedPickupDateTime, setSelectedPickupDateTime] = useState(null);
   const [dateOptions, setDateOptions] = useState([]);
   const [timeOptions, setTimeOptions] = useState([]);
-  const time230 = new Date(0, 0, 0, 2, 30, 0, 0);
+  const time220 = new Date(0, 0, 0, 14, 20, 0, 0);
 
   useEffect(() => {
     const dateOpts = generateDateOptions();
@@ -68,7 +68,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const editCartItem = (selectedItem, itemId) => {
-    console.log(cartItems, itemId)
     const updatedCartItems = cartItems.map((item) => {
       if (item.itemId === itemId) return selectedItem;
     });
@@ -81,7 +80,7 @@ export const CartProvider = ({ children }) => {
     const today = new Date();
     const currentTime = new Date();
 
-    if (currentTime.getTime() > time230.getTime()) {
+    if (currentTime.getHours() >= 14 && currentTime.getMinutes() >= 20) {
       today.setDate(today.getDate() + 1);
     }
 
@@ -102,6 +101,36 @@ export const CartProvider = ({ children }) => {
   };
 
   // Function to generate an array of time options in 15-minute intervals
+  // const generateTimeOptions = () => {
+  //   const options = [];
+  //   const currentTime = new Date();
+  //   const startTime = new Date(currentTime);
+  //   startTime.setHours(6, 0, 0);
+
+  //   const endTime = new Date(currentTime);
+  //   endTime.setHours(14, 30, 0); // Restaurant open hours until 2:30 PM
+
+  //   const interval = 15 * 60 * 1000; // 15 minutes in milliseconds
+
+  //   // Start from the greater of startTime and currentTime
+  //   let nextAvailableTime = new Date(Math.max(startTime, currentTime));
+  //   if (currentTime.getTime() > time220.getTime()) nextAvailableTime = startTime;
+
+  //   while (nextAvailableTime <= endTime) {
+  //     const hours = nextAvailableTime.getHours();
+  //     const minutes = nextAvailableTime.getMinutes();
+
+  //     if (currentTime.getTime() > time220.getTime() || timeDifference >= 15) {
+  //       const timeString = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${
+  //         hours >= 12 ? 'PM' : 'AM'
+  //       }`;
+  //       options.push(timeString);
+  //     }
+  //     nextAvailableTime = new Date(nextAvailableTime.getTime() + interval);
+  //   }
+  //   return options;
+  // };
+
   const generateTimeOptions = () => {
     const options = [];
     const currentTime = new Date();
@@ -113,23 +142,23 @@ export const CartProvider = ({ children }) => {
 
     const interval = 15 * 60 * 1000; // 15 minutes in milliseconds
 
-    // Start from the greater of startTime and currentTime
-    let nextAvailableTime = new Date(Math.max(startTime, currentTime));
-    if (currentTime.getTime() > time230.getTime()) nextAvailableTime = startTime;
-
-    while (nextAvailableTime <= endTime) {
-      const hours = nextAvailableTime.getHours();
-      const minutes = nextAvailableTime.getMinutes();
-
-      if (currentTime.getTime() > time230.getTime() || timeDifference >= 15) {
-        const timeString = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${
-          hours >= 12 ? 'PM' : 'AM'
-        }`;
-        options.push(timeString);
-      }
-      nextAvailableTime = new Date(nextAvailableTime.getTime() + interval);
+    while (startTime < endTime) {
+      const startTimeString = formatTime(startTime);
+      startTime.setTime(startTime.getTime() + interval);
+      const endTimeString = formatTime(startTime);
+      options.push(`${startTimeString} - ${endTimeString}`);
     }
     return options;
+  };
+
+  // Helper function to format time as "hh:mm AM/PM"
+  const formatTime = (time) => {
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
   };
 
   return (

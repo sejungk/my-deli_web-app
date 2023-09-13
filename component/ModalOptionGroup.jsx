@@ -26,7 +26,6 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
                   value={option.name}
                   name={optionGroup.name}
                   checked={true}
-                  // checked={selectedOptions[optionGroup.name].id === option.id}
                   onChange={() => {
                     handleOptionChange(optionGroup, option);
                   }}
