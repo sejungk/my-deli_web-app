@@ -10,7 +10,7 @@ import { CartContext } from '../app/CartContext';
 const Checkout = () => {
   const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
   const { cartItems } = useContext(CartContext);
-  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.price), 0);
+  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
 
   return (
     <div className={styles.container}>
