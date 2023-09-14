@@ -158,10 +158,41 @@ a {
   font-weight: 300;
 }
 
+/* radio styling */
 input[type='radio'] {
   accent-color: var(--primary-red);
   transform: scale(1.5);
   margin-right: 20px;
+}
+
+/* checkbox styling */
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + *::before {
+  content: '';
+  display: inline-block;
+  vertical-align: bottom;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem;
+  border-radius: 10%;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: black;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"]:checked + *::before  {
+  content: '';
+  text-align: center;
+  background: var(--primary-red);
+  border: 0.1rem solid white;
+  transform: scale(85%);
+  border-radius: 5%;
+  box-shadow: 0 0 0 0.1rem #000;
+  border-collapse: collapse;
 }
 
 .flex_row {
@@ -204,3 +235,4 @@ input[type='radio'] {
     font-size: 12px;
   }
 }
+

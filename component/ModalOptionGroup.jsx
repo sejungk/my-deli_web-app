@@ -15,14 +15,27 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
       <div className={styles.optionChoices}>
         {optionGroup.options.map((option, index) => (
           <div className={styles.listOption} key={option.id}>
-            <label>
+            <label className={styles.label}>
               {/* {console.log(Object.values(selectedOption)[0], option)} */}
-              {operationType === "edit" &&
+              <input
+                className={styles.option}
+                type="radio"
+                value={option.name}
+                name={optionGroup.name}
+                {...(operationType === "edit" &&
+                selectedOption &&
+                 selectedOption.id === option.id && { checked: true })}
+                onChange={() => {
+                  handleOptionChange(optionGroup, option);
+                }}
+              />
+              {/* {operationType === "edit" &&
                   selectedOption &&
                   selectedOption.id === option.id ? (
                 <input
                   className={styles.option}
                   type="radio"
+                  // type="checkbox"
                   value={option.name}
                   name={optionGroup.name}
                   checked={true}
@@ -34,14 +47,15 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
                 <input
                   className={styles.option}
                   type="radio"
+                  // type="checkbox"
                   value={option.name}
                   name={optionGroup.name}
                   onChange={() => {
                     handleOptionChange(optionGroup, option);
                   }}
                 />
-              )}
-              {option.name}
+              )} */}
+              <span>{option.name}</span>
             </label>
             <div>{option.additional_price === "00.00" ? "---" : `$${option.additional_price.toFixed(2)}`}</div>
           </div>
