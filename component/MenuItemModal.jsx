@@ -79,7 +79,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   useEffect(() => {
     const allRequiredSelected = areAllRequiredOptionsSelected();
     setAllRequiredOptionsSelected(allRequiredSelected);
-    console.log(allRequiredOptionsSelected)
   }, [selectedMenuItem]);
 
   const areAllRequiredOptionsSelected = () => {
@@ -191,7 +190,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
               menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
-                  {/* {console.log(selectedMenuItem.selectedOptions[optionGroup.name])} */}
+                  {console.log(optionGroup)}
                   <ModalOptionGroup
                     optionGroup={optionGroup}
                     selectedOption={
