@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
 const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType }) => {
-// console.log(optionGroup)
   return (
     <div className={styles.container}>
       <div className={styles.optionDesc}>
@@ -16,7 +15,6 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
         {optionGroup.options.map((option, index) => (
           <div className={styles.listOption} key={option.id}>
             <label className={styles.label}>
-              {/* {console.log(Object.values(selectedOption)[0], option)} */}
               <input
                 className={styles.option}
                 type={optionGroup.allow_multiple ? 'checkbox' : 'radio'}
