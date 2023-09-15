@@ -174,14 +174,15 @@ input[type="checkbox"] + *::before {
   content: '';
   display: inline-block;
   vertical-align: bottom;
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
   margin-right: 0.3rem;
   border-radius: 10%;
   border-style: solid;
   border-width: 0.1rem;
   border-color: black;
   flex-shrink: 0;
+  margin-bottom: 3%;
 }
 
 input[type="checkbox"]:checked + *::before  {

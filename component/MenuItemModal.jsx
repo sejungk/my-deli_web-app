@@ -13,6 +13,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const { addToCart, setEditItem, editCartItem } = useContext(CartContext);
   const [allRequiredOptionsSelected, setAllRequiredOptionsSelected] = useState(true);
+  const [selectedOptionsPrice, setSelectedOptionsPrice] = useState(0);
 
   useEffect(() => {
     axios
@@ -69,17 +70,17 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     }
   }, [quantity, menuItemData]);
 
-  //console logging can be deleted
-  useEffect(() => {
-    if (selectedMenuItem && selectedMenuItem.selectedOptions) {
-      console.log(selectedMenuItem.selectedOptions);
-    }
-  }, [selectedMenuItem]);
+  // console logging can be deleted
+  // useEffect(() => {
+  //   if (selectedMenuItem && selectedMenuItem.selectedOptions) {
+  //     console.log(selectedMenuItem.selectedOptions);
+  //   }
+  // }, [selectedMenuItem]);
 
   useEffect(() => {
     const allRequiredSelected = areAllRequiredOptionsSelected();
     setAllRequiredOptionsSelected(allRequiredSelected);
-  }, [selectedMenuItem]);
+  }, [selectedMenuItem])
 
   const areAllRequiredOptionsSelected = () => {
     if (!menuItemData || !menuItemData.option_groups) {
@@ -98,41 +99,134 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     return true;
   };
 
-  const calculateSelectedOptionsPrice = (selectedOptions) => {
-    return Object.values(selectedOptions).reduce((acc, option) => {
-      if (option.additional_price) {
-        return acc + parseFloat(option.additional_price);
-      }
-      return acc;
-    }, 0);
-  };
-
   if (!menuItemData) return null;
 
+  // const handleOptionChange = (optionGroup, option) => {
+  //   setSelectedMenuItem((prevItem) => {
+  //     const updatedOptions = { ...prevItem.selectedOptions };
+
+  //     // Check if the option group allows multiple selections
+  //     if (optionGroup.allow_multiple) {
+  //       if (!updatedOptions[optionGroup.name]) {
+  //         updatedOptions[optionGroup.name] = {};
+  //       }
+
+  //       // Check if the option is already selected
+  //       if (updatedOptions[optionGroup.name][option.id]) {
+  //         delete updatedOptions[optionGroup.name][option.id];
+  //       } else {
+  //         updatedOptions[optionGroup.name][option.id] = option;
+  //       }
+  //     } else {
+  //       updatedOptions[optionGroup.name] = { [option.id]: option };
+  //     }
+
+  //     // Calculate the selected options price based on updatedOptions
+  //     const selectedOptionsPrice = calculateSelectedOptionsPrice(updatedOptions);
+
+  //     // Calculate the total price based on the updated selected options and quantity
+  //     const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
+  //     console.log(selectedOptionsPrice, updatedTotalPrice)
+  //     return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
+  //   });
+  // };
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
-      const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
+      const updatedOptions = { ...prevItem.selectedOptions };
+
+      if (optionGroup.allow_multiple) {
+        if (!updatedOptions[optionGroup.name]) {
+          updatedOptions[optionGroup.name] = {};
+        }
+
+        if (updatedOptions[optionGroup.name][option.id]) {
+          delete updatedOptions[optionGroup.name][option.id];
+        } else {
+          updatedOptions[optionGroup.name][option.id] = option;
+        }
+      } else {
+        updatedOptions[optionGroup.name] = { [option.id]: option };
+      }
 
       // Calculate the selected options price based on updatedOptions
-      const selectedOptionsPrice = Object.values(updatedOptions).reduce(
-        (acc, option) => {
-          if (option.additional_price) {
-            return acc + parseFloat(option.additional_price);
-          }
-          return acc;
-        },
-        0
-      );
+      const newSelectedOptionsPrice = calculateSelectedOptionsPrice(updatedOptions);
+
+      // Update the selectedOptionsPrice state
+      setSelectedOptionsPrice(newSelectedOptionsPrice);
 
       // Calculate the total price based on the updated selected options and quantity
-      const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
-
+      const updatedTotalPrice = (parseFloat(prevItem.base_price) + newSelectedOptionsPrice) * prevItem.quantity;
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
 
+  const calculateSelectedOptionsPrice = (selectedOptions) => {
+    let totalPrice = 0;
+
+    // Iterate through each option group
+    for (const optionGroup in selectedOptions) {
+      if (typeof selectedOptions[optionGroup] === 'object') {
+        for (const optionId in selectedOptions[optionGroup]) {
+          const option = selectedOptions[optionGroup][optionId];
+          if (option.additional_price) {
+            totalPrice += parseFloat(option.additional_price);
+          }
+        }
+      } else {
+        const option = selectedOptions[optionGroup];
+        if (option && option.additional_price) {
+          totalPrice += parseFloat(option.additional_price);
+        }
+      }
+    }
+    console.log("Total Price: ",totalPrice)
+    return totalPrice;
+  };
+
+  // const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
+  //   (acc, option) => {
+  //     if (option.additional_price) {
+  //       return acc + parseFloat(option.additional_price);
+  //     }
+  //     return acc;
+  //   },
+  //   0
+  // );
+
+
+  // const handleOptionChange = (optionGroup, option) => {
+  //   setSelectedMenuItem((prevItem) => {
+  //     const updatedOptions = { ...prevItem.selectedOptions, [optionGroup.name]: option };
+
+  //     // Calculate the selected options price based on updatedOptions
+  //     const selectedOptionsPrice = Object.values(updatedOptions).reduce(
+  //       (acc, option) => {
+  //         if (option.additional_price) {
+  //           return acc + parseFloat(option.additional_price);
+  //         }
+  //         return acc;
+  //       },
+  //       0
+  //     );
+
+  //     // Calculate the total price based on the updated selected options and quantity
+  //     const updatedTotalPrice = (parseFloat(prevItem.base_price) + selectedOptionsPrice) * prevItem.quantity;
+
+  //     return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
+  //   });
+  // };
+
+  // const calculateSelectedOptionsPrice = (selectedOptions) => {
+  //   return Object.values(selectedOptions).reduce((acc, option) => {
+  //     if (option.additional_price) {
+  //       return acc + parseFloat(option.additional_price);
+  //     }
+  //     return acc;
+  //   }, 0);
+  // };
+
   const handleSaveEdit = (selectedItem) => {
-    console.log(itemId)
+    // console.log(itemId)
     // editCartItem({ ...selectedMenuItem });
     editCartItem(selectedItem, itemId);
     closeModal(); // Close the modal in both cases
@@ -152,15 +246,15 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const increaseQuantity = () => setQuantity(quantity + 1);
 
   // console.log("selected ",menuItem)
-  const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
-    (acc, option) => {
-      if (option.additional_price) {
-        return acc + parseFloat(option.additional_price);
-      }
-      return acc;
-    },
-    0
-  );
+  // const selectedOptionsPrice = Object.values(selectedMenuItem.selectedOptions).reduce(
+  //   (acc, option) => {
+  //     if (option.additional_price) {
+  //       return acc + parseFloat(option.additional_price);
+  //     }
+  //     return acc;
+  //   },
+  //   0
+  // );
 
   // console.log(selectedMenuItem, selectedOptions)
   if (isLoading) return <div>Loading...</div>;
@@ -190,7 +284,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
               menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
                   {index > 0 && <hr className={styles.sectionDivider} />}
-                  {console.log(optionGroup)}
+                  {/* {console.log(optionGroup)} */}
                   <ModalOptionGroup
                     optionGroup={optionGroup}
                     selectedOption={
