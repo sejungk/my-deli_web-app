@@ -98,7 +98,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
       const updatedOptions = { ...prevItem.selectedOptions };
-
+      console.log(optionGroup)
       if (optionGroup.allow_multiple) {
         if (!updatedOptions[optionGroup.name]) updatedOptions[optionGroup.name] = {};
         if (updatedOptions[optionGroup.name][option.id]) delete updatedOptions[optionGroup.name][option.id];
@@ -121,24 +121,70 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
 
   const calculateSelectedOptionsPrice = (selectedOptions) => {
     let totalPrice = 0;
+    const optionLimits = {}; // To track option limits
+
     for (const optionGroup in selectedOptions) {
       if (typeof selectedOptions[optionGroup] === 'object') {
         for (const optionId in selectedOptions[optionGroup]) {
           const option = selectedOptions[optionGroup][optionId];
+
           if (option.additional_price) {
-            totalPrice += parseFloat(option.additional_price);
+            // Check if the option has a free_option_limit defined in its optionGroup
+            const optionGroupInfo = menuItemData.option_groups.find(
+              (group) => group.name === optionGroup
+            );
+
+            if (optionGroupInfo && optionGroupInfo.free_option_limit > 0) {
+              // Initialize the limit tracker if not already
+              if (!optionLimits[optionGroup]) {
+                optionLimits[optionGroup] = 0;
+              }
+
+              // Check if the option has reached its free_option_limit
+              if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
+                // Increment the limit tracker
+                optionLimits[optionGroup]++;
+              } else {
+                totalPrice += parseFloat(option.additional_price);
+              }
+            } else {
+              totalPrice += parseFloat(option.additional_price);
+            }
           }
         }
       } else {
         const option = selectedOptions[optionGroup];
+
         if (option && option.additional_price) {
           totalPrice += parseFloat(option.additional_price);
         }
       }
     }
-    // console.log("Total Price: ",totalPrice)
+
     return totalPrice;
   };
+
+
+  // const calculateSelectedOptionsPrice = (selectedOptions) => {
+  //   let totalPrice = 0;
+  //   for (const optionGroup in selectedOptions) {
+  //     if (typeof selectedOptions[optionGroup] === 'object') {
+  //       for (const optionId in selectedOptions[optionGroup]) {
+  //         const option = selectedOptions[optionGroup][optionId];
+  //         if (option.additional_price) {
+  //           totalPrice += parseFloat(option.additional_price);
+  //         }
+  //       }
+  //     } else {
+  //       const option = selectedOptions[optionGroup];
+  //       if (option && option.additional_price) {
+  //         totalPrice += parseFloat(option.additional_price);
+  //       }
+  //     }
+  //   }
+  //   // console.log("Total Price: ",totalPrice)
+  //   return totalPrice;
+  // };
 
   const handleSaveEdit = (selectedItem) => {
     editCartItem(selectedItem, itemId);
