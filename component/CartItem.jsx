@@ -53,11 +53,6 @@ const CartItem = ({ item, editItemData }) => {
       <div className={styles.optionGroup}>
         {console.log(item.selectedOptions)}
         {renderSelectedOptions()}
-        {/* {item.selectedOptions && Object.values(item.selectedOptions).map((option, index) => (
-          <div className={styles.optionGroupWrapper} key={index}>
-            <span>{option.name}</span>
-          </div>
-        ))} */}
       </div>
       <div className={styles.editRemoveOptions}>
         <a onClick={handleEditClick}>Edit</a>
