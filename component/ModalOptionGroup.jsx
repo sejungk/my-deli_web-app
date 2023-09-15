@@ -10,12 +10,17 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
           {optionGroup.required ? "REQUIRED" : "OPTIONAL"}
         </div>
       </div>
+      <span className='comment'>
+      {optionGroup.free_option_limit === 1 ? "* first item is free"
+      : optionGroup.free_option_limit > 1 ? `* first ${optionGroup.free_option_limit} items are free`
+      : ""}
+      </span>
 
       <div className={styles.optionChoices}>
         {optionGroup.options.map((option, index) => (
           <div className={styles.listOption} key={option.id}>
             <label className={styles.label}>
-            {console.log(selectedOption[option.id], option.id)}
+            {/* {console.log(selectedOption[option.id], option.id)} */}
               <input
                 className={styles.option}
                 type={optionGroup.allow_multiple ? 'checkbox' : 'radio'}

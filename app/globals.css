@@ -11,6 +11,7 @@
   --primary-light-blue: #b6c0c3;
   --primary-dark-blue: #7d8f92;
   --primary-white: #ffffff;
+  --primary-gray: #676767;
 
   /* borders */
   --light-blue-border: 1.5px solid var(--primary-lightest-blue);
@@ -34,6 +35,9 @@
 
   --p-font-size: 16px;
   --p-line-height: 150%;
+
+  --comment-font-size: 14px;
+  --comment-line-height:10px;
 
   /* padding and spacing */
   --menu-page-padding: 50px;
@@ -86,6 +90,13 @@ p, label {
   font-weight: 300;
   font-size: var(--p-font-size);
   line-height: var(--p-line-height);
+}
+
+.comment {
+  font-weight: 300;
+  font-size: var(--comment-font-size);
+  line-height: var(--comment-line-height);
+  color: var(--primary-gray);
 }
 
 b {
