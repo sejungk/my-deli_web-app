@@ -17,6 +17,31 @@ const CartItem = ({ item, editItemData }) => {
     removeFromCart(item.itemId);
     setIsPickupModalVisible(false);
   };
+  const renderSelectedOptions = () => {
+    const selectedOptionsArray = [];
+
+    // Iterate through each option group
+    for (const optionGroupName in item.selectedOptions) {
+      const optionGroup = item.selectedOptions[optionGroupName];
+
+      // Check if the option group is an object (indicating multiple selections)
+      if (typeof optionGroup === 'object') {
+        for (const optionId in optionGroup) {
+          const option = optionGroup[optionId];
+          selectedOptionsArray.push(option.name);
+        }
+      } else {
+        // Single selection
+        selectedOptionsArray.push(optionGroup.name);
+      }
+    }
+
+    return selectedOptionsArray.map((option, index) => (
+      <div className={styles.optionGroupWrapper} key={index}>
+        <span>{option}</span>
+      </div>
+    ));
+  };
 
   return (
     <div className={styles.container}>
@@ -26,11 +51,13 @@ const CartItem = ({ item, editItemData }) => {
         <span className={styles.itemPrice}>${item.base_price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
-        {item.selectedOptions && Object.values(item.selectedOptions).map((option, index) => (
+        {console.log(item.selectedOptions)}
+        {renderSelectedOptions()}
+        {/* {item.selectedOptions && Object.values(item.selectedOptions).map((option, index) => (
           <div className={styles.optionGroupWrapper} key={index}>
             <span>{option.name}</span>
           </div>
-        ))}
+        ))} */}
       </div>
       <div className={styles.editRemoveOptions}>
         <a onClick={handleEditClick}>Edit</a>
