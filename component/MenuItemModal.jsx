@@ -14,6 +14,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const { addToCart, editCartItem } = useContext(CartContext);
   const [allRequiredOptionsSelected, setAllRequiredOptionsSelected] = useState(true);
   const [selectedOptionsPrice, setSelectedOptionsPrice] = useState(0);
+  const [selectionCounts, setSelectionCounts] = useState(0);
 
   useEffect(() => {
     axios
@@ -70,12 +71,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     }
   }, [quantity, menuItemData]);
 
-  // console selectedMenuItem
-  // useEffect(() => {
-  //   if (selectedMenuItem && selectedMenuItem.selectedOptions) {
-  //     console.log(selectedMenuItem.selectedOptions);
-  //   }
-  // }, [selectedMenuItem]);
 
   useEffect(() => {
     const allRequiredSelected = areAllRequiredOptionsSelected();
@@ -98,7 +93,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
       const updatedOptions = { ...prevItem.selectedOptions };
-      console.log(optionGroup)
+      // console.log(optionGroup)
       if (optionGroup.allow_multiple) {
         if (!updatedOptions[optionGroup.name]) updatedOptions[optionGroup.name] = {};
         if (updatedOptions[optionGroup.name][option.id]) delete updatedOptions[optionGroup.name][option.id];
@@ -142,7 +137,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
 
               // Check if the option has reached its free_option_limit
               if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
-                // Increment the limit tracker
                 optionLimits[optionGroup]++;
               } else {
                 totalPrice += parseFloat(option.additional_price);
@@ -160,31 +154,8 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
         }
       }
     }
-
     return totalPrice;
   };
-
-
-  // const calculateSelectedOptionsPrice = (selectedOptions) => {
-  //   let totalPrice = 0;
-  //   for (const optionGroup in selectedOptions) {
-  //     if (typeof selectedOptions[optionGroup] === 'object') {
-  //       for (const optionId in selectedOptions[optionGroup]) {
-  //         const option = selectedOptions[optionGroup][optionId];
-  //         if (option.additional_price) {
-  //           totalPrice += parseFloat(option.additional_price);
-  //         }
-  //       }
-  //     } else {
-  //       const option = selectedOptions[optionGroup];
-  //       if (option && option.additional_price) {
-  //         totalPrice += parseFloat(option.additional_price);
-  //       }
-  //     }
-  //   }
-  //   // console.log("Total Price: ",totalPrice)
-  //   return totalPrice;
-  // };
 
   const handleSaveEdit = (selectedItem) => {
     editCartItem(selectedItem, itemId);
@@ -238,6 +209,8 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
                     }
                     handleOptionChange={(optionGroup, optionName) => handleOptionChange(optionGroup, optionName)}
                     operationType={operationType}
+                    selectionCounts={selectionCounts}
+                    setSelectionCounts={setSelectionCounts}
                   />
                 </React.Fragment>
               ))}
