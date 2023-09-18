@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
-const ModalOptionGroup = ({ optionGroup, handleOptionChange, selectionCounts, setSelectionCounts }) => {
+const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType, selectionCounts, setSelectionCounts }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const nextIsFree = optionGroup.free_option_limit !== null && (selectionCounts[optionGroup.name] === undefined || selectionCounts[optionGroup.name] < optionGroup.free_option_limit);
   const freeItemsCount = optionGroup.free_option_limit || 0;
   const itemsWithZeroPrice = selectedOptions.slice(0, freeItemsCount);
 
-  useEffect(() => {
-    if (selectionCounts[optionGroup.name]) {
-      console.log(`Selection count: ${selectionCounts[optionGroup.name]}`);
-      console.log(optionGroup.free_option_limit, selectionCounts[optionGroup.name])
-      console.log(nextIsFree)
-    }
-  }, [selectionCounts, optionGroup]);
-
-  // Function to handle option selection
   const handleOptionSelection = (option, group_name) => {
+    console.log(selectedOptions)
     const isSelected = selectedOptions.some((selected) => selected.id === option.id);
 
     if (isSelected) {
@@ -64,15 +56,19 @@ const ModalOptionGroup = ({ optionGroup, handleOptionChange, selectionCounts, se
           return (
             <div className={styles.listOption} key={option.id}>
               <label className={styles.label}>
+                {selectedOption[option.id] ? console.log(selectedOption, selectedOption[option.id].id, option.id): ""}
                 <input
                   className={styles.option}
                   type={optionGroup.allow_multiple ? "checkbox" : "radio"}
                   value={option.name}
                   name={optionGroup.name}
+                  {...(operationType === "edit" &&
+                  selectedOption[option.id] &&
+                  selectedOption[option.id].id === option.id && { checked: true })}
                   onChange={() => {
                     handleOptionSelection(option, optionGroup.name);
                   }}
-                  checked={isSelected}
+                  // checked={isSelected}
                 />
                 <span>{option.name}</span>
               </label>

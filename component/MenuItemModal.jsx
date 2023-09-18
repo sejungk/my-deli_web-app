@@ -45,11 +45,11 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
 
         // Map the keys in selectedOptions to match the option group names
         Object.keys(selectedOptions).forEach((optionGroupKey) => {
-          // Find the option group by its key
           const optionGroup = menuItemData.option_groups.find(
             (group) => group.name === optionGroupKey
           );
           if (optionGroup) {
+            // console.log(selectedOptions, optionGroupKey, updatedSelectedOptions)
             updatedSelectedOptions[optionGroup.name] = selectedOptions[optionGroupKey];
           }
         });
@@ -76,6 +76,13 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     const allRequiredSelected = areAllRequiredOptionsSelected();
     setAllRequiredOptionsSelected(allRequiredSelected);
   }, [selectedMenuItem])
+
+  // console selectedMenuItem
+  useEffect(() => {
+    if (selectedMenuItem && selectedMenuItem.selectedOptions) {
+      // console.log(selectedMenuItem.selectedOptions);
+    }
+  }, [selectedMenuItem]);
 
   const areAllRequiredOptionsSelected = () => {
     if (!menuItemData || !menuItemData.option_groups) return false;
@@ -190,16 +197,15 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
           </div>
         </div>
 
-        <hr />
-
         {/* name and description - end */}
         <div className={styles.scrollableContent}>
           <div className={styles.optionSection}>
             {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
               menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
+                  <hr />
                   {index > 0 && <hr className={styles.sectionDivider} />}
-                  {/* {console.log(optionGroup)} */}
+
                   <ModalOptionGroup
                     optionGroup={optionGroup}
                     selectedOption={
