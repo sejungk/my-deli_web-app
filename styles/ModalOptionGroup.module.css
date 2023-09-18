@@ -34,3 +34,8 @@
   padding: 3px 5px;
 }
 
+.requiredNotCompletedLabel {
+  border: 1px solid var(--primary-red);
+  color: var(--primary-red);
+}
+
