@@ -56,7 +56,6 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
           return (
             <div className={styles.listOption} key={option.id}>
               <label className={styles.label}>
-                {selectedOption[option.id] ? console.log(selectedOption, selectedOption[option.id].id, option.id): ""}
                 <input
                   className={styles.option}
                   type={optionGroup.allow_multiple ? "checkbox" : "radio"}
