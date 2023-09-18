@@ -16,6 +16,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const [selectedOptionsPrice, setSelectedOptionsPrice] = useState(0);
   const [selectionCounts, setSelectionCounts] = useState(0);
   const [scrollToSection, setScrollToSection] = useState(null);
+  const [addToOrderClicked, setAddToOrderClicked] = useState(false);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -104,14 +105,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
       setScrollToSection(null);
     }
   }, [scrollToSection]);
-  // useEffect(() => {
-  //   if (scrollToSection) {
-  //     const sectionRef = scrollRef.current.querySelector();
-  //     scrollTo(sectionRef);
-  //     setScrollToSection(null);
-  //   }
-  // }, [scrollToSection]);
-
 
   if (!menuItemData) return null;
 
@@ -209,6 +202,8 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
 
   // Handle clicking the "Add to Cart" button
   const handleAddToCart = () => {
+    setAddToOrderClicked(true);
+
     if (operationType === "add") {
       if (allRequiredOptionsSelected) {
         addToCart(selectedMenuItem);
@@ -232,7 +227,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
       }
     }
   }
-
 
   return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>
@@ -271,6 +265,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
                       operationType={operationType}
                       selectionCounts={selectionCounts}
                       setSelectionCounts={setSelectionCounts}
+                      addToOrderClicked={addToOrderClicked}
                     />
                   </div>
                 </React.Fragment>

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
-const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType, selectionCounts, setSelectionCounts }) => {
+const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType, selectionCounts, setSelectionCounts, addToOrderClicked }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const nextIsFree = optionGroup.free_option_limit !== null && (selectionCounts[optionGroup.name] === undefined || selectionCounts[optionGroup.name] < optionGroup.free_option_limit);
   const freeItemsCount = optionGroup.free_option_limit || 0;
   const itemsWithZeroPrice = selectedOptions.slice(0, freeItemsCount);
 
   const handleOptionSelection = (option, group_name) => {
-    console.log(selectedOptions)
     const isSelected = selectedOptions.some((selected) => selected.id === option.id);
 
     if (isSelected) {
@@ -33,11 +32,14 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
     handleOptionChange(optionGroup, option);
   };
 
+  // Check if the section is required and not completed
+  const isRequiredNotCompleted = optionGroup.required && !selectedOptions.length && addToOrderClicked;
+
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isRequiredNotCompleted ? styles.requiredNotCompleted : ""}`}>
       <div className={styles.optionDesc}>
         <h5>{optionGroup.display_text}</h5>
-        <div className={styles.requiredOptionalLabel}>
+        <div className={`${styles.requiredOptionalLabel} ${isRequiredNotCompleted ? styles.requiredNotCompletedLabel : ""}`}>
           {optionGroup.required ? "REQUIRED" : "OPTIONAL"}
         </div>
       </div>
