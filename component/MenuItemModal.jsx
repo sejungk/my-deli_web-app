@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "../styles/MenuItemModal.module.css";
 import ModalOptionGroup from "./ModalOptionGroup";
 import { CartContext } from '../app/CartContext';
@@ -15,6 +15,8 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const [allRequiredOptionsSelected, setAllRequiredOptionsSelected] = useState(true);
   const [selectedOptionsPrice, setSelectedOptionsPrice] = useState(0);
   const [selectionCounts, setSelectionCounts] = useState(0);
+  const [scrollToSection, setScrollToSection] = useState(null);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -93,6 +95,23 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     }
     return true;
   };
+
+  // auto scroll
+  useEffect(() => {
+    if (scrollToSection) {
+      const sectionRef = scrollRef.current.querySelector(`[data-section="${scrollToSection}"]`);
+      scrollTo(sectionRef);
+      setScrollToSection(null);
+    }
+  }, [scrollToSection]);
+  // useEffect(() => {
+  //   if (scrollToSection) {
+  //     const sectionRef = scrollRef.current.querySelector();
+  //     scrollTo(sectionRef);
+  //     setScrollToSection(null);
+  //   }
+  // }, [scrollToSection]);
+
 
   if (!menuItemData) return null;
 
@@ -180,7 +199,41 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const decreaseQuantity = () => quantity > 1 && setQuantity(quantity - 1);
   const increaseQuantity = () => setQuantity(quantity + 1);
 
-  if (isLoading) return <div>Loading...</div>;
+
+  // Function to scroll to a section
+  const scrollTo = (sectionRef) => {
+    if (sectionRef) {
+      sectionRef.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  // Handle clicking the "Add to Cart" button
+  const handleAddToCart = () => {
+    if (operationType === "add") {
+      if (allRequiredOptionsSelected) {
+        addToCart(selectedMenuItem);
+        closeModal();
+      } else {
+        const unselectedSection = menuItemData.option_groups.find((optionGroup) => {
+          return optionGroup.required && !selectedMenuItem.selectedOptions[optionGroup.name];
+        });
+
+        if (unselectedSection) {
+          console.log("Scrolling to section:", unselectedSection.name);
+          setScrollToSection(unselectedSection.name);
+        }
+      }
+    } else if (operationType === "edit") {
+      if (allRequiredOptionsSelected) {
+        handleSaveEdit(selectedMenuItem);
+        closeModal();
+      } else {
+        alert("Please select all required options.");
+      }
+    }
+  }
+
+
   return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>
       <div className={styles.modalContainer}>
@@ -198,7 +251,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
         </div>
 
         {/* name and description - end */}
-        <div className={styles.scrollableContent}>
+        <div className={styles.scrollableContent} ref={scrollRef}>
           <div className={styles.optionSection}>
             {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
               menuItemData.option_groups.map((optionGroup, index) => (
@@ -206,18 +259,20 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
                   <hr />
                   {index > 0 && <hr className={styles.sectionDivider} />}
 
-                  <ModalOptionGroup
-                    optionGroup={optionGroup}
-                    selectedOption={
-                      operationType === "edit" && selectedMenuItem.selectedOptions.hasOwnProperty(optionGroup.name)
-                        ? selectedMenuItem.selectedOptions[optionGroup.name]
-                        : ""
-                    }
-                    handleOptionChange={(optionGroup, optionName) => handleOptionChange(optionGroup, optionName)}
-                    operationType={operationType}
-                    selectionCounts={selectionCounts}
-                    setSelectionCounts={setSelectionCounts}
-                  />
+                  <div data-section={optionGroup.name}>
+                    <ModalOptionGroup
+                      optionGroup={optionGroup}
+                      selectedOption={
+                        operationType === "edit" && selectedMenuItem.selectedOptions.hasOwnProperty(optionGroup.name)
+                          ? selectedMenuItem.selectedOptions[optionGroup.name]
+                          : ""
+                      }
+                      handleOptionChange={(optionGroup, optionName) => handleOptionChange(optionGroup, optionName)}
+                      operationType={operationType}
+                      selectionCounts={selectionCounts}
+                      setSelectionCounts={setSelectionCounts}
+                    />
+                  </div>
                 </React.Fragment>
               ))}
           </div>
@@ -233,23 +288,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
           </div>
           <div
             className={`bttn bttn_red ${styles.addToOrderBttn}`}
-            onClick={() => {
-              if (operationType === "add") {
-                if (allRequiredOptionsSelected) {
-                  addToCart(selectedMenuItem);
-                  closeModal();
-                } else {
-                  alert("Please select all required options.");
-                }
-              } else if (operationType === "edit") {
-                if (allRequiredOptionsSelected) {
-                  handleSaveEdit(selectedMenuItem);
-                  closeModal();
-                } else {
-                  alert("Please select all required options.");
-                }
-              }
-            }}
+            onClick={handleAddToCart}
             >
             {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}
             <span>|</span>
