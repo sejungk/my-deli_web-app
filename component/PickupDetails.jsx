@@ -22,7 +22,7 @@ const PickupDetails = () => {
           <div className={styles.infoWrapper}>
             <h5>My Deli</h5>
             <p>521 Broadway St, Quantico, VA 22134</p>
-            <a href="https://goo.gl/maps/39p3eL8vpdob73EC6">Get Directions</a>
+            <a href="https://goo.gl/maps/39p3eL8vpdob73EC6" target="_blank">Get Directions</a>
           </div>
         </div>
         <hr></hr>

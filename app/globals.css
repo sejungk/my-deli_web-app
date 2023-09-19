@@ -130,7 +130,7 @@ a {
   width: 250px;
   border-radius: 50px;
   margin: auto 0;
-  padding: 12px 20px;
+  padding: 12px;
   cursor: pointer;
 }
 
@@ -160,13 +160,29 @@ a {
   transition-duration: .5s;
 }
 
-.bttn_red:hover {
+.bttn_red:not(.bttn_disabled):hover {
   background-color: var(--primary-dark-red);
 }
 
 .red-button > span {
   font-size: 14px;
   font-weight: 300;
+}
+
+.bttn_full-width {
+  width: 100%;
+}
+
+.bttn span {
+  cursor: pointer;
+}
+
+.bttn_disabled {
+  cursor: auto;
+}
+
+.bttn_disabled span {
+  cursor: default;
 }
 
 /* radio styling */
