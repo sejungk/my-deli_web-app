@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const PickupDetails = () => {
   const { selectedPickupDateTime, dateOptions } = useContext(CartContext);
-  console.log(selectedPickupDateTime, dateOptions);
+  // console.log(selectedPickupDateTime, dateOptions);
   return (
     <div className="checkout-card-container">
       <div className="checkout-card-header">

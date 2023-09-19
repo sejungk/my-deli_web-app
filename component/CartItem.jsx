@@ -51,7 +51,7 @@ const CartItem = ({ item, editItemData }) => {
         <span className={styles.itemPrice}>${item.base_price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
-        {console.log(item.selectedOptions)}
+        {/* {console.log(item.selectedOptions)} */}
         {renderSelectedOptions()}
       </div>
       <div className={styles.editRemoveOptions}>

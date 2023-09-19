@@ -24,7 +24,7 @@ const Cart = () => {
       setIsPickupTimeValid(selectedTime >= currentTime);
     }, 60000); // Check every minute
 
-    console.log(selectedPickupDateTime)
+    // console.log(selectedPickupDateTime)
     return () => clearInterval(interval);
   }, [selectedPickupDateTime]);
 
