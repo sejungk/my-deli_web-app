@@ -7,6 +7,7 @@ import Image from "next/image";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import PickupDateModal from "./PickupDateModal";
+import EmptyCart from './EmptyCart';
 
 const Cart = () => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
@@ -23,6 +24,7 @@ const Cart = () => {
       setIsPickupTimeValid(selectedTime >= currentTime);
     }, 60000); // Check every minute
 
+    console.log(selectedPickupDateTime)
     return () => clearInterval(interval);
   }, [selectedPickupDateTime]);
 
@@ -85,7 +87,7 @@ const Cart = () => {
           </div>
           <p>521 Broadway St, Quantico</p>
         </div>
-        <div className="bttn bttn_outline bttn_center" onClick={toggleModal}>
+        <div className="bttn bttn_outline bttn_center bttn_full-width" onClick={toggleModal}>
           {selectedPickupDateTime ? (
             <span>{`${selectedPickupDateTime.date} ${selectedPickupDateTime.time}`}</span>
           ) : (
@@ -120,19 +122,38 @@ const Cart = () => {
 
       <hr />
 
+      {cartItems.length === 0 ? (
+        <>
+          <EmptyCart />
+          <hr />
+        </>
+      ) : null}
+
       <div className={styles.subtotalSection}>
         <div className={styles.subtotalInfo}>
           <h5>Subtotal</h5>
           <h5>${(subtotal ?? 0).toFixed(2)}</h5>
         </div>
-        <Link href="/checkout" className="text-decoration-none">
-          <div className="bttn bttn_red bttn_center" onClick={handleCheckout}>
+        {cartItems.length === 0 ? (
+          <div className={`bttn bttn_red bttn_center bttn_disabled`}>
+            <span>Checkout</span>
+          </div>
+        ) : (
+          <Link href="/checkout" className="text-decoration-none">
+            <div className={`bttn bttn_red bttn_center`} onClick={handleCheckout}>
+              <span>Checkout</span>
+            </div>
+          </Link>
+        )}
+        {/* <Link href="/checkout" className="text-decoration-none">
+          <div className={`bttn bttn_red bttn_center ${cartItems.length === 0 ? 'bttn_disabled' : ''}`} onClick={handleCheckout} disabled={cartItems.length === 0}>
               <span>Checkout</span>
           </div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
 };
 
 export default Cart;
+
