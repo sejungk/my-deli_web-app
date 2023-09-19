@@ -21,7 +21,7 @@ const OrderSummary = ({ customerInfo }) => {
     { label: '20%', percentage: 20 }
   ];
   const calculateSubtotal = () => {
-    console.log(cartItems)
+    // console.log(cartItems)
     return cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
   };
 
@@ -36,7 +36,7 @@ const OrderSummary = ({ customerInfo }) => {
    const subtotal = calculateSubtotal();
    const tipAmount = (subtotal * (tipPercentage / 100)) || 0;
    const total = subtotal + tipAmount;
-   console.log(total, tipAmount, subtotal)
+  //  console.log(total, tipAmount, subtotal)
 
   // Function to handle placing the order
   const handlePlaceOrder = async () => {

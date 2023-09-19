@@ -18,6 +18,7 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "express": "^4.18.2",
@@ -28,7 +29,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-scroll": "^1.8.9",
+    "stripe": "^13.6.0",
     "tailwindcss": "3.3.2",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
