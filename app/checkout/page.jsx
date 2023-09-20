@@ -18,10 +18,22 @@ const CheckoutPage = () => {
     if (button) {
       button.addEventListener("click", async () => {
         try {
-          const session = await createCheckoutSession([
-            { id: 1, quantity: 3 },
-            { id: 2, quantity: 1 },
-          ]);
+          // Format the cartItems prices to cents and structure the data correctly
+          const lineItems = cartItems.map((item) => ({
+            product_id: item.id,
+            name: item.name,
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: item.name,
+              },
+              unit_amount: Math.round(item.base_price * 100), // Convert to cents
+            },
+            quantity: item.quantity,
+          }));
+
+          console.log(lineItems)
+          const session = await createCheckoutSession({ items: lineItems });
           window.location = session.url;
         } catch (error) {
           console.error(error);
@@ -30,34 +42,25 @@ const CheckoutPage = () => {
     }
   }, []);
 
+
   // useEffect(() => {
   //   const button = document.querySelector("#checkout_stripe");
   //   if (button) {
-  //     button.addEventListener("click", () => {
-  //       fetch('http://localhost:5000/create-checkout-session', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({
-  //           items: [
-  //             { id: 1, quantity: 3 },
-  //             { id: 2, quantity: 1 }
-  //           ]
-  //         })
-  //       }).then(res => {
-  //         if (res.ok) return res.json();
-  //         return res.json().then(json => Promise.reject(json));
-  //       }).then(({ url }) => {
-  //         window.location = url;
-  //       }).catch(e => {
-  //         console.error(e.error);
-  //       });
+  //     button.addEventListener("click", async () => {
+  //       try {
+  //         const session = await createCheckoutSession([
+  //           { id: 1, quantity: 3 },
+  //           { id: 2, quantity: 1 },
+  //         ]);
+  //         window.location = session.url;
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
   //     });
   //   }
   // }, []);
 
-  // console.log(cartItems)
+  console.log(cartItems)
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
