@@ -100,37 +100,6 @@ export const CartProvider = ({ children }) => {
     return options;
   };
 
-  // Function to generate an array of time options in 15-minute intervals
-  // const generateTimeOptions = () => {
-  //   const options = [];
-  //   const currentTime = new Date();
-  //   const startTime = new Date(currentTime);
-  //   startTime.setHours(6, 0, 0);
-
-  //   const endTime = new Date(currentTime);
-  //   endTime.setHours(14, 30, 0); // Restaurant open hours until 2:30 PM
-
-  //   const interval = 15 * 60 * 1000; // 15 minutes in milliseconds
-
-  //   // Start from the greater of startTime and currentTime
-  //   let nextAvailableTime = new Date(Math.max(startTime, currentTime));
-  //   if (currentTime.getTime() > time220.getTime()) nextAvailableTime = startTime;
-
-  //   while (nextAvailableTime <= endTime) {
-  //     const hours = nextAvailableTime.getHours();
-  //     const minutes = nextAvailableTime.getMinutes();
-
-  //     if (currentTime.getTime() > time220.getTime() || timeDifference >= 15) {
-  //       const timeString = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${
-  //         hours >= 12 ? 'PM' : 'AM'
-  //       }`;
-  //       options.push(timeString);
-  //     }
-  //     nextAvailableTime = new Date(nextAvailableTime.getTime() + interval);
-  //   }
-  //   return options;
-  // };
-
   const generateTimeOptions = () => {
     const options = [];
     const currentTime = new Date();

@@ -5,15 +5,14 @@ const { Pool } = require("pg");
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 app.use(express.json());
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
-const storeItems = new Map([
-  [1, { priceInCents: 1000, name: 'Cheeseburger' }],
-  [2, { priceInCents: 2000, name: 'Steak and Cheese' }]
-])
+
 // Create a pool to manage database connections
 const pool = new Pool({
   user: "sejungkim",
@@ -25,30 +24,67 @@ const pool = new Pool({
 
 app.post('/create-checkout-session', async (req, res) => {
   try {
+    const { items } = req.body;
+    console.log(items);
+
+    if (!Array.isArray(items.items)) {
+      throw new Error('Items should be an array.');
+    }
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      line_items: req.body.items.map(item => {
-        const storeItem = storeItems.get(item.id)
-        return {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: storeItem.name
-            },
-            unit_amount: storeItem.priceInCents
+      line_items: items.items.map((item) => ({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
           },
-          quantity: item.quantity
-        }
-      }),
-      success_url: `${process.env.SERVER_URL}/order-confirmation`,
-      cancel_url: `${process.env.SERVER_URL}/cancel.html`
-    })
-    res.json({ url: session.url })
+          unit_amount: item.price_data.unit_amount,
+        },
+        quantity: item.quantity,
+      })),
+      success_url: `${process.env.CLIENT_URL}/order-confirmation`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
+    });
+
+    res.json({ url: session.url });
   } catch (e) {
-    res.status(500).json({ error: e.message })
+    res.status(500).json({ error: e.message });
   }
-})
+});
+
+// const storeItems = new Map([
+//   [1, { priceInCents: 1000, name: 'Cheeseburger' }],
+//   [2, { priceInCents: 2000, name: 'Steak and Cheese' }]
+// ])
+
+// app.post('/create-checkout-session', async (req, res) => {
+//   try {
+//     const session = await stripe.checkout.sessions.create({
+//       payment_method_types: ['card'],
+//       mode: 'payment',
+//       line_items: req.body.items.map(item => {
+//         const storeItem = storeItems.get(item.id)
+      //   return {
+      //     price_data: {
+      //       currency: 'usd',
+      //       product_data: {
+      //         name: storeItem.name
+      //       },
+      //       unit_amount: storeItem.priceInCents
+      //     },
+      //     quantity: item.quantity
+      //   }
+      // }),
+//       success_url: `${process.env.CLIENT_URL}/order-confirmation`,
+//       cancel_url: `${process.env.CLIENT_URL}/cancel.html`
+//     })
+//     res.json({ url: session.url })
+//   } catch (e) {
+//     res.status(500).json({ error: e.message })
+//   }
+// })
 
 // Endpoint to create an order
 app.post('/api/orders', async (req, res) => {
