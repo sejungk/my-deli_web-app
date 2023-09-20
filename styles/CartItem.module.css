@@ -8,11 +8,11 @@
 }
 
 .itemQuantity {
-  flex-basis: 15%;
+  flex-basis: 10%;
 }
 
 .itemName {
-  flex-basis: 70%;
+  flex-basis: 75%;
 }
 
 .itemPrice {
@@ -27,6 +27,7 @@
 
 .optionGroup {
   margin: 8px 0 10px;
+  margin-left: 10%;
 }
 
 .optionGroup .optionGroupWrapper {

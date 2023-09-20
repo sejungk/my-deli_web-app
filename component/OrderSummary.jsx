@@ -130,8 +130,9 @@ const OrderSummary = ({ customerInfo }) => {
             <p><b>${(total ?? 0).toFixed(2)}</b></p>
           </div>
         </div>
+
         <Link href="/order-confirmation" className="text-decoration-none">
-          <div className="bttn bttn_red bttn_center"
+          <div className="bttn bttn_red bttn_center bttn_auto-width"
             onClick={handlePlaceOrder}>
               <span>Checkout</span>
           </div>

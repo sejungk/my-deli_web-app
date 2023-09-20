@@ -14,7 +14,7 @@ const PickupDetails = () => {
 
       <hr></hr>
 
-      <div className={styles.pickupSection}>
+      <div className="checkout-card_content">
         <div className={styles.infoSection}>
           <div className={styles.logoWrapper}>
             <Image className={styles.logo} src="/img/store-icon.svg" layout="fill" alt="restaurant icon"/>

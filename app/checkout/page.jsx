@@ -3,7 +3,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import styles from "../../styles/Checkout.module.css"
 import PickupDetails from '../../component/PickupDetails';
 import CustomerInfo from '../../component/CustomerInfo';
-import Payment from '../../component/Payment';
 import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
@@ -42,24 +41,6 @@ const CheckoutPage = () => {
     }
   }, []);
 
-
-  // useEffect(() => {
-  //   const button = document.querySelector("#checkout_stripe");
-  //   if (button) {
-  //     button.addEventListener("click", async () => {
-  //       try {
-  //         const session = await createCheckoutSession([
-  //           { id: 1, quantity: 3 },
-  //           { id: 2, quantity: 1 },
-  //         ]);
-  //         window.location = session.url;
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
-  //     });
-  //   }
-  // }, []);
-
   console.log(cartItems)
   return (
     <div className={styles.container}>
@@ -73,7 +54,7 @@ const CheckoutPage = () => {
             setCustomerInfo((prevInfo) => ({ ...prevInfo, ...info }));
           }}
         />
-        <Payment />
+
       </div>
       <div className={styles.rightSection}>
         <div className={styles.bttnWrapper}>

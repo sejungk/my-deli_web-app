@@ -240,9 +240,14 @@ input[type="checkbox"]:checked + *::before  {
 
 /* checkout cards */
 .checkout-card-container {
+  max-width: 500px;
   padding: 0;
   border: var(--light-blue-border);
   border-radius: 15px;
+}
+
+.checkout-card_content {
+  padding: 0 30px;
 }
 
 .checkout-card-header {
