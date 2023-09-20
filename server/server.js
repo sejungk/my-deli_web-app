@@ -4,28 +4,25 @@ const cors = require("cors");
 const { Pool } = require("pg");
 const app = express();
 const port = process.env.PORT || 5000;
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 app.use(cors({
   origin: 'http://localhost:3000'
 }));
 app.use(express.json());
 
-const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
-
-
 // Create a pool to manage database connections
 const pool = new Pool({
-  user: "sejungkim",
-  host: "localhost",
-  database: "mydeli",
-  password: "691220",
-  port: 5432, // Default PostgreSQL port
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 app.post('/create-checkout-session', async (req, res) => {
   try {
     const { items } = req.body;
-    console.log(items);
 
     if (!Array.isArray(items.items)) {
       throw new Error('Items should be an array.');
@@ -53,38 +50,6 @@ app.post('/create-checkout-session', async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
-// const storeItems = new Map([
-//   [1, { priceInCents: 1000, name: 'Cheeseburger' }],
-//   [2, { priceInCents: 2000, name: 'Steak and Cheese' }]
-// ])
-
-// app.post('/create-checkout-session', async (req, res) => {
-//   try {
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ['card'],
-//       mode: 'payment',
-//       line_items: req.body.items.map(item => {
-//         const storeItem = storeItems.get(item.id)
-      //   return {
-      //     price_data: {
-      //       currency: 'usd',
-      //       product_data: {
-      //         name: storeItem.name
-      //       },
-      //       unit_amount: storeItem.priceInCents
-      //     },
-      //     quantity: item.quantity
-      //   }
-      // }),
-//       success_url: `${process.env.CLIENT_URL}/order-confirmation`,
-//       cancel_url: `${process.env.CLIENT_URL}/cancel.html`
-//     })
-//     res.json({ url: session.url })
-//   } catch (e) {
-//     res.status(500).json({ error: e.message })
-//   }
-// })
 
 // Endpoint to create an order
 app.post('/api/orders', async (req, res) => {
