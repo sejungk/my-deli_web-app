@@ -1,17 +1,26 @@
-import RootLayout from './RootLayout';
-import Footer from '../component/Footer';
+import './globals.css';
+import { Inter } from 'next/font/google';
+import { CartProvider } from './CartContext';
+import CheckoutPage from './checkout/page'
 import Navbar from '../component/Navbar';
-import MenuItems from '../component/MenuItems';
-import Cart from '../component/Cart';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Layout({children}) {
   return (
-    <RootLayout>
-      <Navbar />
-      {children}
-      <Footer />
-    </RootLayout>
+    <html lang="en">
+      <head>
+        <title>My Deli</title>
+      </head>
+
+      <body className={inter.className}>
+        <CartProvider>
+          {children}
+        </CartProvider>
+      </body>
+    </html>
   )
-}
+};
+
 
 

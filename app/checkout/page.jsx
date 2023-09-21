@@ -6,6 +6,7 @@ import CustomerInfo from '../../component/CustomerInfo';
 import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
+import CheckoutLayout from './layout';
 
 const CheckoutPage = () => {
   const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
