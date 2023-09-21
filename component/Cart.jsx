@@ -12,7 +12,7 @@ import EmptyCart from './EmptyCart';
 
 const Cart = ({ onToggleCart }) => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
-  const [isPickupTimeValid, setIsPickupTimeValid] = useState(true); // State to track time validity
+  const [isPickupTimeValid, setIsPickupTimeValid] = useState(true);
   const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, dateOptions, timeOptions } = useContext(CartContext);
 
   // Real-time time validation effect
@@ -64,18 +64,19 @@ const Cart = ({ onToggleCart }) => {
   };
 
   // Function to handle saving the edited item
-  const handleSaveEdit = (updatedItemData) => {
-    // Find the item in cartItems based on some unique identifier, e.g., cartItemId
-    const updatedCartItems = cartItems.map((item) => {
-      if (item.cartItemId === updatedItemData.cartItemId) {
-        return updatedItemData;
-      }
-      return item;
-    });
-    // Close the modal
-    closeModal();
-  };
+  // const handleSaveEdit = (updatedItemData) => {
+  //   // Find the item in cartItems based on some unique identifier, e.g., cartItemId
+  //   const updatedCartItems = cartItems.map((item) => {
+  //     if (item.cartItemId === updatedItemData.cartItemId) {
+  //       return updatedItemData;
+  //     }
+  //     return item;
+  //   });
+  //   // Close the modal
+  //   closeModal();
+  // };
 
+console.log(cartItems)
   let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
 
   return (
@@ -111,28 +112,24 @@ const Cart = ({ onToggleCart }) => {
 
       <div className={styles.cartItemSection}>
         <div className={styles.addedItemSection}>
-          {cartItems.map((item, index) => (
-            <React.Fragment key={index}>
-              <CartItem
-                key={item.cartItemId}
-                item={item}
-                editItemData={editItemData}
-                onEditItem={handleEditItem}
-                onRemove={handleRemoveItem}
-              />
-              {index < cartItems.length - 1 && <hr />}
-            </React.Fragment>
-          ))}
-        </div>
-
-        <hr />
-
-        {cartItems.length === 0 ? (
-          <div>
+          {cartItems.length > 0 ? (
+            cartItems.map((item, index) => (
+              <React.Fragment key={index}>
+                <CartItem
+                  key={item.cartItemId}
+                  item={item}
+                  editItemData={editItemData}
+                  onEditItem={handleEditItem}
+                  onRemove={handleRemoveItem}
+                />
+                {index < cartItems.length - 1 && <hr />}
+              </React.Fragment>
+            ))
+          ) : (
             <EmptyCart />
-            <hr className="tablet_hidden"/>
-          </div>
-        ) : null}
+          )}
+        </div>
+        <hr />
       </div>
 
       <div className={styles.subtotalSection}>

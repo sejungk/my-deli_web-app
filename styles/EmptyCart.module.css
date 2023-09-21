@@ -1,9 +1,9 @@
 .container {
   width: 100%;
-  padding: 50px 0;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Horizontal centering */
+  justify-content: center;
   align-items: center;
   gap: 10px;
 }

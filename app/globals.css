@@ -128,11 +128,15 @@ a {
 .bttn {
   display: flex;
   justify-content: space-around;
-  width: 250px;
+  width: 100%;
   border-radius: 50px;
   margin: auto 0;
   padding: 12px;
   cursor: pointer;
+}
+
+.bttn_small {
+  width: 300px;
 }
 
 .bttn_auto-width {

@@ -17,6 +17,7 @@ const CartItem = ({ item, editItemData }) => {
     removeFromCart(item.itemId);
     setIsPickupModalVisible(false);
   };
+
   const renderSelectedOptions = () => {
     const selectedOptionsArray = [];
 
@@ -51,7 +52,6 @@ const CartItem = ({ item, editItemData }) => {
         <span className={styles.itemPrice}>${item.base_price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
-        {/* {console.log(item.selectedOptions)} */}
         {renderSelectedOptions()}
       </div>
       <div className={styles.editRemoveOptions}>
@@ -65,6 +65,7 @@ const CartItem = ({ item, editItemData }) => {
           closeModal={closeModal}
           operationType="edit"
           selectedOptions={item.selectedOptions}
+          selectedQuantity={item.quantity}
         />
       )}
       {/* Render the modal if it's visible */}

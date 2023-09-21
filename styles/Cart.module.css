@@ -45,7 +45,7 @@
 .addedItemSection {
   padding: 0 20px;
   overflow: scroll;
-  max-height: var(--modal-items-height);
+  height: 100%;
 }
 /* middle section - end */
 
@@ -89,21 +89,29 @@
     transform: none;
   }
 
-  .pickupDetailSection, .subtotalSection {
+  .pickupDetailSection, .subtotalSection, .addedItemSection  {
     padding: 5%;
   }
 
   .cartItemSection {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertically center items */
+    justify-content: center;
     align-items: center;
     height: 46%;
     border-bottom: 1.5px solid var(--primary-lightest-blue);
   }
 
+  .addedItemSection {
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    width: 100%;
+    gap: 10px;
+  }
+
   .checkoutButton {
-    width: calc(100% - 60px);
+    width: calc(100% - 60px) !important;
     position: absolute;
     bottom: 8%;
   }

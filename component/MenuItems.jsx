@@ -87,9 +87,13 @@ const MenuItems = ({ onToggleCart }) => {
         </div>
       ))}
 
-      <div className={`${styles.viewOrderButton} bttn bttn_red bttn_center`} onClick={onToggleCart}>
-        <span>View order</span>
-      </div>
+      {Object.keys(cartItems).length > 0 && (
+        <div className={`${styles.viewOrderButton} bttn bttn_red`} onClick={onToggleCart}>
+          <span>View order</span>
+        </div>
+      )}
+
+
 
       {isModalOpen && (
         <MenuItemModal

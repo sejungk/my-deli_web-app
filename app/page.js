@@ -9,11 +9,6 @@ import Navbar from '../component/Navbar'
 const Home = () => {
   const [isCartVisible, setIsCartVisible] = useState(window.innerWidth > 750);
 
-   // Function to toggle the cart's visibility
-  //  const toggleCartVisibility = () => {
-  //   setIsCartVisible(!isCartVisible);
-  // };
-
   const toggleCartVisibility = () => {
     if (window.innerWidth <= 750) {
       setIsCartVisible(!isCartVisible);
@@ -34,7 +29,6 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
 
 
   return (

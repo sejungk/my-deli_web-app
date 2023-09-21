@@ -6,10 +6,9 @@ import ReactDOM from "react-dom";
 import Image from "next/image";
 import axios from "axios";
 
-const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }) => {
+const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, selectedQuantity }) => {
   const [menuItemData, setMenuItemData] = useState(null);
-  const [quantity, setQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [quantity, setQuantity] = useState(selectedQuantity || 1);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const { addToCart, editCartItem } = useContext(CartContext);
   const [allRequiredOptionsSelected, setAllRequiredOptionsSelected] = useState(true);
@@ -24,20 +23,19 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
       .get(`http://localhost:5000/api/menu-items/${id}`)
       .then((response) => {
         setMenuItemData(response.data);
-        setIsLoading(false);
+        const initialQuantity = operationType === "edit" ? selectedQuantity : 1;
         setSelectedMenuItem({
           id: response.data.id,
           name: response.data.name,
           base_price: response.data.base_price,
           total_price: response.data.base_price,
-          quantity: 1,
+          quantity: initialQuantity,
           selectedOptions: {},
           description: response.data.description,
         });
       })
       .catch((error) => {
         console.error("Error fetching menu item data:", error);
-        setIsLoading(false);
       });
   }, [id]);
 
@@ -45,14 +43,12 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
     if (operationType === "edit" && selectedOptions && menuItemData && menuItemData.option_groups) {
       setSelectedMenuItem((prevItem) => {
         const updatedSelectedOptions = {};
-
         // Map the keys in selectedOptions to match the option group names
         Object.keys(selectedOptions).forEach((optionGroupKey) => {
           const optionGroup = menuItemData.option_groups.find(
             (group) => group.name === optionGroupKey
           );
           if (optionGroup) {
-            // console.log(selectedOptions, optionGroupKey, updatedSelectedOptions)
             updatedSelectedOptions[optionGroup.name] = selectedOptions[optionGroupKey];
           }
         });
@@ -83,7 +79,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   // console selectedMenuItem
   useEffect(() => {
     if (selectedMenuItem && selectedMenuItem.selectedOptions) {
-      // console.log(selectedMenuItem.selectedOptions);
+      console.log(selectedMenuItem);
     }
   }, [selectedMenuItem]);
 
@@ -112,7 +108,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
       const updatedOptions = { ...prevItem.selectedOptions };
-      // console.log(optionGroup)
       if (optionGroup.allow_multiple) {
         if (!updatedOptions[optionGroup.name]) updatedOptions[optionGroup.name] = {};
         if (updatedOptions[optionGroup.name][option.id]) delete updatedOptions[optionGroup.name][option.id];
@@ -214,7 +209,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
         });
 
         if (unselectedSection) {
-          console.log("Scrolling to section:", unselectedSection.name);
           setScrollToSection(unselectedSection.name);
         }
       }
@@ -276,15 +270,14 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
         </div>
 
         <hr />
-
         <div className={styles.addToOrderSection}>
           <div className={styles.quantity}>
             <span className="pointer" onClick={decreaseQuantity}>-</span>
-            <span>{quantity}</span>
+            {operationType === "edit" ? <span>{selectedMenuItem.quantity}</span> : <span>{quantity}</span>}
             <span  className="pointer" onClick={increaseQuantity}>+</span>
           </div>
           <div
-            className={`bttn bttn_red ${styles.addToOrderBttn}`}
+            className={`bttn bttn_red bttn_small ${styles.addToOrderBttn}`}
             onClick={handleAddToCart}
             >
             {operationType === "edit" ? <span>Save Edit</span> : <span>Add to Order</span>}
