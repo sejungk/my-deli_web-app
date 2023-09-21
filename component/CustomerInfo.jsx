@@ -45,8 +45,8 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
 
       <hr></hr>
 
-      <div className={`${styles.card_wrapper} checkout-card_content`}>
-        <div className="flex_row">
+      <div className={`${styles.cardWrapper} checkout-card_content`}>
+        <div className={`${styles.nameRow} flex_row`}>
           <div>
             <p>First Name</p>
             <input

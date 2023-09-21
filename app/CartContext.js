@@ -19,7 +19,9 @@ export const CartProvider = ({ children }) => {
     setTimeOptions(timeOpts);
     // Set initial values for selectedDate and selectedTime
     if (!selectedPickupDateTime) {
-      setSelectedPickupDateTime({ date: dateOpts[0], time: timeOpts[0] });
+      const earliestDate = dateOpts[0];
+      const earliestTime = timeOpts[0];
+      setSelectedPickupDateTime({ date: earliestDate, time: earliestTime });
     }
   }, []);
 

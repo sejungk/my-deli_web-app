@@ -5,19 +5,19 @@ import Image from "next/image";
 import { Link, animateScroll as scroll } from 'react-scroll';
 
 const Navbar = () => {
-  const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
-  const isBefore1030 = new Date() < time1030;
+  const currentTime = new Date();
+  const isBreakfastTime = !(currentTime.getHours() >= 10 && currentTime.getHours() < 15);
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.logoWrapper}>
         <Image className={styles.logo} src="/img/mydeli-logo.svg" layout="fill" alt="location icon" />
       </div>
       <div className={styles.linksContainer}>
-        {isBefore1030 && (
-        <Link className={styles.link} to="breakfast" smooth={true} duration={500}>
-          <div className={styles.item}>Breakfast</div>
-        </Link>
+        {isBreakfastTime && (
+          <Link className={styles.link} to="breakfast" smooth={true} duration={500}>
+            <div className={styles.item}>Breakfast</div>
+          </Link>
         )}
         <Link className={styles.link} to="subs" smooth={true} duration={500}>
           <div className={styles.item}>Subs</div>

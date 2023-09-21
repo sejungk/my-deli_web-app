@@ -244,13 +244,15 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions }
           </div>
         </div>
 
+        <hr />
+
         {/* name and description - end */}
         <div className={styles.scrollableContent} ref={scrollRef}>
           <div className={styles.optionSection}>
             {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
               menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
-                  <hr />
+
                   {index > 0 && <hr className={styles.sectionDivider} />}
 
                   <div data-section={optionGroup.name}>

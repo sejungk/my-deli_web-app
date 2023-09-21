@@ -9,7 +9,8 @@ import Link from "next/link";
 import PickupDateModal from "./PickupDateModal";
 import EmptyCart from './EmptyCart';
 
-const Cart = () => {
+
+const Cart = ({ onToggleCart }) => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
   const [isPickupTimeValid, setIsPickupTimeValid] = useState(true); // State to track time validity
   const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, dateOptions, timeOptions } = useContext(CartContext);
@@ -80,6 +81,9 @@ const Cart = () => {
   return (
     <div className={styles.container}>
       <div className={styles.pickupDetailSection}>
+        <div className={styles.closeIcon} onClick={onToggleCart}>
+            <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon" />
+        </div>
         <h5>Pickup Order Summary</h5>
         <div className={styles.logoContainer}>
           <div className={styles.logo}>
@@ -89,7 +93,7 @@ const Cart = () => {
         </div>
         <div className="bttn bttn_outline bttn_center bttn_full-width" onClick={toggleModal}>
           {selectedPickupDateTime ? (
-            <span>{`${selectedPickupDateTime.date} ${selectedPickupDateTime.time}`}</span>
+            <span>{`${selectedPickupDateTime.date}, ${selectedPickupDateTime.time.split(' - ')[0]}`}</span>
           ) : (
             <span>Select Pickup Date &amp; Time</span>
           )}
@@ -105,29 +109,31 @@ const Cart = () => {
 
       <hr />
 
-      <div className={styles.addedItemSection}>
-        {cartItems.map((item, index) => (
-          <React.Fragment key={index}>
-            <CartItem
-              key={item.cartItemId}
-              item={item}
-              editItemData={editItemData}
-              onEditItem={handleEditItem}
-              onRemove={handleRemoveItem}
-            />
-            {index < cartItems.length - 1 && <hr />}
-          </React.Fragment>
-        ))}
+      <div className={styles.cartItemSection}>
+        <div className={styles.addedItemSection}>
+          {cartItems.map((item, index) => (
+            <React.Fragment key={index}>
+              <CartItem
+                key={item.cartItemId}
+                item={item}
+                editItemData={editItemData}
+                onEditItem={handleEditItem}
+                onRemove={handleRemoveItem}
+              />
+              {index < cartItems.length - 1 && <hr />}
+            </React.Fragment>
+          ))}
+        </div>
+
+        <hr />
+
+        {cartItems.length === 0 ? (
+          <div>
+            <EmptyCart />
+            <hr className="tablet_hidden"/>
+          </div>
+        ) : null}
       </div>
-
-      <hr />
-
-      {cartItems.length === 0 ? (
-        <>
-          <EmptyCart />
-          <hr />
-        </>
-      ) : null}
 
       <div className={styles.subtotalSection}>
         <div className={styles.subtotalInfo}>
@@ -135,21 +141,17 @@ const Cart = () => {
           <h5>${(subtotal ?? 0).toFixed(2)}</h5>
         </div>
         {cartItems.length === 0 ? (
-          <div className={`bttn bttn_red bttn_center bttn_disabled`}>
+          <div className={`${styles.checkoutButton} bttn bttn_red bttn_center bttn_disabled`}>
             <span>Checkout</span>
           </div>
         ) : (
           <Link href="/checkout" className="text-decoration-none">
-            <div className={`bttn bttn_red bttn_center`} onClick={handleCheckout}>
+            <div className={`${styles.checkoutButton} bttn bttn_red bttn_center`}
+             onClick={handleCheckout}>
               <span>Checkout</span>
             </div>
           </Link>
         )}
-        {/* <Link href="/checkout" className="text-decoration-none">
-          <div className={`bttn bttn_red bttn_center ${cartItems.length === 0 ? 'bttn_disabled' : ''}`} onClick={handleCheckout} disabled={cartItems.length === 0}>
-              <span>Checkout</span>
-          </div>
-        </Link> */}
       </div>
     </div>
   );

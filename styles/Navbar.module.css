@@ -16,7 +16,7 @@
   align-items: center;
   font-weight: bold;
   justify-content: space-between;
-  width: 700px;
+  max-width: 1000px;
 }
 
 .link {
@@ -32,8 +32,19 @@
   border-top: 1.8px solid #C4CCCF;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .container {
+    height: 95px;
+  }
+
+  .linksContainer {
     display: none;
   }
+
+  .underline {
+    margin-top: 40px;
+    border-top: 1.8px solid #C4CCCF;
+  }
+
 }
+

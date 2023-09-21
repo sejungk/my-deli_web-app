@@ -1,12 +1,12 @@
 import styles from "../../../styles/Product.module.css";
 
 const Product = () => {
-  const eggSandwich = {
-    id: 1,
-    name: "Breakfast Egg Sandwich",
-    price: [2.49, 4.59, 6.00],
-    desc: "Breakfast Egg Sandwich with your choice of meat, cheese, and bread."
-  };
+  // const eggSandwich = {
+  //   id: 1,
+  //   name: "Breakfast Egg Sandwich",
+  //   price: [2.49, 4.59, 6.00],
+  //   desc: "Breakfast Egg Sandwich with your choice of meat, cheese, and bread."
+  // };
 
   return (
     <div className={styles.container}>

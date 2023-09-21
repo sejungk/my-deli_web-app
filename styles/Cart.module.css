@@ -12,7 +12,7 @@
 }
 
 /* top section - start */
-.pickupDetailSection {
+.pickupDetailSection, .subtotalSection {
   padding: 25px 20px;
 }
 
@@ -36,6 +36,9 @@
   position: relative;
   margin-right: 5px;
 }
+.closeIcon, .icon {
+  display: none;
+}
 /* top section - end */
 
 /* middle section - start */
@@ -46,11 +49,6 @@
 }
 /* middle section - end */
 
-/* bottom section - start */
-.subtotalSection{
-  padding: 25px 20px;
-}
-
 .subtotalInfo {
   padding-bottom: 10px;
   display: flex;
@@ -59,24 +57,66 @@
 }
 /* bottom section - end */
 
+
 @media (max-width: 1000px) {
   .container {
-    /* flex-basis: 30%; */
+    right: var(--menu-page-mobile-padding);
   }
-
   .itemQuantity {
     flex-basis: 10%;
   }
-
   .itemName {
     flex-basis: 80%;
   }
-
   .itemPrice {
     flex-basis: 10%;
   }
-
   .addOnsList {
     margin-left: 10%;
   }
 }
+
+@media (max-width: 750px) {
+  .container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    border: none;
+    transform: none;
+  }
+
+  .pickupDetailSection, .subtotalSection {
+    padding: 5%;
+  }
+
+  .cartItemSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center items */
+    align-items: center;
+    height: 46%;
+    border-bottom: 1.5px solid var(--primary-lightest-blue);
+  }
+
+  .checkoutButton {
+    width: calc(100% - 60px);
+    position: absolute;
+    bottom: 8%;
+  }
+
+  .closeIcon, .icon {
+    display: block;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    cursor: pointer;
+    height: 15px !important;
+    width: 15px;
+  }
+}
+
+

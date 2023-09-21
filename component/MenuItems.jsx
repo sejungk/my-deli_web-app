@@ -2,14 +2,16 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import styles from "../styles/MenuItems.module.css";
+import { CartContext } from '../app/CartContext';
 import MenuItemCard from "./MenuItemCard";
 import MenuItemModal from "./MenuItemModal";
 import axios from "axios";
 
-const MenuItems = () => {
+const MenuItems = ({ onToggleCart }) => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null); // To store the selected item
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { cartItems } = useContext(CartContext);
   const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
   useEffect(() => {
@@ -24,10 +26,11 @@ const MenuItems = () => {
       });
   }, []);
 
-  const isBefore1030 = new Date() < time1030;
+  const currentTime = new Date();
+  const isBreakfastTime = !(currentTime.getHours() >= 10 && currentTime.getHours() < 15);
 
   const filteredMenuItems = menuItems.filter((menuItem) => {
-    if (isBefore1030) {
+    if (isBreakfastTime) {
       // Display all items before 10:30 AM
       return true;
     } else {
@@ -83,6 +86,10 @@ const MenuItems = () => {
           </div>
         </div>
       ))}
+
+      <div className={`${styles.viewOrderButton} bttn bttn_red bttn_center`} onClick={onToggleCart}>
+        <span>View order</span>
+      </div>
 
       {isModalOpen && (
         <MenuItemModal

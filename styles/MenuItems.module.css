@@ -42,10 +42,16 @@ h3.category {
   flex-wrap: wrap;
 }
 
+.viewOrderButton {
+  position: fixed;
+  width: calc(100% - (var(--menu-page-padding)*2));
+  left: var(--menu-page-padding);
+  bottom: 8%;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
 
 @media (max-width: 1100px) {
   .container {
-    /* flex-basis: 70%; */
     padding-left: var(--menu-page-padding);
   }
   .menuItemWrapper  {
@@ -53,3 +59,38 @@ h3.category {
   }
 }
 
+@media (max-width: 1000px) {
+  .container {
+    padding-left: var(--menu-page-mobile-padding);
+    max-width: calc(100% - (var(--modal-width) + var(--menu-page-mobile-padding)));
+    z-index: 100;
+  }
+  .viewOrderButton {
+    width: calc(100% - (var(--menu-page-mobile-padding)*2));
+    left: var(--menu-page-mobile-padding);
+  }
+}
+
+@media (max-width: 750px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding-left: var(--menu-page-padding);
+    padding-right: var(--menu-page-padding);
+    max-width: 100%;
+    z-index: 100;
+  }
+  .menuItemWrapper {
+    margin-right: 0;
+  }
+  .viewOrderButton {
+    width: calc(100% - (var(--menu-page-padding)*2));
+    left: var(--menu-page-padding);
+  }
+}
+
+@media (min-width: 751px) {
+  .viewOrderButton {
+    display: none;
+  }
+}

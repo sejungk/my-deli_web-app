@@ -52,6 +52,10 @@
   padding: 10px;
 }
 
+.title {
+  padding-bottom: 20px;
+}
+
 .itemName {
   padding: 30px 30px 25px;
 }
