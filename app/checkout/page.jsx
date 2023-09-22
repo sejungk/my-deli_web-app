@@ -6,10 +6,16 @@ import CustomerInfo from '../../component/CustomerInfo';
 import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
+import { useRouter } from 'next/navigation';
 
 const CheckoutPage = () => {
-  const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
+  const { push } = useRouter();
   const { cartItems, totalPrice } = useContext(CartContext);
+  const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
+
+  useEffect(() => {
+    if (cartItems.length === 0) push('/');
+  }, [cartItems, push]);
 
   useEffect(() => {
     const button = document.querySelector("#checkout_stripe");
@@ -38,16 +44,17 @@ const CheckoutPage = () => {
         }
       });
     }
-  }, []);
+  }, [cartItems]);
 
-  console.log(cartItems)
+  if (cartItems.length === 0) return null;
+
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
         <div className={`${styles.orderHeader} vertical-center`}>
           <h1>Let&apos;s review your order.</h1>
         </div>
-        <PickupDetails/>
+        {cartItems.length > 0 && <PickupDetails />}
         <CustomerInfo
           onCustomerInfoChange={(info) => {
             setCustomerInfo((prevInfo) => ({ ...prevInfo, ...info }));
