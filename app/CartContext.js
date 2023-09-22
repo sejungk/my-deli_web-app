@@ -26,6 +26,47 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
+  const calculateSelectedOptionsPrice = (selectedOptions) => {
+    let totalPrice = 0;
+    const optionLimits = {}; // To track option limits
+
+    for (const optionGroup in selectedOptions) {
+      if (typeof selectedOptions[optionGroup] === 'object') {
+        for (const optionId in selectedOptions[optionGroup]) {
+          const option = selectedOptions[optionGroup][optionId];
+
+          if (option && option.additional_price) {
+            // Check if the option has a free_option_limit defined in its optionGroup
+            const optionGroupInfo = menuItemData.option_groups.find(
+              (group) => group.name === optionGroup
+            );
+
+            if (optionGroupInfo && optionGroupInfo.free_option_limit > 0) {
+              // Initialize the limit tracker if not already
+              if (!optionLimits[optionGroup]) optionLimits[optionGroup] = 0;
+
+              // Check if the option has reached its free_option_limit
+              if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
+                optionLimits[optionGroup]++;
+              } else {
+                totalPrice += parseFloat(option.additional_price);
+              }
+            } else {
+              totalPrice += parseFloat(option.additional_price);
+            }
+          }
+        }
+      } else {
+        const option = selectedOptions[optionGroup];
+
+        if (option && option.additional_price) {
+          totalPrice += parseFloat(option.additional_price);
+        }
+      }
+    }
+    return totalPrice;
+  };
+
   // const calculateOptionsPrice = (selectedOptions) => {
   //   let optionsPrice = 0;
   //   if (selectedOptions && Object.keys(selectedOptions).length > 0) {
@@ -52,11 +93,9 @@ export const CartProvider = ({ children }) => {
   // };
 
   // Calculate subtotal
+
   useEffect(() => {
     const subtotal = cartItems.reduce((acc, item) => {
-      // const basePrice = parseFloat(item.base_price);
-      // const optionsPrice = calculateOptionsPrice(item.selectedOptions);
-
       return item.total_price * item.quantity;
     }, 0);
 
@@ -189,6 +228,8 @@ export const CartProvider = ({ children }) => {
       timeOptions,
       totalPrice,
       subtotal,
+      calculateSelectedOptionsPrice
+
       }}>
       {children}
     </CartContext.Provider>
