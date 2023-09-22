@@ -10,6 +10,8 @@ export const CartProvider = ({ children }) => {
   const [selectedPickupDateTime, setSelectedPickupDateTime] = useState(null);
   const [dateOptions, setDateOptions] = useState([]);
   const [timeOptions, setTimeOptions] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
   const time220 = new Date(0, 0, 0, 14, 20, 0, 0);
 
   useEffect(() => {
@@ -24,6 +26,33 @@ export const CartProvider = ({ children }) => {
       setSelectedPickupDateTime({ date: earliestDate, time: earliestTime });
     }
   }, []);
+
+  const calculateOptionsPrice = (selectedOptions) => {
+    let optionsPrice = 0;
+    if (selectedOptions && Object.keys(selectedOptions).length > 0) {
+      optionsPrice = Object.values(selectedOptions).reduce((acc, option) => {
+        if (option.additional_price) {
+          return acc + option.additional_price;
+        }
+        return acc;
+      }, 0);
+    }
+    return optionsPrice;
+  };
+
+  // Calculate subtotal
+  useEffect(() => {
+    const subtotal = cartItems.reduce((acc, item) => {
+      const basePrice = parseFloat(item.base_price);
+      const optionsPrice = calculateOptionsPrice(item.selectedOptions);
+      console.log(acc, basePrice, optionsPrice, item)
+      return (basePrice + optionsPrice) * item.quantity;
+    }, 0);
+
+    setSubtotal(subtotal);
+    const total = subtotal;
+    setTotalPrice(total);
+  }, [cartItems]);
 
   const addToCart = (item) => {
     // if an existing item is added, increase quantity
@@ -145,6 +174,8 @@ export const CartProvider = ({ children }) => {
       updateSelectedPickupDateTime,
       dateOptions,
       timeOptions,
+      totalPrice,
+      subtotal,
       }}>
       {children}
     </CartContext.Provider>

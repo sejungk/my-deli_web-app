@@ -79,7 +79,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
   // console selectedMenuItem
   useEffect(() => {
     if (selectedMenuItem && selectedMenuItem.selectedOptions) {
-      console.log(selectedMenuItem);
+      // console.log(selectedMenuItem);
     }
   }, [selectedMenuItem]);
 

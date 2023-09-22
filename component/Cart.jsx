@@ -9,11 +9,10 @@ import Link from "next/link";
 import PickupDateModal from "./PickupDateModal";
 import EmptyCart from './EmptyCart';
 
-
 const Cart = ({ onToggleCart }) => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
   const [isPickupTimeValid, setIsPickupTimeValid] = useState(true);
-  const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, dateOptions, timeOptions } = useContext(CartContext);
+  const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, subtotal } = useContext(CartContext);
 
   // Real-time time validation effect
   useEffect(() => {
@@ -62,22 +61,6 @@ const Cart = ({ onToggleCart }) => {
   const handleRemoveItem = (itemId) => {
     removeFromCart(itemId);
   };
-
-  // Function to handle saving the edited item
-  // const handleSaveEdit = (updatedItemData) => {
-  //   // Find the item in cartItems based on some unique identifier, e.g., cartItemId
-  //   const updatedCartItems = cartItems.map((item) => {
-  //     if (item.cartItemId === updatedItemData.cartItemId) {
-  //       return updatedItemData;
-  //     }
-  //     return item;
-  //   });
-  //   // Close the modal
-  //   closeModal();
-  // };
-
-console.log(cartItems)
-  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
 
   return (
     <div className={styles.container}>
@@ -135,7 +118,7 @@ console.log(cartItems)
       <div className={styles.subtotalSection}>
         <div className={styles.subtotalInfo}>
           <h5>Subtotal</h5>
-          <h5>${(subtotal ?? 0).toFixed(2)}</h5>
+          <h5>${subtotal.toFixed(2)}</h5>
         </div>
         {cartItems.length === 0 ? (
           <div className={`${styles.checkoutButton} bttn bttn_red bttn_center bttn_disabled`}>

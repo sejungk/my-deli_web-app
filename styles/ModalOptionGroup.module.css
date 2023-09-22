@@ -4,7 +4,7 @@
 
 /* option - Choose your bread */
 .optionDesc h5 {
-  margin: 0px 0;
+  margin: 10px 0 15px;
 }
 
 .optionDesc {
@@ -21,7 +21,7 @@
 .listOption {
   display: flex;
   justify-content: space-between;
-  margin: 10px 5px;
+  margin: 15px 5px;
 }
 
 /* required optional label */

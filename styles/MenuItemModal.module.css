@@ -19,7 +19,6 @@
   margin: auto;
   max-width: 650px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  /* ma */
   overflow-y: auto;
 }
 
@@ -107,6 +106,8 @@ hr.sectionDivider {
 
 /* bottom section */
 .addToOrderSection {
+  z-index: 100;
+  background-color: white;
   padding: 30px 30px;
   display: flex;
   justify-content: space-between;
@@ -121,4 +122,46 @@ hr.sectionDivider {
   margin: auto 0;
   padding: 10px 15px;
   font-weight: 700;
+}
+
+@media (max-width: 750px) {
+  .modalContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    max-width: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: hidden;
+  }
+
+  .headerSection {
+    flex-shrink: 0;
+  }
+
+  .scrollableContent {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .optionSection {
+    max-height: none;
+    overflow-y: scroll;
+    margin-right: 3px;
+  }
+
+  .scrollableContent {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .addToOrderSection {
+    background-color: white;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    border-top: 1.5px solid var(--primary-lightest-blue);
+  }
 }

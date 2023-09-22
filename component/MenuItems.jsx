@@ -26,6 +26,13 @@ const MenuItems = ({ onToggleCart }) => {
       });
   }, []);
 
+  const totalQuantity = cartItems.reduce((total, cartItem) => {
+    if (cartItem && cartItem.quantity !== undefined) {
+      return total + cartItem.quantity;
+    }
+    return total;
+  }, 0);
+
   const currentTime = new Date();
   const isBreakfastTime = !(currentTime.getHours() >= 10 && currentTime.getHours() < 15);
 
@@ -89,11 +96,9 @@ const MenuItems = ({ onToggleCart }) => {
 
       {Object.keys(cartItems).length > 0 && (
         <div className={`${styles.viewOrderButton} bttn bttn_red`} onClick={onToggleCart}>
-          <span>View order</span>
+          <span>{totalQuantity} Item{totalQuantity > 1 ? 's' : ''} in Order</span>
         </div>
       )}
-
-
 
       {isModalOpen && (
         <MenuItemModal

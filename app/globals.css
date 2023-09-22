@@ -107,7 +107,7 @@ b {
 hr {
   border: none;
   height: 1px;
-  color: var(--primary-lightest-blue);  /* old IE */
+  color: var(--primary-lightest-blue);
   background-color: var(--primary-lightest-blue);
 }
 
@@ -259,13 +259,15 @@ input[type="checkbox"]:checked + *::before  {
   padding: 20px 20px;
 }
 
-
 /* tablet  devices */
 @media (max-width: 750px) {
   h4 {
     font-size: 18px;
   }
   .tablet_hidden {
+    display: none;
+  }
+  ::-webkit-scrollbar {
     display: none;
   }
 }
