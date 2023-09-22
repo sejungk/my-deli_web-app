@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  const calculateSelectedOptionsPrice = (selectedOptions) => {
+  const calculateSelectedOptionsPrice = (selectedOptions, menuItemData) => {
     let totalPrice = 0;
     const optionLimits = {}; // To track option limits
 
@@ -66,33 +66,6 @@ export const CartProvider = ({ children }) => {
     }
     return totalPrice;
   };
-
-  // const calculateOptionsPrice = (selectedOptions) => {
-  //   let optionsPrice = 0;
-  //   if (selectedOptions && Object.keys(selectedOptions).length > 0) {
-  //     Object.keys(selectedOptions).forEach((optionGroupName) => {
-  //       const optionGroup = selectedOptions[optionGroupName];
-  //       if (optionGroupName === 'free_option_limit') return;
-
-  //       const free_option_limit = optionGroup.free_option_limit ? optionGroup.free_option_limit : 0;
-
-  //       // Assuming all options in this group have the same additional_price
-  //       const optionPrice = optionGroup[Object.keys(optionGroup)[0]].additional_price;
-
-  //       // Calculate the price for the selected options
-  //       const optionKeys = Object.keys(optionGroup).filter((key) => key !== 'free_option_limit');
-  //       const optionsCountWithPrice = optionKeys.length - free_option_limit;
-
-  //       const totalPriceForGroup = optionsCountWithPrice > free_option_limit
-  //         ? optionsCountWithPrice * optionPrice : 0;
-  //       console.log(optionKeys, free_option_limit)
-  //       optionsPrice += totalPriceForGroup;
-  //     });
-  //   }
-  //   return optionsPrice;
-  // };
-
-  // Calculate subtotal
 
   useEffect(() => {
     const subtotal = cartItems.reduce((acc, item) => {

@@ -10,7 +10,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
   const [menuItemData, setMenuItemData] = useState(null);
   const [quantity, setQuantity] = useState(selectedQuantity || 1);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
-  const { addToCart, editCartItem } = useContext(CartContext);
+  const { addToCart, editCartItem, calculateSelectedOptionsPrice } = useContext(CartContext);
   const [allRequiredOptionsSelected, setAllRequiredOptionsSelected] = useState(true);
   const [selectedOptionsPrice, setSelectedOptionsPrice] = useState(0);
   const [selectionCounts, setSelectionCounts] = useState(0);
@@ -52,12 +52,20 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
             updatedSelectedOptions[optionGroup.name] = selectedOptions[optionGroupKey];
           }
         });
+
+        // Calculate the selected options price based on updatedSelectedOptions
+        const newSelectedOptionsPrice = calculateSelectedOptionsPrice(updatedSelectedOptions, menuItemData);
+
+        // Update the selectedOptionsPrice state
+        setSelectedOptionsPrice(newSelectedOptionsPrice);
+
         return {
           ...prevItem,
           selectedOptions: updatedSelectedOptions,
         };
       });
     }
+    console.log(selectedOptionsPrice)
   }, [operationType, selectedOptions, menuItemData]);
 
   useEffect(() => {
@@ -65,8 +73,8 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       setSelectedMenuItem((prevItem) => ({
         ...prevItem,
         quantity: quantity,
-        total_price: (parseFloat(menuItemData.base_price)),
-        // total_price: (parseFloat(menuItemData.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions)) * quantity,
+        // total_price: (parseFloat(menuItemData.base_price)),
+        total_price: (parseFloat(menuItemData.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions, menuItemData)) * quantity,
       }));
     }
   }, [quantity, menuItemData]);
@@ -126,7 +134,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       }
 
       // Calculate the selected options price based on updatedOptions
-      const newSelectedOptionsPrice = calculateSelectedOptionsPrice(updatedOptions);
+      const newSelectedOptionsPrice = calculateSelectedOptionsPrice(updatedOptions, menuItemData);
 
       // Update the selectedOptionsPrice state
       setSelectedOptionsPrice(newSelectedOptionsPrice);
@@ -136,47 +144,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       // console.log(selectedOptions, updatedOptions)
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
-  };
-
-  const calculateSelectedOptionsPrice = (selectedOptions) => {
-    let totalPrice = 0;
-    const optionLimits = {}; // To track option limits
-
-    for (const optionGroup in selectedOptions) {
-      if (typeof selectedOptions[optionGroup] === 'object') {
-        for (const optionId in selectedOptions[optionGroup]) {
-          const option = selectedOptions[optionGroup][optionId];
-
-          if (option && option.additional_price) {
-            // Check if the option has a free_option_limit defined in its optionGroup
-            const optionGroupInfo = menuItemData.option_groups.find(
-              (group) => group.name === optionGroup
-            );
-
-            if (optionGroupInfo && optionGroupInfo.free_option_limit > 0) {
-              // Initialize the limit tracker if not already
-              if (!optionLimits[optionGroup]) optionLimits[optionGroup] = 0;
-
-              // Check if the option has reached its free_option_limit
-              if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
-                optionLimits[optionGroup]++;
-              } else {
-                totalPrice += parseFloat(option.additional_price);
-              }
-            } else {
-              totalPrice += parseFloat(option.additional_price);
-            }
-          }
-        }
-      } else {
-        const option = selectedOptions[optionGroup];
-
-        if (option && option.additional_price) {
-          totalPrice += parseFloat(option.additional_price);
-        }
-      }
-    }
-    return totalPrice;
   };
 
   const handleSaveEdit = (selectedItem) => {
@@ -277,7 +244,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
               ))}
           </div>
         </div>
-
+      {console.log(selectedOptionsPrice, menuItemData)}
         <hr />
         <div className={styles.addToOrderSection}>
           <div className={styles.quantity}>
