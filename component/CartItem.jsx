@@ -4,7 +4,7 @@ import { CartContext } from '../app/CartContext';
 import RemoveItemModal from '../component/RemoveItemModal';
 import MenuItemModal from './MenuItemModal';
 
-const CartItem = ({ item, editItemData }) => {
+const CartItem = ({ item }) => {
   const [isMenuItemModalVisible, setIsMenuItemModalVisible] = useState(false);
   const [isPickupModalVisible, setIsPickupModalVisible] = useState(false);
   const { removeFromCart } = useContext(CartContext);
@@ -23,7 +23,7 @@ const CartItem = ({ item, editItemData }) => {
 
     // Iterate through each option group
     for (const optionGroupName in item.selectedOptions) {
-      console.log(item.selectedOptions)
+      // console.log(item.selectedOptions)
       if (optionGroupName === 'free_option_limit') continue;
 
       const optionGroup = item.selectedOptions[optionGroupName];

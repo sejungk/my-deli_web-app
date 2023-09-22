@@ -26,38 +26,38 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  const calculateOptionsPrice = (selectedOptions) => {
-    let optionsPrice = 0;
-    if (selectedOptions && Object.keys(selectedOptions).length > 0) {
-      Object.keys(selectedOptions).forEach((optionGroupName) => {
-        const optionGroup = selectedOptions[optionGroupName];
-        if (optionGroupName === 'free_option_limit') return;
+  // const calculateOptionsPrice = (selectedOptions) => {
+  //   let optionsPrice = 0;
+  //   if (selectedOptions && Object.keys(selectedOptions).length > 0) {
+  //     Object.keys(selectedOptions).forEach((optionGroupName) => {
+  //       const optionGroup = selectedOptions[optionGroupName];
+  //       if (optionGroupName === 'free_option_limit') return;
 
-        const free_option_limit = optionGroup.free_option_limit ? optionGroup.free_option_limit : 0;
+  //       const free_option_limit = optionGroup.free_option_limit ? optionGroup.free_option_limit : 0;
 
-        // Assuming all options in this group have the same additional_price
-        const optionPrice = optionGroup[Object.keys(optionGroup)[0]].additional_price;
+  //       // Assuming all options in this group have the same additional_price
+  //       const optionPrice = optionGroup[Object.keys(optionGroup)[0]].additional_price;
 
-        // Calculate the price for the selected options
-        const optionsCountWithPrice = Object.keys(optionGroup).filter((key) => key !== 'free_option_limit').length - free_option_limit;
+  //       // Calculate the price for the selected options
+  //       const optionKeys = Object.keys(optionGroup).filter((key) => key !== 'free_option_limit');
+  //       const optionsCountWithPrice = optionKeys.length - free_option_limit;
 
-        const totalPriceForGroup = optionsCountWithPrice > free_option_limit
-          ? optionsCountWithPrice * optionPrice : 0;
-        console.log(Object.keys(optionGroup), free_option_limit)
-        optionsPrice += totalPriceForGroup;
-      });
-    }
-
-    return optionsPrice;
-  };
+  //       const totalPriceForGroup = optionsCountWithPrice > free_option_limit
+  //         ? optionsCountWithPrice * optionPrice : 0;
+  //       console.log(optionKeys, free_option_limit)
+  //       optionsPrice += totalPriceForGroup;
+  //     });
+  //   }
+  //   return optionsPrice;
+  // };
 
   // Calculate subtotal
   useEffect(() => {
     const subtotal = cartItems.reduce((acc, item) => {
-      const basePrice = parseFloat(item.base_price);
-      const optionsPrice = calculateOptionsPrice(item.selectedOptions);
-      console.log(basePrice , optionsPrice)
-      return (basePrice + optionsPrice) * item.quantity;
+      // const basePrice = parseFloat(item.base_price);
+      // const optionsPrice = calculateOptionsPrice(item.selectedOptions);
+
+      return item.total_price * item.quantity;
     }, 0);
 
     setSubtotal(subtotal);
@@ -65,47 +65,6 @@ export const CartProvider = ({ children }) => {
     setTotalPrice(total);
   }, [cartItems]);
 
-
-   // const calculateSelectedOptionsPrice = (selectedOptions) => {
-  //   let totalPrice = 0;
-  //   const optionLimits = {}; // To track option limits
-
-  //   for (const optionGroup in selectedOptions) {
-  //     if (typeof selectedOptions[optionGroup] === 'object') {
-  //       for (const optionId in selectedOptions[optionGroup]) {
-  //         const option = selectedOptions[optionGroup][optionId];
-
-  //         if (option.additional_price) {
-  //           // Check if the option has a free_option_limit defined in its optionGroup
-  //           const optionGroupInfo = menuItemData.option_groups.find(
-  //             (group) => group.name === optionGroup
-  //           );
-
-  //           if (optionGroupInfo && optionGroupInfo.free_option_limit > 0) {
-  //             // Initialize the limit tracker if not already
-  //             if (!optionLimits[optionGroup]) optionLimits[optionGroup] = 0;
-
-  //             // Check if the option has reached its free_option_limit
-  //             if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
-  //               optionLimits[optionGroup]++;
-  //             } else {
-  //               totalPrice += parseFloat(option.additional_price);
-  //             }
-  //           } else {
-  //             totalPrice += parseFloat(option.additional_price);
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       const option = selectedOptions[optionGroup];
-
-  //       if (option && option.additional_price) {
-  //         totalPrice += parseFloat(option.additional_price);
-  //       }
-  //     }
-  //   }
-  //   return totalPrice;
-  // };
   const addToCart = (item) => {
     // if an existing item is added, increase quantity
     const existingItemIndex = cartItems.findIndex(
