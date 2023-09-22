@@ -130,6 +130,7 @@ app.get("/api/menu-items", async (req, res) => {
       JOIN categories ON menu_items.category_id = categories.category_id
       LEFT JOIN menuitems_optiongroups ON menu_items.id = menuitems_optiongroups.menu_item_id
       LEFT JOIN option_groups ON menuitems_optiongroups.option_group_id = option_groups.id
+      WHERE menu_items.is_deleted = false
       GROUP BY menu_items.id, categories.category_id
       ORDER BY categories.category_id, menu_items.name;
     `;

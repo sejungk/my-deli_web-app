@@ -69,7 +69,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     const subtotal = cartItems.reduce((acc, item) => {
-      return item.total_price * item.quantity;
+      return acc + item.total_price * item.quantity;
     }, 0);
 
     setSubtotal(subtotal);
@@ -91,7 +91,7 @@ export const CartProvider = ({ children }) => {
     } else {
       // If the item doesn't exist, add it to the cart
       const uniqueId = uuidv4();
-      console.log(item)
+
       const cartItem = {
         itemId: uniqueId,
         id: item.id,

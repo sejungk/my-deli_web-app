@@ -6,12 +6,10 @@ import CustomerInfo from '../../component/CustomerInfo';
 import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
-import CheckoutLayout from './layout';
 
 const CheckoutPage = () => {
   const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
-  const { cartItems } = useContext(CartContext);
-  let subtotal = cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
+  const { cartItems, totalPrice } = useContext(CartContext);
 
   useEffect(() => {
     const button = document.querySelector("#checkout_stripe");
@@ -62,7 +60,7 @@ const CheckoutPage = () => {
           <div className="bttn bttn_red bttn_auto-width" id="checkout_stripe">
             <span>Place Pickup Order</span>
             <span>|</span>
-            <span>${(subtotal ?? 0).toFixed(2)}</span>
+            <span>${(totalPrice ?? 0).toFixed(2)}</span>
           </div>
         </div>
         <OrderSummary customerInfo={customerInfo}/>

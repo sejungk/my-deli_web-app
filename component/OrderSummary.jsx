@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState} from 'react';
+import React, { useContext, useState} from 'react';
 import styles from "../styles/OrderSummary.module.css";
 import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
@@ -11,32 +11,24 @@ import Link from 'next/link';
 const OrderSummary = ({ customerInfo }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
-  const [orderPlaced, setOrderPlaced] = useState(false);
   const currentTime = new Date();
-  const { cartItems, removeFromCart, selectedPickupDateTime } = useContext(CartContext);
+  const { cartItems, removeFromCart, selectedPickupDateTime, totalPrice } = useContext(CartContext);
   const tipOptions = [
     { label: '5%', percentage: 5 },
     { label: '10%', percentage: 10 },
     { label: '15%', percentage: 15 },
     { label: '20%', percentage: 20 }
   ];
-  const calculateSubtotal = () => {
-    // console.log(cartItems)
-    return cartItems.reduce((acc, item) => acc + parseFloat(item.base_price), 0);
-  };
 
 // console.log(cartItems)
   const handleTipClick = (percentage, index) => {
-    const newSubtotal = calculateSubtotal();
     setTipPercentage(percentage);
     setSelectedTipIndex(index);
   };
 
    // Calculate the subtotal
-   const subtotal = calculateSubtotal();
-   const tipAmount = (subtotal * (tipPercentage / 100)) || 0;
-   const total = subtotal + tipAmount;
-  //  console.log(total, tipAmount, subtotal)
+   const tipAmount = (totalPrice * (tipPercentage / 100)) || 0;
+   const total = totalPrice + tipAmount;
 
   // Function to handle placing the order
   const handlePlaceOrder = async () => {
@@ -102,7 +94,7 @@ const OrderSummary = ({ customerInfo }) => {
                 onClick={() => handleTipClick(option.percentage, index)}
               >
                 <p>{option.label}</p>
-                <p>${((subtotal * option.percentage / 100) ?? 0).toFixed(2)}</p>
+                <p>${((totalPrice * option.percentage / 100) ?? 0).toFixed(2)}</p>
               </div>
             ))}
           </div>
@@ -115,7 +107,7 @@ const OrderSummary = ({ customerInfo }) => {
         <div className={styles.priceWrapper}>
           <div className={styles.priceRow}>
             <p>Subtotal</p>
-            <p>${(subtotal ?? 0).toFixed(2)}</p>
+            <p>${totalPrice.toFixed(2)}</p>
           </div>
           <div className={styles.priceRow}>
             <p>Taxes</p>
