@@ -23,17 +23,22 @@ const CartItem = ({ item, editItemData }) => {
 
     // Iterate through each option group
     for (const optionGroupName in item.selectedOptions) {
+      console.log(item.selectedOptions)
+      if (optionGroupName === 'free_option_limit') continue;
+
       const optionGroup = item.selectedOptions[optionGroupName];
 
       // Check if the option group is an object (indicating multiple selections)
       if (typeof optionGroup === 'object') {
         for (const optionId in optionGroup) {
           const option = optionGroup[optionId];
-          selectedOptionsArray.push(option.name);
+          if (option && option.name) selectedOptionsArray.push(option.name);
         }
       } else {
         // Single selection
-        selectedOptionsArray.push(optionGroup.name);
+        if (optionGroup && optionGroup.name) {
+          selectedOptionsArray.push(optionGroup.name);
+        }
       }
     }
 
@@ -49,7 +54,7 @@ const CartItem = ({ item, editItemData }) => {
       <div className={styles.singleItemHeader}>
         <span className={styles.itemQuantity}>{item.quantity}</span>
         <span className={styles.itemName}>{item.name}</span>
-        <span className={styles.itemPrice}>${item.base_price.toFixed(2)}</span>
+        <span className={styles.itemPrice}>${item.total_price.toFixed(2)}</span>
       </div>
       <div className={styles.optionGroup}>
         {renderSelectedOptions()}

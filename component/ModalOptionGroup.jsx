@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../styles/ModalOptionGroup.module.css";
 
 const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, operationType, selectionCounts, setSelectionCounts, addToOrderClicked }) => {
@@ -53,8 +53,6 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
 
       <div className={styles.optionChoices}>
         {optionGroup.options.map((option, index) => {
-          const isSelected = selectedOptions.some((selected) => selected.id === option.id);
-          const shouldHaveZeroPrice = itemsWithZeroPrice.some((item) => item.id === option.id);
           return (
             <div className={styles.listOption} key={option.id}>
               <label className={styles.label}>
@@ -69,11 +67,10 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
                   onChange={() => {
                     handleOptionSelection(option, optionGroup.name);
                   }}
-                  // checked={isSelected}
                 />
                 <span>{option.name}</span>
               </label>
-              <div>${shouldHaveZeroPrice ? "0.00" : nextIsFree ? "0.00" : option.additional_price.toFixed(2)}</div>
+              <div>${nextIsFree ? "0.00" : option.additional_price.toFixed(2)}</div>
             </div>
           );
         })}

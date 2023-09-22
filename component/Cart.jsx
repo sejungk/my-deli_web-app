@@ -12,7 +12,7 @@ import EmptyCart from './EmptyCart';
 const Cart = ({ onToggleCart }) => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
   const [isPickupTimeValid, setIsPickupTimeValid] = useState(true);
-  const { cartItems, checkout, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, subtotal } = useContext(CartContext);
+  const { cartItems, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, subtotal } = useContext(CartContext);
 
   // Real-time time validation effect
   useEffect(() => {

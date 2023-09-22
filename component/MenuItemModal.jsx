@@ -31,7 +31,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
           total_price: response.data.base_price,
           quantity: initialQuantity,
           selectedOptions: {},
-          description: response.data.description,
+          // description: response.data.description,
         });
       })
       .catch((error) => {
@@ -65,7 +65,8 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       setSelectedMenuItem((prevItem) => ({
         ...prevItem,
         quantity: quantity,
-        total_price: (parseFloat(menuItemData.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions)) * quantity,
+        total_price: (parseFloat(menuItemData.base_price)),
+        // total_price: (parseFloat(menuItemData.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions)) * quantity,
       }));
     }
   }, [quantity, menuItemData]);
@@ -108,6 +109,14 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
   const handleOptionChange = (optionGroup, option) => {
     setSelectedMenuItem((prevItem) => {
       const updatedOptions = { ...prevItem.selectedOptions };
+
+      // Add the free_option_limit to the option
+      if (!updatedOptions[optionGroup.name]) {
+        updatedOptions[optionGroup.name] = {
+          free_option_limit: optionGroup.free_option_limit,
+        };
+      }
+
       if (optionGroup.allow_multiple) {
         if (!updatedOptions[optionGroup.name]) updatedOptions[optionGroup.name] = {};
         if (updatedOptions[optionGroup.name][option.id]) delete updatedOptions[optionGroup.name][option.id];
@@ -124,6 +133,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
 
       // Calculate the total price based on the updated selected options and quantity
       const updatedTotalPrice = (parseFloat(prevItem.base_price) + newSelectedOptionsPrice) * prevItem.quantity;
+      // console.log(selectedOptions, updatedOptions)
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
@@ -137,7 +147,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
         for (const optionId in selectedOptions[optionGroup]) {
           const option = selectedOptions[optionGroup][optionId];
 
-          if (option.additional_price) {
+          if (option && option.additional_price) {
             // Check if the option has a free_option_limit defined in its optionGroup
             const optionGroupInfo = menuItemData.option_groups.find(
               (group) => group.name === optionGroup
@@ -145,9 +155,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
 
             if (optionGroupInfo && optionGroupInfo.free_option_limit > 0) {
               // Initialize the limit tracker if not already
-              if (!optionLimits[optionGroup]) {
-                optionLimits[optionGroup] = 0;
-              }
+              if (!optionLimits[optionGroup]) optionLimits[optionGroup] = 0;
 
               // Check if the option has reached its free_option_limit
               if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
@@ -221,6 +229,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       }
     }
   }
+  // console.log(menuItemData.base_price, selectedOptionsPrice, quantity)
 
   return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>

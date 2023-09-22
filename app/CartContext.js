@@ -12,7 +12,6 @@ export const CartProvider = ({ children }) => {
   const [timeOptions, setTimeOptions] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
-  const time220 = new Date(0, 0, 0, 14, 20, 0, 0);
 
   useEffect(() => {
     const dateOpts = generateDateOptions();
@@ -30,13 +29,25 @@ export const CartProvider = ({ children }) => {
   const calculateOptionsPrice = (selectedOptions) => {
     let optionsPrice = 0;
     if (selectedOptions && Object.keys(selectedOptions).length > 0) {
-      optionsPrice = Object.values(selectedOptions).reduce((acc, option) => {
-        if (option.additional_price) {
-          return acc + option.additional_price;
-        }
-        return acc;
-      }, 0);
+      Object.keys(selectedOptions).forEach((optionGroupName) => {
+        const optionGroup = selectedOptions[optionGroupName];
+        if (optionGroupName === 'free_option_limit') return;
+
+        const free_option_limit = optionGroup.free_option_limit ? optionGroup.free_option_limit : 0;
+
+        // Assuming all options in this group have the same additional_price
+        const optionPrice = optionGroup[Object.keys(optionGroup)[0]].additional_price;
+
+        // Calculate the price for the selected options
+        const optionsCountWithPrice = Object.keys(optionGroup).filter((key) => key !== 'free_option_limit').length - free_option_limit;
+
+        const totalPriceForGroup = optionsCountWithPrice > free_option_limit
+          ? optionsCountWithPrice * optionPrice : 0;
+        console.log(Object.keys(optionGroup), free_option_limit)
+        optionsPrice += totalPriceForGroup;
+      });
     }
+
     return optionsPrice;
   };
 
@@ -45,7 +56,7 @@ export const CartProvider = ({ children }) => {
     const subtotal = cartItems.reduce((acc, item) => {
       const basePrice = parseFloat(item.base_price);
       const optionsPrice = calculateOptionsPrice(item.selectedOptions);
-      console.log(acc, basePrice, optionsPrice, item)
+      console.log(basePrice , optionsPrice)
       return (basePrice + optionsPrice) * item.quantity;
     }, 0);
 
@@ -54,6 +65,47 @@ export const CartProvider = ({ children }) => {
     setTotalPrice(total);
   }, [cartItems]);
 
+
+   // const calculateSelectedOptionsPrice = (selectedOptions) => {
+  //   let totalPrice = 0;
+  //   const optionLimits = {}; // To track option limits
+
+  //   for (const optionGroup in selectedOptions) {
+  //     if (typeof selectedOptions[optionGroup] === 'object') {
+  //       for (const optionId in selectedOptions[optionGroup]) {
+  //         const option = selectedOptions[optionGroup][optionId];
+
+  //         if (option.additional_price) {
+  //           // Check if the option has a free_option_limit defined in its optionGroup
+  //           const optionGroupInfo = menuItemData.option_groups.find(
+  //             (group) => group.name === optionGroup
+  //           );
+
+  //           if (optionGroupInfo && optionGroupInfo.free_option_limit > 0) {
+  //             // Initialize the limit tracker if not already
+  //             if (!optionLimits[optionGroup]) optionLimits[optionGroup] = 0;
+
+  //             // Check if the option has reached its free_option_limit
+  //             if (optionLimits[optionGroup] < optionGroupInfo.free_option_limit) {
+  //               optionLimits[optionGroup]++;
+  //             } else {
+  //               totalPrice += parseFloat(option.additional_price);
+  //             }
+  //           } else {
+  //             totalPrice += parseFloat(option.additional_price);
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       const option = selectedOptions[optionGroup];
+
+  //       if (option && option.additional_price) {
+  //         totalPrice += parseFloat(option.additional_price);
+  //       }
+  //     }
+  //   }
+  //   return totalPrice;
+  // };
   const addToCart = (item) => {
     // if an existing item is added, increase quantity
     const existingItemIndex = cartItems.findIndex(
@@ -68,11 +120,13 @@ export const CartProvider = ({ children }) => {
     } else {
       // If the item doesn't exist, add it to the cart
       const uniqueId = uuidv4();
+      console.log(item)
       const cartItem = {
         itemId: uniqueId,
         id: item.id,
         quantity: item.quantity,
-        base_price:item.total_price,
+        base_price:item.base_price,
+        total_price:item.total_price,
         name: item.name,
         selectedOptions: item.selectedOptions,
       };
