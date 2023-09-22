@@ -43,6 +43,9 @@ const ModalOptionGroup = ({ optionGroup, selectedOption, handleOptionChange, ope
           {optionGroup.required ? "REQUIRED" : "OPTIONAL"}
         </div>
       </div>
+      {optionGroup.name === "combo_side" && (
+        <span className="comment">*each combo side comes with a free fountain drink</span>
+      )}
       <span className="comment">
         {optionGroup.free_option_limit === 1
           ? "* first item is free"

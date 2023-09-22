@@ -98,6 +98,8 @@ p, label {
   font-size: var(--comment-font-size);
   line-height: var(--comment-line-height);
   color: var(--primary-gray);
+  position: relative;
+  top: -10px;
 }
 
 b {
