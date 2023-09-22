@@ -130,7 +130,7 @@ app.get("/api/menu-items", async (req, res) => {
       JOIN categories ON menu_items.category_id = categories.category_id
       LEFT JOIN menuitems_optiongroups ON menu_items.id = menuitems_optiongroups.menu_item_id
       LEFT JOIN option_groups ON menuitems_optiongroups.option_group_id = option_groups.id
-      WHERE menu_items.is_deleted = false
+      WHERE menu_items.is_deleted = false AND option_groups.is_deleted = false
       GROUP BY menu_items.id, categories.category_id
       ORDER BY categories.category_id, menu_items.name;
     `;
@@ -157,7 +157,7 @@ app.get("/api/menu-items/:id", async (req, res) => {
       categories.name AS category_name
     FROM menu_items
     JOIN categories ON menu_items.category_id = categories.category_id
-    WHERE menu_items.id = $1;
+    WHERE menu_items.id = $1 AND menu_items.is_deleted = false;
     `;
 
     const { rows } = await pool.query(query, [menuItemId]);
@@ -181,7 +181,7 @@ app.get("/api/menu-items/:id", async (req, res) => {
       LEFT JOIN menuitems_optiongroups ON menu_items.id = menuitems_optiongroups.menu_item_id
       LEFT JOIN option_groups ON menuitems_optiongroups.option_group_id = option_groups.id
       LEFT JOIN options ON option_groups.id = options.option_group_id
-      WHERE menu_items.id = $1
+      WHERE menu_items.id = $1 AND menu_items.is_deleted = false AND option_groups.is_deleted = false
       ORDER BY option_groups.id, options.id;
     `;
 
