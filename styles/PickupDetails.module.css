@@ -15,10 +15,18 @@
   font-weight: 400;
 }
 
+.infoWrapper h5 {
+  padding-bottom: 10px;;
+}
+
 .infoWrapper {
   flex-basis: 88%;
 }
 
 .infoWrapper a {
   font-weight: 500;
+}
+
+@media (max-width: 750px) {
+
 }

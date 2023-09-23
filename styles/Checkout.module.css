@@ -14,7 +14,6 @@
 .bttnWrapper, .orderHeader {
   margin-bottom: 0;
   height: 80px;
-  /* border: 2px solid blue; */
 }
 
 .leftSection {
@@ -39,4 +38,46 @@
   }
 }
 
+/* Small (SM) / Mobile Landscape */
+@media (max-width: 750px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 50px 40px 0;
+  }
 
+  .leftSection {
+    flex-basis: 100%;
+  }
+
+  .leftSection > .checkout-card-container {
+    margin: 0 !important;
+  }
+
+  .rightSection {
+    flex-basis: 100%;
+  }
+}
+
+/* Extra Small (XS) / Mobile Portrait */
+@media (max-width: 480px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px 0;
+  }
+
+  .leftSection {
+    flex-basis: 100%;
+  }
+
+  .leftSection > .checkout-card-container {
+    margin: 0 !important;
+  }
+
+  .rightSection {
+    flex-basis: 100%;
+  }
+}

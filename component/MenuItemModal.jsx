@@ -217,10 +217,12 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
         <hr />
 
         {/* name and description - end */}
+        {console.log(menuItemData, menuItemData.option_groups )}
         <div className={styles.scrollableContent} ref={scrollRef}>
           <div className={styles.optionSection}>
-            {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
-              menuItemData.option_groups.map((optionGroup, index) => (
+            {/* {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
+              menuItemData.option_groups.map((optionGroup, index) => ( */}
+              {menuItemData.option_groups && menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
 
                   {index > 0 && <hr className={styles.sectionDivider} />}

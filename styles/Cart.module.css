@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: fixed;
   top: 50%;
   right: var(--menu-page-padding);
@@ -9,11 +12,22 @@
   width: var(--modal-width);
   background-color: var(--primary-white);
   overflow-y: hidden;
+
 }
 
 /* top section - start */
 .pickupDetailSection, .subtotalSection {
   padding: 25px 20px;
+  flex-shrink: 0;
+}
+
+.cartItemSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* flex-grow: 1; */
+  overflow-y: auto;
 }
 
 .pickupDetailSection h5 {
@@ -45,7 +59,7 @@
 .addedItemSection {
   padding: 0 20px;
   overflow: scroll;
-  height: 100%;
+  width: 100%;
   max-height: 250px;
 }
 /* middle section - end */
@@ -96,26 +110,18 @@
 
   .cartItemSection {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 46%;
-    border-bottom: 1.5px solid var(--primary-lightest-blue);
+    flex-direction: column; /* Set to column direction */
+    justify-content: center; /* Optional: Align children vertically in the center */
+    align-items: center; /* Optional: Align children horizontally in the center */
+    height: auto; /* Remove height constraint */
   }
 
   .addedItemSection {
-    display: flex;
-    flex-direction: column;
-    vertical-align: middle;
+    flex-grow: 1;
+    padding: 0 20px;
     width: 100%;
-    gap: 10px;
     max-height: none;
-  }
-
-  .checkoutButton {
-    width: calc(100% - 60px) !important;
-    position: absolute;
-    bottom: 8%;
+    /* background-color: lightblue; */
   }
 
   .closeIcon, .icon {

@@ -12,7 +12,7 @@ const PickupDetails = () => {
         <h4>Pickup Details</h4>
       </div>
 
-      <hr></hr>
+      <hr/>
 
       <div className="checkout-card_content">
         <div className={styles.infoSection}>
@@ -25,7 +25,8 @@ const PickupDetails = () => {
             <a href="https://goo.gl/maps/39p3eL8vpdob73EC6" target="_blank">Get Directions</a>
           </div>
         </div>
-        <hr></hr>
+
+        <hr/>
 
         <div className={styles.infoSection}>
           <div className={styles.logoWrapper}>

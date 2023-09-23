@@ -4,7 +4,6 @@
   justify-content: space-around;
   padding: 30px 0;
   min-height: 120px;
-  /* background-color: lightblue; */
 }
 
 .singleItemHeader {
@@ -55,6 +54,7 @@
   text-decoration: underline;
 }
 
+
 @media (max-width: 1000px) {
   .itemQuantity {
     flex-basis: 10%;
@@ -72,4 +72,14 @@
     margin-left: 10%;
   }
 }
+
+@media (max-width: 750px) {
+  .container {
+    /* min-height: 0; */
+  }
+  .editRemoveOptions a:last-child {
+    margin-left: 5%;
+  }
+}
+
 

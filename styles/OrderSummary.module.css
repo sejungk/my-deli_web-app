@@ -112,11 +112,45 @@
   .addedItemSection {
     padding: 0 20px;
   }
+
   .tipSection {
     padding: 25px 20px;
   }
+
   .priceSection {
     padding: 25px 20px;
   }
 
 }
+@media (max-width: 750px) {
+  .tipSection {
+    padding: 50px 0;
+  }
+
+  .tipSection h5 {
+    font-size: var(--mobile-header-font-size);
+    padding-bottom: 10px;
+  }
+
+  .tipCardWrapper {
+    padding-top: 30px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tipSection {
+    padding: 50px 0;
+  }
+
+  .tipSection h5 {
+    font-size: var(--small-mobile-header-font-size);
+    padding-bottom: 10px;
+  }
+
+  .tipCardWrapper {
+    padding-top: 30px;
+    gap: 20px;
+  }
+}
+

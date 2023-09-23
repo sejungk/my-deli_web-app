@@ -7,7 +7,6 @@ import CartItem from "./CartItem";
 import { createOrder } from '../app/api';
 import Link from 'next/link';
 
-
 const OrderSummary = ({ customerInfo }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);

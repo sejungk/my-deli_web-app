@@ -48,12 +48,13 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
       <div className={`${styles.cardWrapper} checkout-card_content`}>
         <div className={`${styles.nameRow} flex_row`}>
           <div>
-            <p>First Name</p>
+            {/* <p>First Name</p> */}
             <input
               className={styles.input}
               type="text"
               id="firstName"
               name="firstName"
+              placeholder="First Name"
               value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -64,11 +65,12 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
           </div>
 
           <div>
-            <p>Last Name</p>
+            {/* <p>Last Name</p> */}
             <input className={styles.input}
               type="text"
               id="lastName"
               name="lastName"
+              placeholder="Last Name"
               value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
@@ -80,11 +82,12 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
         </div>
 
         <div>
-          <p>Phone Number</p>
+          {/* <p>Phone Number</p> */}
           <input className={styles.input}
             type="text"
             id="phoneNumber"
             name="phoneNumber"
+            placeholder="Phone Number"
             required
             value={phoneNumber}
             onChange={handlePhoneNumberChange}>

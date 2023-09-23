@@ -9,7 +9,8 @@
 
 .input {
   margin: 0.4rem 0;
-  border-radius: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
   border: 1.5px solid #C4CCCF !important;
   width: 100%;
 }
@@ -43,6 +44,22 @@
   .cardWrapper .nameRow {
     flex-direction: column;
     gap: 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .cardWrapper {
+    margin-top: 25px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .input {
+    padding: 8px 0;
+    border-radius: 0;
+    border: none !important;
+    border-bottom: 1.5px solid #C4CCCF !important;
+    width: 100%;
   }
 
 }

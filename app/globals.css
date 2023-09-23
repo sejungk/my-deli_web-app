@@ -39,6 +39,9 @@
   --comment-font-size: 14px;
   --comment-line-height:10px;
 
+  --mobile-header-font-size: 1.5rem;
+  --small-mobile-header-font-size: 1.3rem;
+
   /* padding and spacing */
   --menu-page-padding: 50px;
   --menu-page-mobile-padding: 30px;
@@ -261,6 +264,30 @@ input[type="checkbox"]:checked + *::before  {
   padding: 20px 20px;
 }
 
+.mobile-only, .mobile-only > div {
+  visibility: hidden;
+  clear: both;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 0%;
+  height: 0 !important;
+  display: none !important;
+}
+
+.web-only {
+  display: block;
+}
+
+input::placeholder {
+  color: var(--primary-gray); /* Change to your desired color */
+}
+
+input:focus {
+  outline: none;
+  outline-offset: 2px;
+}
+
 /* tablet  devices */
 @media (max-width: 750px) {
   h4 {
@@ -272,13 +299,48 @@ input[type="checkbox"]:checked + *::before  {
   ::-webkit-scrollbar {
     display: none;
   }
-}
 
+  .checkout-card_content {
+    padding: 0 20px;
+  }
+
+  .checkout-card-container {
+    max-width: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+  }
+
+  .checkout-card-header {
+    padding: 0 0 15px;
+  }
+
+  .checkout-card-header, h4 {
+    font-size: var(--mobile-header-font-size);
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .web-only {
+    display: none;
+    clear: both;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 0%;
+    height: 0 !important;
+    display: none !important;
+  }
+}
 
 /* mobile devices */
 @media (max-width: 480px) {
   h4 {
-    font-size: 12px;
+    font-size: var(--small-mobile-header-font-size);
   }
 }
+
+
 

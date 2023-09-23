@@ -51,7 +51,7 @@ const CheckoutPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div className={`${styles.orderHeader} vertical-center`}>
+        <div className={`web-only ${styles.orderHeader} vertical-center`}>
           <h1>Let&apos;s review your order.</h1>
         </div>
         {cartItems.length > 0 && <PickupDetails />}
@@ -63,8 +63,8 @@ const CheckoutPage = () => {
 
       </div>
       <div className={styles.rightSection}>
-        <div className={styles.bttnWrapper}>
-          <div className="bttn bttn_red bttn_auto-width" id="checkout_stripe">
+        <div className={`web-only ${styles.bttnWrapper}`}>
+          <div className={`bttn bttn_red bttn_auto-width`} id="checkout_stripe">
             <span>Place Pickup Order</span>
             <span>|</span>
             <span>${(totalPrice ?? 0).toFixed(2)}</span>

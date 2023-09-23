@@ -112,8 +112,9 @@ const Cart = ({ onToggleCart }) => {
             <EmptyCart />
           )}
         </div>
-        <hr />
       </div>
+
+      <hr />
 
       <div className={styles.subtotalSection}>
         <div className={styles.subtotalInfo}>
