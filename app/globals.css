@@ -36,6 +36,8 @@
   --p-font-size: 16px;
   --p-line-height: 150%;
 
+  --p-mobile-font-size: 14px;
+
   --comment-font-size: 14px;
   --comment-line-height:10px;
 
@@ -58,6 +60,7 @@ body {
   color: var(--primary-black);
   font-family: 'Inter';
   overflow-y: overlay;
+  margin: 0;
 }
 
 h1 {
@@ -293,10 +296,8 @@ input:focus {
   h4 {
     font-size: 18px;
   }
+
   .tablet_hidden {
-    display: none;
-  }
-  ::-webkit-scrollbar {
     display: none;
   }
 
@@ -319,19 +320,27 @@ input:focus {
     font-size: var(--mobile-header-font-size);
   }
 
-  .mobile-only {
-    display: block;
-  }
-
-  .web-only {
-    display: none;
-    clear: both;
-    float: left;
+  .web-only, .web-only > div {
+    visibility: hidden;
     margin: 0;
     padding: 0;
     width: 0%;
     height: 0 !important;
     display: none !important;
+  }
+
+  .mobile-only, .mobile-only > div {
+    display: block;
+    visibility: visible;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto !important;
+    display: block !important;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -340,7 +349,11 @@ input:focus {
   h4 {
     font-size: var(--small-mobile-header-font-size);
   }
+  p, a {
+    font-size: var(--p-mobile-font-size);
+  }
 }
+
 
 
 

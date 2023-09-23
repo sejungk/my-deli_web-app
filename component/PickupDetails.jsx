@@ -9,7 +9,8 @@ const PickupDetails = () => {
   return (
     <div className="checkout-card-container">
       <div className="checkout-card-header">
-        <h4>Pickup Details</h4>
+        <h4 className="web-only">Pickup Details</h4>
+        <h4 className="mobile-only">My Deli Pickup Details</h4>
       </div>
 
       <hr/>
@@ -20,13 +21,13 @@ const PickupDetails = () => {
             <Image className={styles.logo} src="/img/store-icon.svg" layout="fill" alt="restaurant icon"/>
           </div>
           <div className={styles.infoWrapper}>
-            <h5>My Deli</h5>
+            <h5 className="web-only">My Deli</h5>
             <p>521 Broadway St, Quantico, VA 22134</p>
             <a href="https://goo.gl/maps/39p3eL8vpdob73EC6" target="_blank">Get Directions</a>
           </div>
         </div>
 
-        <hr/>
+        <hr className="web-only" />
 
         <div className={styles.infoSection}>
           <div className={styles.logoWrapper}>

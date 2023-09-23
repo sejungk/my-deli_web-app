@@ -130,38 +130,63 @@ hr.sectionDivider {
     flex-direction: column;
     width: 100vw;
     height: 100vh;
+    min-height: 100vh;
     border-radius: 0;
     border: none;
-    max-width: none;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: hidden;
   }
 
-  .headerSection {
+  /* top and bottom section */
+  .headerSection, .addToOrderSection {
+    padding: 20px;
     flex-shrink: 0;
   }
 
+  .addToOrderSection {
+    /* position: absolute; */
+    background-color: white;
+    width: 100vw;
+    /* bottom: 0; */
+    border-top: 1.5px solid var(--primary-lightest-blue);
+    /* background-color: lightpink; */
+  }
+
   .scrollableContent {
+    padding: 0;
+    width: 100%;
     flex-grow: 1;
     overflow-y: auto;
+    align-items: stretch;
+    display: flex;
+    /* background-color: lightgrey; */
   }
 
   .optionSection {
     max-height: none;
-    overflow-y: scroll;
-    margin-right: 3px;
-  }
-
-  .scrollableContent {
-    flex-grow: 1;
-    overflow-y: auto;
-  }
-
-  .addToOrderSection {
-    background-color: white;
     width: 100vw;
-    position: absolute;
-    bottom: 0;
-    border-top: 1.5px solid var(--primary-lightest-blue);
+    flex-grow: 1;
+    margin: 0;
+    /* background-color: lightgreen; */
   }
+/*
+
+
+  .cartItemSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+
+  .addedItemSection {
+    flex-grow: 1;
+    padding: 0 20px;
+    width: 100%;
+    max-height: none;
+  } */
 }

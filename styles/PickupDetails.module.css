@@ -28,5 +28,7 @@
 }
 
 @media (max-width: 750px) {
-
+  .infoSection:first-child  {
+    padding-bottom: 0;
+  }
 }

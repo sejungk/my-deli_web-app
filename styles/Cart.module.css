@@ -26,7 +26,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* flex-grow: 1; */
+  flex-grow: 1;
   overflow-y: auto;
 }
 
@@ -110,10 +110,10 @@
 
   .cartItemSection {
     display: flex;
-    flex-direction: column; /* Set to column direction */
-    justify-content: center; /* Optional: Align children vertically in the center */
-    align-items: center; /* Optional: Align children horizontally in the center */
-    height: auto; /* Remove height constraint */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
   }
 
   .addedItemSection {
@@ -121,7 +121,6 @@
     padding: 0 20px;
     width: 100%;
     max-height: none;
-    /* background-color: lightblue; */
   }
 
   .closeIcon, .icon {
