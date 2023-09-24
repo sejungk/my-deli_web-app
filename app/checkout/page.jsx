@@ -7,7 +7,6 @@ import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 const CheckoutPage = () => {
   const { push } = useRouter();
@@ -18,15 +17,16 @@ const CheckoutPage = () => {
   const [lastNameValid, setLastNameValid] = useState(false);
   const [requiredFieldsComplete, setRequiredFieldsComplete] = useState(false);
   const [checkoutButtonClicked, setCheckoutButtonClicked] = useState(false);
+  const [errorStyling, setErrorStyling] = useState(false);
 
   useEffect(() => {
     if (cartItems.length === 0) push('/');
   }, [cartItems, push]);
 
-  // useEffect(() => {
-  //   console.log(checkoutButtonClicked);
-  //   console.log("fields complete ",requiredFieldsComplete);
-  // }, [checkoutButtonClicked])
+  useEffect(() => {
+    console.log(checkoutButtonClicked);
+    console.log("fields complete ",requiredFieldsComplete);
+  }, [checkoutButtonClicked])
 
   useEffect(() => {
     const button = document.querySelector("#checkout_stripe");
@@ -86,6 +86,7 @@ const CheckoutPage = () => {
           setLastNameValid={setLastNameValid}
           updatePhoneNumberValid={handlePhoneNumberValidChange}
           checkoutButtonClicked={checkoutButtonClicked}
+          errorStyling={errorStyling}
         />
 
       </div>
@@ -110,6 +111,7 @@ const CheckoutPage = () => {
           requiredFieldsComplete={requiredFieldsComplete}
           onCheckoutButtonClick={() => {
             setCheckoutButtonClicked(true);
+            setErrorStyling(true);
 
             // Reset checkoutButtonClicked to false after the click
             setTimeout(() => {

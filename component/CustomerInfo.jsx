@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from "../styles/CustomerInfo.module.css";
 import { parsePhoneNumber, isValidNumber } from 'libphonenumber-js';
 
-const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, lastNameValid, setFirstNameValid, setLastNameValid, updatePhoneNumberValid, checkoutButtonClicked}) => {
+const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, lastNameValid, setFirstNameValid, setLastNameValid, updatePhoneNumberValid, checkoutButtonClicked, errorStyling}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -103,7 +103,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
           <div>
             <input
               ref={firstNameInputRef}
-              className={`${styles.input} ${!firstNameValid && checkoutButtonClicked ? styles.errorInput : ''}`}
+              className={`${styles.input} ${!firstNameValid && errorStyling ? styles.errorInput : ''}`}
               type="text"
               id="firstName"
               name="firstName"
@@ -115,8 +115,8 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
               }}
               required>
             </input>
-            {!firstNameValid && checkoutButtonClicked && (
-              <div class={styles.errorMsg}>
+            {!firstNameValid && errorStyling && (
+              <div className={styles.errorMsg}>
                 <svg fill="none" viewBox="0 0 16 16">
                   <path fill="#F25353" fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2a6 6 0 0 0 0 12ZM8 3.33a4.67 4.67 0 1 1-.01 9.35A4.67 4.67 0 0 1 8 3.33Zm0 8a.83.83 0 1 0 0-1.66.83.83 0 0 0 0 1.66Zm-.67-6.66h1.34V9H7.33V4.67Z"></path>
                 </svg>
@@ -128,7 +128,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
           <div>
             <input
               ref={lastNameInputRef}
-              className={`${styles.input} ${!lastNameValid && checkoutButtonClicked ? styles.errorInput : ''}`}
+              className={`${styles.input} ${!lastNameValid && errorStyling ? styles.errorInput : ''}`}
               type="text"
               id="lastName"
               name="lastName"
@@ -140,8 +140,8 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
               }}
               required>
             </input>
-            {!lastNameValid && checkoutButtonClicked && (
-              <div class={styles.errorMsg}>
+            {!lastNameValid && errorStyling && (
+              <div className={styles.errorMsg}>
                 <svg fill="none" viewBox="0 0 16 16">
                   <path fill="#F25353" fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2a6 6 0 0 0 0 12ZM8 3.33a4.67 4.67 0 1 1-.01 9.35A4.67 4.67 0 0 1 8 3.33Zm0 8a.83.83 0 1 0 0-1.66.83.83 0 0 0 0 1.66Zm-.67-6.66h1.34V9H7.33V4.67Z"></path>
                 </svg>
@@ -154,7 +154,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
         <div>
           <input
             ref={phoneNumberInputRef}
-            className={`${styles.input} ${!phoneNumberValid && checkoutButtonClicked ? styles.errorInput : ''}`}
+            className={`${styles.input} ${!phoneNumberValid && errorStyling ? styles.errorInput : ''}`}
             type="text"
             id="phoneNumber"
             name="phoneNumber"
@@ -163,8 +163,8 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
             value={phoneNumber}
             onChange={handlePhoneNumberChange}>
           </input>
-          {!phoneNumberValid && checkoutButtonClicked && (
-            <div class={styles.errorMsg}>
+          {!phoneNumberValid && errorStyling && (
+            <div className={styles.errorMsg}>
               <svg fill="none" viewBox="0 0 16 16">
                 <path fill="#F25353" fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2a6 6 0 0 0 0 12ZM8 3.33a4.67 4.67 0 1 1-.01 9.35A4.67 4.67 0 0 1 8 3.33Zm0 8a.83.83 0 1 0 0-1.66.83.83 0 0 0 0 1.66Zm-.67-6.66h1.34V9H7.33V4.67Z"></path>
               </svg>
