@@ -8,10 +8,9 @@ import { createOrder } from '../app/api';
 import Link from 'next/link';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
-const OrderSummary = ({ customerInfo }) => {
+const OrderSummary = ({ customerInfo, requiredFieldsComplete }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
-  const [phoneNumberValid, setPhoneNumberValid] = useState(true);
 
   const currentTime = new Date();
   const { cartItems, removeFromCart, selectedPickupDateTime, totalPrice } = useContext(CartContext);
@@ -125,18 +124,17 @@ const OrderSummary = ({ customerInfo }) => {
           </div>
         </div>
 
-        {phoneNumberValid ? (
-          <div className="bttn bttn_red bttn_center bttn_auto-width bttn_disabled"
-          onClick={handlePlaceOrder}>
-            <span>Checkout</span>
-          </div>
-        ) : (
+        {requiredFieldsComplete ? (
           <Link href="/order-confirmation" className="text-decoration-none">
             <div className="bttn bttn_red bttn_center bttn_auto-width"
               onClick={handlePlaceOrder}>
                 <span>Checkout</span>
             </div>
           </Link>
+        ) : (
+          <div className="bttn bttn_red bttn_center bttn_auto-width bttn_disabled">
+            <span>Checkout</span>
+          </div>
         )}
       </div>
     </div>

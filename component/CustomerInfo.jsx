@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "../styles/CustomerInfo.module.css";
 import { parsePhoneNumber, isValidNumber } from 'libphonenumber-js';
 
-const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, updatePhoneNumberValid }) => {
+const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, lastNameValid, setFirstNameValid, setLastNameValid, updatePhoneNumberValid}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  useEffect(() => {
+    // Check if first name is at least 2 characters long
+    setFirstNameValid(firstName.length >= 2);
+  }, [firstName]);
+
+  useEffect(() => {
+    // Check if last name is at least 2 characters long
+    setLastNameValid(lastName.length >= 2);
+  }, [lastName]);
 
   const handlePhoneNumberChange = (e) => {
     let inputPhoneNumber = e.target.value;
@@ -65,6 +75,11 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, updatePhoneNumbe
               }}
               required>
             </input>
+            {!firstNameValid && (
+              <span className={styles.errorMsg}>
+                A first name must be provided.
+              </span>
+            )}
           </div>
 
           <div>
@@ -80,6 +95,11 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, updatePhoneNumbe
               }}
               required>
             </input>
+            {!lastNameValid && (
+              <span className={styles.errorMsg}>
+                A last name must be provided.
+              </span>
+            )}
           </div>
         </div>
 

@@ -14,6 +14,8 @@ const CheckoutPage = () => {
   const { cartItems, totalPrice } = useContext(CartContext);
   const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
   const [phoneNumberValid, setPhoneNumberValid] = useState(false);
+  const [firstNameValid, setFirstNameValid] = useState(false);
+  const [lastNameValid, setLastNameValid] = useState(false);
   const [requiredFieldsComplete, setRequiredFieldsComplete] = useState(false);
 
   useEffect(() => {
@@ -50,14 +52,16 @@ const CheckoutPage = () => {
   }, [cartItems]);
 
   useEffect(() => {
-    if (phoneNumberValid) {
+    if (phoneNumberValid && firstNameValid && lastNameValid) {
       setRequiredFieldsComplete(true);
     } else {
       setRequiredFieldsComplete(false);
     }
-    console.log("valid phone number: ", phoneNumberValid)
-    console.log("fields complete ",requiredFieldsComplete)
-  }, [phoneNumberValid, requiredFieldsComplete]);
+    console.log("valid first name: ", firstNameValid);
+    console.log("valid last name: ", lastNameValid);
+    console.log("valid phone number: ", phoneNumberValid);
+    console.log("fields complete ",requiredFieldsComplete);
+  }, [phoneNumberValid, firstNameValid, lastNameValid, requiredFieldsComplete]);
 
   const handlePhoneNumberValidChange = (isValid) => {
     setPhoneNumberValid(isValid);
@@ -77,6 +81,10 @@ const CheckoutPage = () => {
             setCustomerInfo((prevInfo) => ({ ...prevInfo, ...info }));
           }}
           phoneNumberValid={phoneNumberValid}
+          firstNameValid ={firstNameValid}
+          lastNameValid={lastNameValid}
+          setFirstNameValid={setFirstNameValid}
+          setLastNameValid={setLastNameValid}
           updatePhoneNumberValid={handlePhoneNumberValidChange}
         />
 
@@ -97,7 +105,7 @@ const CheckoutPage = () => {
             </div>
           )}
         </div>
-        <OrderSummary customerInfo={customerInfo}/>
+        <OrderSummary customerInfo={customerInfo} requiredFieldsComplete={requiredFieldsComplete} />
       </div>
     </div>
   )
