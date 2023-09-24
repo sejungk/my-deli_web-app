@@ -17,10 +17,16 @@ const CheckoutPage = () => {
   const [firstNameValid, setFirstNameValid] = useState(false);
   const [lastNameValid, setLastNameValid] = useState(false);
   const [requiredFieldsComplete, setRequiredFieldsComplete] = useState(false);
+  const [checkoutButtonClicked, setCheckoutButtonClicked] = useState(false);
 
   useEffect(() => {
     if (cartItems.length === 0) push('/');
   }, [cartItems, push]);
+
+  // useEffect(() => {
+  //   console.log(checkoutButtonClicked);
+  //   console.log("fields complete ",requiredFieldsComplete);
+  // }, [checkoutButtonClicked])
 
   useEffect(() => {
     const button = document.querySelector("#checkout_stripe");
@@ -41,7 +47,7 @@ const CheckoutPage = () => {
             quantity: item.quantity,
           }));
 
-          console.log(lineItems)
+          // console.log(lineItems)
           const session = await createCheckoutSession({ items: lineItems });
           window.location = session.url;
         } catch (error) {
@@ -52,15 +58,8 @@ const CheckoutPage = () => {
   }, [cartItems]);
 
   useEffect(() => {
-    if (phoneNumberValid && firstNameValid && lastNameValid) {
-      setRequiredFieldsComplete(true);
-    } else {
-      setRequiredFieldsComplete(false);
-    }
-    console.log("valid first name: ", firstNameValid);
-    console.log("valid last name: ", lastNameValid);
-    console.log("valid phone number: ", phoneNumberValid);
-    console.log("fields complete ",requiredFieldsComplete);
+    if (phoneNumberValid && firstNameValid && lastNameValid) setRequiredFieldsComplete(true);
+    else setRequiredFieldsComplete(false);
   }, [phoneNumberValid, firstNameValid, lastNameValid, requiredFieldsComplete]);
 
   const handlePhoneNumberValidChange = (isValid) => {
@@ -86,6 +85,7 @@ const CheckoutPage = () => {
           setFirstNameValid={setFirstNameValid}
           setLastNameValid={setLastNameValid}
           updatePhoneNumberValid={handlePhoneNumberValidChange}
+          checkoutButtonClicked={checkoutButtonClicked}
         />
 
       </div>
@@ -105,7 +105,13 @@ const CheckoutPage = () => {
             </div>
           )}
         </div>
-        <OrderSummary customerInfo={customerInfo} requiredFieldsComplete={requiredFieldsComplete} />
+        <OrderSummary
+          customerInfo={customerInfo}
+          requiredFieldsComplete={requiredFieldsComplete}
+          onCheckoutButtonClick={() => {
+            setCheckoutButtonClicked(true);
+          }}
+          />
       </div>
     </div>
   )

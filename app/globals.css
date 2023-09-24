@@ -108,6 +108,14 @@ p, label {
   top: -10px;
 }
 
+.error-text {
+  font-weight: 300;
+  font-size: var(--comment-font-size);
+  line-height: var(--comment-line-height);
+  color: var(--primary-red);
+  position: relative;
+}
+
 b {
   font-weight: 600;
 }

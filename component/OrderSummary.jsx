@@ -8,7 +8,7 @@ import { createOrder } from '../app/api';
 import Link from 'next/link';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 
-const OrderSummary = ({ customerInfo, requiredFieldsComplete }) => {
+const OrderSummary = ({ customerInfo, requiredFieldsComplete, onCheckoutButtonClick }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
 
@@ -132,7 +132,10 @@ const OrderSummary = ({ customerInfo, requiredFieldsComplete }) => {
             </div>
           </Link>
         ) : (
-          <div className="bttn bttn_red bttn_center bttn_auto-width bttn_disabled">
+          <div className="bttn bttn_red bttn_center bttn_auto-width bttn_disabled"
+            onClick={() => {
+              onCheckoutButtonClick();
+            }}>
             <span>Checkout</span>
           </div>
         )}

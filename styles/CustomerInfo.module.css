@@ -40,6 +40,16 @@
   font-weight: 500;
 }
 
+.errorMsg {
+  display: flex;
+  align-items: center;
+}
+
+.errorMsg svg {
+  width: 20px;
+  margin-right: 5px;
+}
+
 @media (max-width: 1000px) {
   .cardWrapper .nameRow {
     flex-direction: column;

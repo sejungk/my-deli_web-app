@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from "../styles/CustomerInfo.module.css";
 import { parsePhoneNumber, isValidNumber } from 'libphonenumber-js';
 
-const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, lastNameValid, setFirstNameValid, setLastNameValid, updatePhoneNumberValid}) => {
+const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, lastNameValid, setFirstNameValid, setLastNameValid, updatePhoneNumberValid, checkoutButtonClicked}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,6 +16,11 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
     // Check if last name is at least 2 characters long
     setLastNameValid(lastName.length >= 2);
   }, [lastName]);
+
+  useEffect(() => {
+    console.log(checkoutButtonClicked);
+    console.log("fields complete ",lastNameValid, setFirstNameValid, setLastNameValid);
+  }, [checkoutButtonClicked])
 
   const handlePhoneNumberChange = (e) => {
     let inputPhoneNumber = e.target.value;
@@ -75,10 +80,14 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
               }}
               required>
             </input>
-            {!firstNameValid && (
-              <span className={styles.errorMsg}>
-                A first name must be provided.
-              </span>
+            {console.log(firstNameValid && checkoutButtonClicked)}
+            {!firstNameValid && checkoutButtonClicked && (
+              <div class={styles.errorMsg}>
+                <svg fill="none" viewBox="0 0 16 16">
+                  <path fill="#F25353" fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2a6 6 0 0 0 0 12ZM8 3.33a4.67 4.67 0 1 1-.01 9.35A4.67 4.67 0 0 1 8 3.33Zm0 8a.83.83 0 1 0 0-1.66.83.83 0 0 0 0 1.66Zm-.67-6.66h1.34V9H7.33V4.67Z"></path>
+                </svg>
+                <span className="error-text">A first name must be provided.</span>
+              </div>
             )}
           </div>
 
@@ -95,10 +104,14 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
               }}
               required>
             </input>
-            {!lastNameValid && (
-              <span className={styles.errorMsg}>
-                A last name must be provided.
-              </span>
+            {!lastNameValid && checkoutButtonClicked && (
+              <div class={styles.errorMsg}>
+                <svg fill="none" viewBox="0 0 16 16">
+                  <path fill="#F25353" fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2a6 6 0 0 0 0 12ZM8 3.33a4.67 4.67 0 1 1-.01 9.35A4.67 4.67 0 0 1 8 3.33Zm0 8a.83.83 0 1 0 0-1.66.83.83 0 0 0 0 1.66Zm-.67-6.66h1.34V9H7.33V4.67Z"></path>
+                </svg>
+                <span className="error-text">A last name must be provided.</span>
+              </div>
+
             )}
           </div>
         </div>
@@ -113,10 +126,13 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
             value={phoneNumber}
             onChange={handlePhoneNumberChange}>
           </input>
-          {!phoneNumberValid && (
-            <span className={styles.errorMsg}>
-              A valid phone number must be provided.
-            </span>
+          {!phoneNumberValid && checkoutButtonClicked && (
+            <div class={styles.errorMsg}>
+              <svg fill="none" viewBox="0 0 16 16">
+                <path fill="#F25353" fill-rule="evenodd" d="M8 14A6 6 0 0 0 8 2a6 6 0 0 0 0 12ZM8 3.33a4.67 4.67 0 1 1-.01 9.35A4.67 4.67 0 0 1 8 3.33Zm0 8a.83.83 0 1 0 0-1.66.83.83 0 0 0 0 1.66Zm-.67-6.66h1.34V9H7.33V4.67Z"></path>
+              </svg>
+              <span className="error-text">A valid phone number must be provided.</span>
+            </div>
           )}
         </div>
       </div>
