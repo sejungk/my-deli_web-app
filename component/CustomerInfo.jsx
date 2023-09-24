@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from "../styles/CustomerInfo.module.css";
 import { parsePhoneNumber, isValidNumber } from 'libphonenumber-js';
 
-const CustomerInfo = ({ onCustomerInfoChange }) => {
+const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, updatePhoneNumberValid }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -29,11 +29,15 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
       const parsedPhoneNumber = parsePhoneNumber(inputPhoneNumber, 'US');
       if (isValidNumber(parsedPhoneNumber.number, 'US')) {
         console.log("VALID NUMBER")
+        updatePhoneNumberValid(true);
         onCustomerInfoChange({ phoneNumber: e.target.value });
       } else {
-        console.log("INVALID NUMBER")
-        onCustomerInfoChange({ phoneNumber: '' }); // Clear the phone number if it's invalid
+        console.log("INVALID NUMBER");
+        updatePhoneNumberValid(false);
+        onCustomerInfoChange({ phoneNumber: '' });
       }
+    } else {
+      updatePhoneNumberValid(false);
     }
   }
 
@@ -48,7 +52,6 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
       <div className={`${styles.cardWrapper} checkout-card_content`}>
         <div className={`${styles.nameRow} flex_row`}>
           <div>
-            {/* <p>First Name</p> */}
             <input
               className={styles.input}
               type="text"
@@ -65,7 +68,6 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
           </div>
 
           <div>
-            {/* <p>Last Name</p> */}
             <input className={styles.input}
               type="text"
               id="lastName"
@@ -82,7 +84,6 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
         </div>
 
         <div>
-          {/* <p>Phone Number</p> */}
           <input className={styles.input}
             type="text"
             id="phoneNumber"
@@ -92,6 +93,11 @@ const CustomerInfo = ({ onCustomerInfoChange }) => {
             value={phoneNumber}
             onChange={handlePhoneNumberChange}>
           </input>
+          {!phoneNumberValid && (
+            <span className={styles.errorMsg}>
+              A valid phone number must be provided.
+            </span>
+          )}
         </div>
       </div>
     </div>

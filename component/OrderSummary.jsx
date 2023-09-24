@@ -6,10 +6,13 @@ import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
 import { createOrder } from '../app/api';
 import Link from 'next/link';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 const OrderSummary = ({ customerInfo }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
+  const [phoneNumberValid, setPhoneNumberValid] = useState(true);
+
   const currentTime = new Date();
   const { cartItems, removeFromCart, selectedPickupDateTime, totalPrice } = useContext(CartContext);
   const tipOptions = [
@@ -37,7 +40,7 @@ const OrderSummary = ({ customerInfo }) => {
       phone_number: customerInfo.phoneNumber,
       payment_method: "",
       total_amount: parseFloat(total.toFixed(2)),
-      subtotal_amount: subtotal,
+      subtotal_amount: total,
       tip_amount: parseFloat(tipAmount.toFixed(2)),
       taxes_amount: 0,
       status_id: 1,
@@ -122,12 +125,19 @@ const OrderSummary = ({ customerInfo }) => {
           </div>
         </div>
 
-        <Link href="/order-confirmation" className="text-decoration-none">
-          <div className="bttn bttn_red bttn_center bttn_auto-width"
-            onClick={handlePlaceOrder}>
-              <span>Checkout</span>
+        {phoneNumberValid ? (
+          <div className="bttn bttn_red bttn_center bttn_auto-width bttn_disabled"
+          onClick={handlePlaceOrder}>
+            <span>Checkout</span>
           </div>
-        </Link>
+        ) : (
+          <Link href="/order-confirmation" className="text-decoration-none">
+            <div className="bttn bttn_red bttn_center bttn_auto-width"
+              onClick={handlePlaceOrder}>
+                <span>Checkout</span>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -7,11 +7,14 @@ import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const CheckoutPage = () => {
   const { push } = useRouter();
   const { cartItems, totalPrice } = useContext(CartContext);
   const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
+  const [phoneNumberValid, setPhoneNumberValid] = useState(false);
+  const [requiredFieldsComplete, setRequiredFieldsComplete] = useState(false);
 
   useEffect(() => {
     if (cartItems.length === 0) push('/');
@@ -46,6 +49,20 @@ const CheckoutPage = () => {
     }
   }, [cartItems]);
 
+  useEffect(() => {
+    if (phoneNumberValid) {
+      setRequiredFieldsComplete(true);
+    } else {
+      setRequiredFieldsComplete(false);
+    }
+    console.log("valid phone number: ", phoneNumberValid)
+    console.log("fields complete ",requiredFieldsComplete)
+  }, [phoneNumberValid, requiredFieldsComplete]);
+
+  const handlePhoneNumberValidChange = (isValid) => {
+    setPhoneNumberValid(isValid);
+  };
+
   if (cartItems.length === 0) return null;
 
   return (
@@ -59,16 +76,26 @@ const CheckoutPage = () => {
           onCustomerInfoChange={(info) => {
             setCustomerInfo((prevInfo) => ({ ...prevInfo, ...info }));
           }}
+          phoneNumberValid={phoneNumberValid}
+          updatePhoneNumberValid={handlePhoneNumberValidChange}
         />
 
       </div>
       <div className={styles.rightSection}>
         <div className={`web-only ${styles.bttnWrapper}`}>
-          <div className={`bttn bttn_red bttn_auto-width`} id="checkout_stripe">
-            <span>Place Pickup Order</span>
-            <span>|</span>
-            <span>${(totalPrice ?? 0).toFixed(2)}</span>
-          </div>
+          {phoneNumberValid ? (
+            <div className="bttn bttn_red bttn_auto-width" id="checkout_stripe">
+              <span>Place Pickup Order</span>
+              <span>|</span>
+              <span>${(totalPrice ?? 0).toFixed(2)}</span>
+            </div>
+          ) : (
+            <div className="bttn bttn_red bttn_auto-width bttn_disabled">
+              <span>Place Pickup Order</span>
+              <span>|</span>
+              <span>${(totalPrice ?? 0).toFixed(2)}</span>
+            </div>
+          )}
         </div>
         <OrderSummary customerInfo={customerInfo}/>
       </div>

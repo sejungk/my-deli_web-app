@@ -172,21 +172,4 @@ hr.sectionDivider {
     margin: 0;
     /* background-color: lightgreen; */
   }
-/*
-
-
-  .cartItemSection {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-  }
-
-  .addedItemSection {
-    flex-grow: 1;
-    padding: 0 20px;
-    width: 100%;
-    max-height: none;
-  } */
 }
