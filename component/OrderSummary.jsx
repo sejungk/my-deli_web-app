@@ -132,7 +132,7 @@ const OrderSummary = ({ customerInfo, requiredFieldsComplete, onCheckoutButtonCl
             </div>
           </Link>
         ) : (
-          <div className="bttn bttn_red bttn_center bttn_auto-width bttn_disabled"
+          <div className="bttn bttn_red bttn_center bttn_auto-width"
             onClick={() => {
               onCheckoutButtonClick();
             }}>

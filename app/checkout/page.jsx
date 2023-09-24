@@ -98,7 +98,7 @@ const CheckoutPage = () => {
               <span>${(totalPrice ?? 0).toFixed(2)}</span>
             </div>
           ) : (
-            <div className="bttn bttn_red bttn_auto-width bttn_disabled">
+            <div className="bttn bttn_red bttn_auto-width">
               <span>Place Pickup Order</span>
               <span>|</span>
               <span>${(totalPrice ?? 0).toFixed(2)}</span>
@@ -110,6 +110,11 @@ const CheckoutPage = () => {
           requiredFieldsComplete={requiredFieldsComplete}
           onCheckoutButtonClick={() => {
             setCheckoutButtonClicked(true);
+
+            // Reset checkoutButtonClicked to false after the click
+            setTimeout(() => {
+              setCheckoutButtonClicked(false);
+            }, 100);
           }}
           />
       </div>

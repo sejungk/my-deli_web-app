@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from "../styles/CustomerInfo.module.css";
 import { parsePhoneNumber, isValidNumber } from 'libphonenumber-js';
 
@@ -6,6 +6,10 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const firstNameInputRef = useRef(null);
+  const lastNameInputRef = useRef(null);
+  const phoneNumberInputRef = useRef(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
     // Check if first name is at least 2 characters long
@@ -18,9 +22,11 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
   }, [lastName]);
 
   useEffect(() => {
-    console.log(checkoutButtonClicked);
-    console.log("fields complete ",lastNameValid, setFirstNameValid, setLastNameValid);
-  }, [checkoutButtonClicked])
+    if (checkoutButtonClicked) {
+      console.log("clicked")
+      scrollToFirstInvalidInput();
+    }
+  }, [checkoutButtonClicked]);
 
   const handlePhoneNumberChange = (e) => {
     let inputPhoneNumber = e.target.value;
@@ -56,6 +62,34 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
     }
   }
 
+  const scrollToFirstInvalidInput = () => {
+    setScrollPosition(0);
+
+    if (!firstNameValid && firstNameInputRef.current) {
+      scrollToCenter(firstNameInputRef.current);
+    } else if (!lastNameValid && lastNameInputRef.current) {
+      scrollToCenter(lastNameInputRef.current);
+    } else if (!phoneNumberValid && phoneNumberInputRef.current) {
+      scrollToCenter(phoneNumberInputRef.current);
+    }
+  };
+
+  const scrollToCenter = (element) => {
+    if (element) {
+      const inputRect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const newScrollPosition = inputRect.top - (windowHeight - inputRect.height) / 4;
+
+      // Update the scroll position in state
+      setScrollPosition(newScrollPosition);
+
+      window.scrollTo({
+        top: newScrollPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <div className="checkout-card-container">
         <div className="checkout-card-header">
@@ -68,6 +102,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
         <div className={`${styles.nameRow} flex_row`}>
           <div>
             <input
+              ref={firstNameInputRef}
               className={`${styles.input} ${!firstNameValid && checkoutButtonClicked ? styles.errorInput : ''}`}
               type="text"
               id="firstName"
@@ -80,7 +115,6 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
               }}
               required>
             </input>
-            {console.log(firstNameValid && checkoutButtonClicked)}
             {!firstNameValid && checkoutButtonClicked && (
               <div class={styles.errorMsg}>
                 <svg fill="none" viewBox="0 0 16 16">
@@ -93,6 +127,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
 
           <div>
             <input
+              ref={lastNameInputRef}
               className={`${styles.input} ${!lastNameValid && checkoutButtonClicked ? styles.errorInput : ''}`}
               type="text"
               id="lastName"
@@ -118,6 +153,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
 
         <div>
           <input
+            ref={phoneNumberInputRef}
             className={`${styles.input} ${!phoneNumberValid && checkoutButtonClicked ? styles.errorInput : ''}`}
             type="text"
             id="phoneNumber"
