@@ -50,6 +50,16 @@
   margin-right: 5px;
 }
 
+.errorInput {
+  border: 1.5px solid var(--primary-red) !important;
+}
+
+.errorInput::placeholder {
+  color: var(--primary-red) ;
+  font-weight: 300;
+}
+
+
 @media (max-width: 1000px) {
   .cardWrapper .nameRow {
     flex-direction: column;

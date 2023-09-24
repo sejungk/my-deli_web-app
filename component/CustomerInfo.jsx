@@ -68,7 +68,7 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
         <div className={`${styles.nameRow} flex_row`}>
           <div>
             <input
-              className={styles.input}
+              className={`${styles.input} ${!firstNameValid && checkoutButtonClicked ? styles.errorInput : ''}`}
               type="text"
               id="firstName"
               name="firstName"
@@ -92,7 +92,8 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
           </div>
 
           <div>
-            <input className={styles.input}
+            <input
+              className={`${styles.input} ${!lastNameValid && checkoutButtonClicked ? styles.errorInput : ''}`}
               type="text"
               id="lastName"
               name="lastName"
@@ -111,13 +112,13 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
                 </svg>
                 <span className="error-text">A last name must be provided.</span>
               </div>
-
             )}
           </div>
         </div>
 
         <div>
-          <input className={styles.input}
+          <input
+            className={`${styles.input} ${!phoneNumberValid && checkoutButtonClicked ? styles.errorInput : ''}`}
             type="text"
             id="phoneNumber"
             name="phoneNumber"
