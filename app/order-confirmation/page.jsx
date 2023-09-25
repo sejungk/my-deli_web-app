@@ -1,11 +1,19 @@
 "use client"
 import styles from "../../styles/OrderConfirmation.module.css"
 import { CartContext } from '../CartContext';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 const OrderConfirmation = () => {
-  const { selectedPickupDateTime } = useContext(CartContext);
+  const { push } = useRouter();
+  const { cartItems, selectedPickupDateTime } = useContext(CartContext);
+  console.log(cartItems)
+
+  useEffect(() => {
+    if (cartItems.length === 0) push('/');
+  }, [cartItems, push]);
+  if (cartItems.length === 0) return null;
 
   // Function to format the date
   const formatDate = (dateString) => {
@@ -33,39 +41,21 @@ const OrderConfirmation = () => {
 
   // Format the selected date
   const formattedDate = formatDate(selectedPickupDateTime.date);
+  console.log(cartItems.length)
 
-  // return (
-  //   <div className={styles.container}>
-  //     <div className={styles.center}>
-  //       <div className={styles.logoMobile}>
-  //         <Image src="/img/green-check.svg" layout="fill" alt="location icon" />
-  //       </div>
-  //       <span className={styles.mainText}>Thank you for your order, Name.</span>
-  //       <div className={styles.descriptionText}>
-  //         <div className={styles.logoWeb}>
-  //           <Image src="/img/green-check.svg" layout="fill" alt="location icon" />
-  //         </div>
-  //         <h4>
-  //           We’re preparing your pickup order for{' '}
-  //           {formattedDate} at {selectedPickupDateTime.time}.
-  //         </h4>
-  //       </div>
-  //     </div>
-  //   </div>
-  //   );
-  // };
+
   return (
     <div className={styles.container}>
       <div className={styles.center}>
-        <div className={styles.logoMobile}>
+        <div className={styles.logo}>
           <Image src="/img/green-check.svg" layout="fill" alt="location icon"/>
         </div>
         <span class={styles.mainText}>Thank you for your order, Name.</span>
         <div class={styles.descriptionText}>
-          <div class={styles.logoWeb}>
+          {/* <div className={`${styles.logo} web-only`}>
             <Image src="/img/green-check.svg" layout="fill" alt="location icon"/>
-          </div>
-          <h4>We’re preparing your pickup order for {formattedDate} at {selectedPickupDateTime.time}. </h4>
+          </div> */}
+          <p className={styles.detailsText}>We’re preparing your pickup order for {formattedDate} at {selectedPickupDateTime.time}. </p>
         </div>
       </div>
     </div>

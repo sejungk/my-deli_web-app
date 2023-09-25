@@ -17,27 +17,31 @@
   padding-top: 25px;
 }
 
-.logoWeb {
+.descriptionText .detailsText {
+  font-size: 18px;
+}
+
+/* .logo {
   width: 35px;
   height: 35px;
   position: relative;
   margin-right: 15px;
-}
+} */
 
-.logoMobile {
-  display: none;
+.logo {
+  width: 350px;
+  height: 350px;
+  position: relative;
+  margin-right: 15px;
 }
 
 /* tablet */
-@media (max-width: 768px) {
+@media (max-width: 750px) {
+  .container{
+    background-color: lightblue;
+  }
   .mainText {
     font-size: 32px;
-  }
-
-  .logoWeb {
-    width: 28px;
-    height: 28px;
-    margin-right: 10px;
   }
 }
 
@@ -45,19 +49,6 @@
 @media (max-width: 480px) {
   .mainText {
     font-size: 20px;
-  }
-
-  .logoMobile {
-    display: block;
-    width: 50px;
-    height: 50px;
-    margin: auto;
-    position: relative;
-    margin-bottom: 20px;;
-  }
-
-  .logoWeb {
-    display: none;
   }
 
   .descriptionText {

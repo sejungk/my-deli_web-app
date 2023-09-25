@@ -74,9 +74,6 @@
 }
 
 @media (max-width: 750px) {
-  .container {
-    /* min-height: 0; */
-  }
   .editRemoveOptions a:last-child {
     margin-left: 5%;
   }

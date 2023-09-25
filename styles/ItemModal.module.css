@@ -85,3 +85,12 @@
   width: 100%;
 }
 
+@media (max-width: 750px) {
+  .container {
+    border: none;
+  }
+
+  .pickupModal .contentContainer {
+    padding: 40px 30px;
+  }
+}

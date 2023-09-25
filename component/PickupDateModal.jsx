@@ -16,7 +16,7 @@ const PickupDateModal = ({ onCancel, handlePickupDateTimeSelection, toggleModal 
 
   return ReactDOM.createPortal(
     <div className={styles.container}>
-      <div className={styles.modal}>
+      <div className={`${styles.modal} ${styles.pickupModal}`}>
         <div className={styles.modalContent}>
           <div className={styles.closeIcon} onClick={onCancel}>
             <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon" />
