@@ -5,14 +5,14 @@
   position: fixed;
   top: 50%;
   right: var(--menu-page-padding);
-  transform: translateY(-40%);
   max-height: calc(100% - 100px);
+  min-height: 510px;
   border-radius: 20px;
   border: 1.5px solid var(--primary-lightest-blue);
   width: var(--modal-width);
   background-color: var(--primary-white);
   overflow-y: hidden;
-
+  transition: transform 0.3s ease-in-out;
 }
 
 /* top section - start */
@@ -71,7 +71,6 @@
   margin-bottom: 10px;
 }
 /* bottom section - end */
-
 
 @media (max-width: 1000px) {
   .container {

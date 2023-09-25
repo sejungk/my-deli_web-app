@@ -12,7 +12,65 @@ import EmptyCart from './EmptyCart';
 const Cart = ({ onToggleCart }) => {
   const [isPickupDateModalVisible, setIsPickupDateModalVisible] = useState(false);
   const [isPickupTimeValid, setIsPickupTimeValid] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isCentered, setIsCentered] = useState(false);
+  const [initialModalPosition, setInitialModalPosition] = useState(null);
   const { cartItems, editItemData, removeFromCart, updateSelectedPickupDateTime, selectedPickupDateTime, subtotal } = useContext(CartContext);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollPosition(window.scrollY);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const modal = document.getElementById('cartModal');
+    const modalRect = modal.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const centerPosition = (viewportHeight - modalRect.height) / 2;
+    const minPosition = viewportHeight * 0.6;
+
+    const newPosition = Math.max(centerPosition, 175 - scrollPosition / 2);
+    if (modal) modal.style.top = `${newPosition}px`;
+  }, [scrollPosition]);
+
+  //  useEffect(() => {
+  //   // Get the modal and viewport dimensions
+  //   const modal = document.getElementById('cartModal');
+  //   const modalRect = modal.getBoundingClientRect();
+  //   const viewportHeight = window.innerHeight;
+
+  //   // Calculate the initial modal position
+  //   const initialPosition = (viewportHeight - modalRect.height) / 2;
+
+  //   setInitialModalPosition(initialPosition);
+  // }, []);
+
+  // useEffect(() => {
+  //   const modal = document.getElementById('cartModal');
+  //   if (modal) {
+  //     const modalHeight = modal.offsetHeight;
+  //     const viewportHeight = window.innerHeight;
+  //     const position = (viewportHeight - modalHeight) / 2;
+
+  //     modal.style.top = `${position}px`;
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   const modal = document.getElementById('cartModal');
+  //   if (modal) {
+  //     const modalHeight = modal.offsetHeight;
+  //     const viewportHeight = window.innerHeight;
+  //     const position = (viewportHeight - modalHeight) / 2;
+
+  //     modal.style.top = `${position}px`;
+  //   }
+  // }, []);
+
 
   // Real-time time validation effect
   useEffect(() => {
@@ -63,7 +121,7 @@ const Cart = ({ onToggleCart }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="cartModal">
       <div className={styles.pickupDetailSection}>
         <div className={styles.closeIcon} onClick={onToggleCart}>
             <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon" />

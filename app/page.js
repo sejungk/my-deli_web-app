@@ -7,28 +7,45 @@ import Navbar from '../component/Navbar'
 
 
 const Home = () => {
-  const [isCartVisible, setIsCartVisible] = useState(window.innerWidth > 750);
+  const [isCartVisible, setIsCartVisible] = useState(false);
 
   const toggleCartVisibility = () => {
-    if (window.innerWidth <= 750) {
-      setIsCartVisible(!isCartVisible);
-    }
+    setIsCartVisible(!isCartVisible);
   };
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 750) {
-        setIsCartVisible(false); // Show the cart if the screen is 750px or smaller
-      } else {
-        setIsCartVisible(true); // Always show the cart if the screen is larger than 750px
+      if (typeof window !== 'undefined') {
+        const initialIsCartVisible = window.innerWidth > 750;
+        setIsCartVisible(initialIsCartVisible);
       }
     };
 
-    window.addEventListener("resize", handleResize);
-
+    handleResize();
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // const [isCartVisible, setIsCartVisible] = useState(window.innerWidth > 750);
+
+  // const toggleCartVisibility = () => {
+  //   if (window.innerWidth <= 750) {
+  //     setIsCartVisible(!isCartVisible);
+  //   }
+  // };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     if (window.innerWidth <= 750) setIsCartVisible(false);
+  //     else setIsCartVisible(true);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
 
   return (

@@ -46,18 +46,16 @@ const OrderConfirmation = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.center}>
-        <div className={styles.logo}>
-          <Image src="/img/green-check.svg" layout="fill" alt="location icon"/>
+        <div className={styles.illustration}>
+          {/* <Image src="/img/green-check.svg" layout="fill" alt="location icon"/> */}
+          <Image className={styles.trayImg} src="/img/food-tray_icon.png" layout="fill" alt="location icon"/>
         </div>
-        <span class={styles.mainText}>Thank you for your order, Name.</span>
-        <div class={styles.descriptionText}>
-          {/* <div className={`${styles.logo} web-only`}>
-            <Image src="/img/green-check.svg" layout="fill" alt="location icon"/>
-          </div> */}
-          <p className={styles.detailsText}>We’re preparing your pickup order for {formattedDate} at {selectedPickupDateTime.time}. </p>
+        <div className={styles.textContainer}>
+          <h3 class={styles.mainText}>Your pickup order is confirmed.</h3>
+          <div class={styles.descriptionText}>
+            <p className={styles.detailsText}>We’re preparing your pickup order for {formattedDate} at {selectedPickupDateTime.time}. </p>
+          </div>
         </div>
-      </div>
     </div>
   )
 }
