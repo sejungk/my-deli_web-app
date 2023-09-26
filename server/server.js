@@ -6,20 +6,19 @@ const app = express();
 const port = process.env.PORT || 5000;
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
-// app.use(cors({
-//   origin: ['http://localhost:3000', 'https://my-deli-6b5fbf7aedfa.herokuapp.com'],
-// }));
-app.use(cors({ origin: 'https://my-deli-6b5fbf7aedfa.herokuapp.com', credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 
 // Create a pool to manage database connections
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+// const pool = new Pool({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_DATABASE,
+//   password: process.env.DB_PASSWORD,
+//   port: process.env.DB_PORT,
+// });
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
 
 app.post('/create-checkout-session', async (req, res) => {
   try {
