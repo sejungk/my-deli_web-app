@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logoWrapper}>
-        <Image className={styles.logo} src="/img/mydeli-logo.svg" layout="fill" alt="location icon" />
+        <Image className={styles.logo} src="/img/mydeli-logo.svg" width={100} height={100} alt="location icon" />
       </div>
       <div className={styles.linksContainer}>
         {isBreakfastTime && (
@@ -42,23 +42,5 @@ const Navbar = () => {
     </div>
   );
 }
-
-//   return (
-//     <div>
-//       <div className={styles.logoWrapper}>
-//         <Image className={styles.logo} src="/img/mydeli-logo.svg" layout="fill" alt="location icon" />
-//       </div>
-//       <div className={styles.linksContainer}>
-//         {isBefore1030 && <div className={styles.item}>Breakfast</div>}
-//         <div className={styles.item}>Subs</div>
-//         <div className={styles.item}>Wraps</div>
-//         <div className={styles.item}>Sandwich</div>
-//         <div className={styles.item}>Burgers</div>
-//         <div className={styles.item}>Rice Bowls</div>
-//       </div>
-//       <hr className={styles.underline}></hr>
-//     </div>
-//   )
-// }
 
 export default Navbar;

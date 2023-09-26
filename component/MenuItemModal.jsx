@@ -20,7 +20,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/menu-items/${id}`)
+      .get(`${process.env.SERVER_URL}/api/menu-items/${id}`)
       .then((response) => {
         setMenuItemData(response.data);
         const initialQuantity = operationType === "edit" ? selectedQuantity : 1;
