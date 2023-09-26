@@ -19,8 +19,9 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
   const scrollRef = useRef(null);
 
   useEffect(() => {
+    console.log(process.env.SERVER_URL)
     axios
-      .get(`${process.env.SERVER_URL}/api/menu-items/${id}`)
+      .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/menu-items/${id}`)
       .then((response) => {
         setMenuItemData(response.data);
         const initialQuantity = operationType === "edit" ? selectedQuantity : 1;
