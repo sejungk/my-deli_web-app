@@ -6,9 +6,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://my-deli-6b5fbf7aedfa.herokuapp.com'],
-}));
+// app.use(cors({
+//   origin: ['http://localhost:3000', 'https://my-deli-6b5fbf7aedfa.herokuapp.com'],
+// }));
+app.use(cors({ origin: 'https://my-deli-6b5fbf7aedfa.herokuapp.com', credentials: true }));
 app.use(express.json());
 
 // Create a pool to manage database connections
