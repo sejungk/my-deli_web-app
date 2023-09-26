@@ -16,7 +16,7 @@ const MenuItems = ({ onToggleCart }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/menu-items")
+      .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/menu-items`)
       .then((response) => {
         console.log("API response:", response.data);
         setMenuItems(response.data);
