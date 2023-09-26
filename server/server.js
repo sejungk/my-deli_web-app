@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://my-deli-6b5fbf7aedfa.herokuapp.com/'],
+  origin: ['http://localhost:3000', 'https://my-deli-6b5fbf7aedfa.herokuapp.com'],
 }));
 app.use(express.json());
 
