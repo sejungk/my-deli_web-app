@@ -1,4 +1,6 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
+
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
@@ -6,10 +8,9 @@ const app = express();
 const port = process.env.PORT || 5000;
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
-// Create a pool to manage database connections
 // const pool = new Pool({
 //   user: process.env.DB_USER,
 //   host: process.env.DB_HOST,
@@ -17,6 +18,7 @@ app.use(express.json());
 //   password: process.env.DB_PASSWORD,
 //   port: process.env.DB_PORT,
 // });
+
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 
