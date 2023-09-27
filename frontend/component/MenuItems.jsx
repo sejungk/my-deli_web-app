@@ -14,7 +14,9 @@ const MenuItems = ({ onToggleCart }) => {
   const { cartItems } = useContext(CartContext);
   const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
+
   useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_SERVER_URL)
     axios
       .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/menu-items`)
       .then((response) => {

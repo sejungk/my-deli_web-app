@@ -28,25 +28,6 @@ const Home = () => {
     };
   }, []);
 
-  // const [isCartVisible, setIsCartVisible] = useState(window.innerWidth > 750);
-
-  // const toggleCartVisibility = () => {
-  //   if (window.innerWidth <= 750) {
-  //     setIsCartVisible(!isCartVisible);
-  //   }
-  // };
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     if (window.innerWidth <= 750) setIsCartVisible(false);
-  //     else setIsCartVisible(true);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
 
   return (
     <>
