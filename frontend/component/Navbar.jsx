@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logoWrapper}>
-        <Image className={styles.logo} src="/img/mydeli-logo.svg" width={100} height={100} alt="location icon" />
+        <Image className={styles.logo} src="./img/mydeli-logo.svg" width={100} height={100} alt="location icon" />
       </div>
       <div className={styles.linksContainer}>
         {isBreakfastTime && (

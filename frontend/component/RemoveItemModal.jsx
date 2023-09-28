@@ -11,7 +11,7 @@ const RemoveItemModalPortal = ({ itemName, onCancel, onConfirm, isOpen }) => {
         <div className={styles.modalContent}>
           <div className={styles.contentContainer}>
             <div className={styles.closeIcon} onClick={onCancel}>
-            <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon"/>
+            <Image className={styles.icon} src="./img/x-icon.svg" layout="fill" alt="location icon"/>
             </div>
             <div className={styles.contentWrapper}>
               <div className={styles.textWrapper}>

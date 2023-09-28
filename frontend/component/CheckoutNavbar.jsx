@@ -7,7 +7,7 @@ const CheckoutNavbar = () => {
     <div className={styles.container}>
       <Link href="/" className="text-decoration-none">
         <div className={styles.backBttn}>
-          <Image src="/img/back-arrow.svg" layout="fill" alt="location icon" />
+          <Image src="./img/back-arrow.svg" layout="fill" alt="location icon" />
         </div>
         <span>Back</span>
       </Link>

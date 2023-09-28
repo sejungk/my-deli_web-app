@@ -205,7 +205,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
         <div className={styles.headerSection}>
           {/* Close button */}
           <div className={styles.closeIcon} onClick={closeModal}>
-            <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon" />
+            <Image className={styles.icon} src="./img/x-icon.svg" layout="fill" alt="location icon" />
           </div>
 
           {/* name and description - start */}

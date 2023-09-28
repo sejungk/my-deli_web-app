@@ -1,6 +1,4 @@
 import styles from "../styles/Payment.module.css";
-import Image from "next/image";
-
 const Payment = () => {
   return (
     <div className="checkout-card-container">

@@ -124,12 +124,12 @@ const Cart = ({ onToggleCart }) => {
     <div className={styles.container} id="cartModal">
       <div className={styles.pickupDetailSection}>
         <div className={styles.closeIcon} onClick={onToggleCart}>
-            <Image className={styles.icon} src="/img/x-icon.svg" layout="fill" alt="location icon" />
+            <Image className={styles.icon} src="./img/x-icon.svg" layout="fill" alt="location icon" />
         </div>
         <h5>Pickup Order Summary</h5>
         <div className={styles.logoContainer}>
           <div className={styles.logo}>
-            <Image src="/img/location-icon.svg" layout="fill" alt="location icon" />
+            <Image src="./img/location-icon.svg" layout="fill" alt="location icon" />
           </div>
           <p>521 Broadway St, Quantico</p>
         </div>

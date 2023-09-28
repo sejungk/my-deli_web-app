@@ -47,8 +47,7 @@ const OrderConfirmation = () => {
   return (
     <div className={styles.container}>
         <div className={styles.illustration}>
-          {/* <Image src="/img/green-check.svg" layout="fill" alt="location icon"/> */}
-          <Image className={styles.trayImg} src="/img/food-tray_icon.png" layout="fill" alt="location icon"/>
+          <Image className={styles.trayImg} src="/img/food-tray-outlined_icon.svg" layout="fill" alt="location icon"/>
         </div>
         <div className={styles.textContainer}>
           <h3 class={styles.mainText}>Your pickup order is confirmed.</h3>
