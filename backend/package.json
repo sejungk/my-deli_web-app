@@ -8,5 +8,11 @@
     "start": "node server.js"
   },
   "author": "Sejung Kim",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "pg": "^8.11.3",
+    "stripe": "^13.6.0"
+  }
 }
