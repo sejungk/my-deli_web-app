@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.2",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "autoprefixer": "^10.4.16",
+    "date-fns": "^2.30.0",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.3",
     "imagemin-optipng": "^8.0.0",
+    "libphonenumber-js": "^1.10.45",
     "next": "13.5.3",
     "next-optimized-images": "^2.6.2",
     "postcss": "^8.4.30",

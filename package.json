@@ -5,24 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "client": "npm start --prefix frontend",
+    "start": "nodemon backend/server.js",
+    "lint": "next lint",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.2",
-    "@fortawesome/fontawesome-svg-core": "^6.4.2",
-    "@fortawesome/free-regular-svg-icons": "^6.4.2",
-    "@fortawesome/free-solid-svg-icons": "^6.4.2",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
-    "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "express": "^4.18.2",
-    "libphonenumber-js": "^1.10.44",
     "next": "13.4.6",
     "pg": "^8.11.3",
     "pg-promise": "^11.5.4",
