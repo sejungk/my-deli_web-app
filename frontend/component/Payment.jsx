@@ -1,4 +1,5 @@
 import styles from "../styles/Payment.module.css";
+
 const Payment = () => {
   return (
     <div className="checkout-card-container">
