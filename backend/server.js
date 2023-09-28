@@ -1,5 +1,5 @@
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const express = require("express");
 const cors = require("cors");
@@ -24,55 +24,6 @@ if (process.env.NODE_ENV === 'production') {
     res.send("API is running...");
   })
 }
-
-
-// const frontendBuildPath = path.join(__dirname, '../frontend/build');
-
-// if (process.env.NODE_ENV === 'production') {
-//   // Serve the frontend using Next.js's built-in server
-//   const { createServer } = require('http');
-//   const { parse } = require('url');
-//   const next = require('next');
-
-//   const dev = process.env.NODE_ENV !== 'production';
-//   const nextApp = next({ dev });
-//   const nextHandle = nextApp.getRequestHandler();
-
-//   nextApp.prepare().then(() => {
-//     createServer((req, res) => {
-//       const parsedUrl = parse(req.url, true);
-//       nextHandle(req, res, parsedUrl);
-//     }).listen(port, (err) => {
-//       if (err) throw err;
-//       console.log(`Server is running on port ${port}`);
-//     });
-//   });
-// } else {
-//   // Serve static files during development
-//   app.use(express.static(frontendBuildPath));
-
-//   // Handle all other routes by serving the index.html
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(frontendBuildPath, 'index.html'));
-//   });
-// }
-
-// // app.use(express.json());
-// const frontendBuildPath = path.join(__dirname, '../frontend/build');
-
-// if (process.env.NODE_ENV === 'production') {
-//   // Serve static files from the .next directory
-//   app.use(express.static(path.join(__dirname, "/frontend/build")));
-
-//   // Handle all other routes by serving the index.html
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-//   });
-// } else {
-
-//   app.use(express.static(frontendBuildPath)); // Serve static files during development
-// }
-// const frontendBuildPath = path.join(__dirname, '../frontend/public/build');
 
 // ------------------ development ------------------
 
