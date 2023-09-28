@@ -23,7 +23,6 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
 
   useEffect(() => {
     if (checkoutButtonClicked) {
-      console.log("clicked")
       scrollToFirstInvalidInput();
     }
   }, [checkoutButtonClicked]);
@@ -49,11 +48,9 @@ const CustomerInfo = ({ onCustomerInfoChange, phoneNumberValid, firstNameValid, 
     if (inputPhoneNumber.length === 10) {
       const parsedPhoneNumber = parsePhoneNumber(inputPhoneNumber, 'US');
       if (isValidNumber(parsedPhoneNumber.number, 'US')) {
-        console.log("VALID NUMBER")
         updatePhoneNumberValid(true);
         onCustomerInfoChange({ phoneNumber: e.target.value });
       } else {
-        console.log("INVALID NUMBER");
         updatePhoneNumberValid(false);
         onCustomerInfoChange({ phoneNumber: '' });
       }

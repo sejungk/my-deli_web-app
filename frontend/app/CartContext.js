@@ -11,6 +11,7 @@ export const CartProvider = ({ children }) => {
   const [dateOptions, setDateOptions] = useState([]);
   const [timeOptions, setTimeOptions] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [tipAmount, setTipAmount] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
@@ -89,7 +90,6 @@ export const CartProvider = ({ children }) => {
       updatedCartItems[existingItemIndex].quantity += item.quantity;
       setCartItems(updatedCartItems);
     } else {
-      // If the item doesn't exist, add it to the cart
       const uniqueId = uuidv4();
 
       const cartItem = {
@@ -108,10 +108,6 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = (itemId) => {
     const updatedCart = cartItems.filter((item) => item.itemId !== itemId);
     setCartItems(updatedCart);
-  };
-
-  const checkout = () => {
-    // Implement checkout logic
   };
 
   const setEditItem = (item) => {
@@ -191,7 +187,6 @@ export const CartProvider = ({ children }) => {
       cartItems,
       addToCart,
       removeFromCart,
-      checkout,
       editItemData,
       setEditItem,
       editCartItem,
@@ -200,9 +195,12 @@ export const CartProvider = ({ children }) => {
       dateOptions,
       timeOptions,
       totalPrice,
+      setTotalPrice,
+      setSubtotal,
       subtotal,
+      tipAmount,
+      setTipAmount,
       calculateSelectedOptionsPrice
-
       }}>
       {children}
     </CartContext.Provider>

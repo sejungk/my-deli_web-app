@@ -4,16 +4,16 @@ import React, { useContext, useState} from 'react';
 import styles from "../styles/OrderSummary.module.css";
 import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
-import { createOrder } from '../app/api';
 import Link from 'next/link';
-import { isValidPhoneNumber } from 'libphonenumber-js';
 
-const OrderSummary = ({ customerInfo, requiredFieldsComplete, onCheckoutButtonClick }) => {
+const OrderSummary = ({ requiredFieldsComplete, onCheckoutButtonClick, handlePlaceOrder }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
 
-  const currentTime = new Date();
-  const { cartItems, removeFromCart, selectedPickupDateTime, totalPrice } = useContext(CartContext);
+  const { cartItems, removeFromCart, totalPrice, setTotalPrice, subtotal, tipAmount, setTipAmount } = useContext(CartContext);
+
+  const taxesAmount = 0;
+
   const tipOptions = [
     { label: '5%', percentage: 5 },
     { label: '10%', percentage: 10 },
@@ -21,40 +21,16 @@ const OrderSummary = ({ customerInfo, requiredFieldsComplete, onCheckoutButtonCl
     { label: '20%', percentage: 20 }
   ];
 
-// console.log(cartItems)
   const handleTipClick = (percentage, index) => {
     setTipPercentage(percentage);
     setSelectedTipIndex(index);
-  };
 
-   // Calculate the subtotal
-   const tipAmount = (totalPrice * (tipPercentage / 100)) || 0;
-   const total = totalPrice + tipAmount;
+    const newTipAmount = (totalPrice * (percentage / 100)) || 0;
+    setTipAmount(newTipAmount);
 
-  // Function to handle placing the order
-  const handlePlaceOrder = async () => {
-    // format orderData for orders database
-    const orderData = {
-      customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
-      phone_number: customerInfo.phoneNumber,
-      payment_method: "",
-      total_amount: parseFloat(total.toFixed(2)),
-      subtotal_amount: total,
-      tip_amount: parseFloat(tipAmount.toFixed(2)),
-      taxes_amount: 0,
-      status_id: 1,
-      order_time: currentTime.toLocaleTimeString(),
-      order_date: currentTime.toLocaleDateString(),
-      pickup_time: selectedPickupDateTime?.time || '',
-      pickup_date: selectedPickupDateTime?.date || '',
-    };
-
-    try {
-      await createOrder(orderData, cartItems);
-      setOrderPlaced(true);
-    } catch (error) {
-      console.error('Error placing order:', error);
-    }
+    // Calculate the subtotal
+    const newTotal = subtotal + taxesAmount + newTipAmount;
+    setTotalPrice(newTotal);
   };
 
   const handleRemoveItem = (itemId) => {
@@ -108,7 +84,7 @@ const OrderSummary = ({ customerInfo, requiredFieldsComplete, onCheckoutButtonCl
         <div className={styles.priceWrapper}>
           <div className={styles.priceRow}>
             <p>Subtotal</p>
-            <p>${totalPrice.toFixed(2)}</p>
+            <p>${subtotal.toFixed(2)}</p>
           </div>
           <div className={styles.priceRow}>
             <p>Taxes</p>
@@ -120,7 +96,7 @@ const OrderSummary = ({ customerInfo, requiredFieldsComplete, onCheckoutButtonCl
           </div>
           <div className={styles.priceRow}>
             <p><b>Total</b></p>
-            <p><b>${(total ?? 0).toFixed(2)}</b></p>
+            <p><b>${(totalPrice ?? 0).toFixed(2)}</b></p>
           </div>
         </div>
 

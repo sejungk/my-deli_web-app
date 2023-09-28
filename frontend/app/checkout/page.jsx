@@ -7,10 +7,12 @@ import OrderSummary from '../../component/OrderSummary';
 import { CartContext } from '../../app/CartContext';
 import { createCheckoutSession } from '../api';
 import { useRouter } from 'next/navigation';
+import { createOrder } from '../api';
+import Link from 'next/link';
 
 const CheckoutPage = () => {
   const { push } = useRouter();
-  const { cartItems, totalPrice } = useContext(CartContext);
+  const { cartItems, totalPrice, tipAmount, subtotal, selectedPickupDateTime} = useContext(CartContext);
   const [customerInfo, setCustomerInfo] = useState({ firstName: '', lastName: '', phoneNumber: '' });
   const [phoneNumberValid, setPhoneNumberValid] = useState(false);
   const [firstNameValid, setFirstNameValid] = useState(false);
@@ -18,44 +20,14 @@ const CheckoutPage = () => {
   const [requiredFieldsComplete, setRequiredFieldsComplete] = useState(false);
   const [checkoutButtonClicked, setCheckoutButtonClicked] = useState(false);
   const [errorStyling, setErrorStyling] = useState(false);
+  const currentTime = new Date();
 
   useEffect(() => {
     if (cartItems.length === 0) push('/');
   }, [cartItems, push]);
 
   useEffect(() => {
-    console.log(checkoutButtonClicked);
-    console.log("fields complete ",requiredFieldsComplete);
   }, [checkoutButtonClicked])
-
-  useEffect(() => {
-    const button = document.querySelector("#checkout_stripe");
-    if (button) {
-      button.addEventListener("click", async () => {
-        try {
-          // Format the cartItems prices to cents and structure the data correctly
-          const lineItems = cartItems.map((item) => ({
-            product_id: item.id,
-            name: item.name,
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: item.name,
-              },
-              unit_amount: Math.round(item.base_price * 100), // Convert to cents
-            },
-            quantity: item.quantity,
-          }));
-
-          // console.log(lineItems)
-          const session = await createCheckoutSession({ items: lineItems });
-          window.location = session.url;
-        } catch (error) {
-          console.error(error);
-        }
-      });
-    }
-  }, [cartItems]);
 
   useEffect(() => {
     if (phoneNumberValid && firstNameValid && lastNameValid) setRequiredFieldsComplete(true);
@@ -64,6 +36,62 @@ const CheckoutPage = () => {
 
   const handlePhoneNumberValidChange = (isValid) => {
     setPhoneNumberValid(isValid);
+  };
+
+  const handleCheckoutClick = async () => {
+    try {
+      const lineItems = cartItems.map((item) => ({
+        product_id: item.id,
+        name: item.name,
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
+          },
+          unit_amount: Math.round(item.base_price * 100), // Convert to cents
+        },
+        quantity: item.quantity,
+      }));
+
+      const session = await createCheckoutSession({ items: lineItems });
+      window.location = session.url;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCheckoutButtonClick = () => {
+    setCheckoutButtonClicked(true);
+    setErrorStyling(true);
+
+    setTimeout(() => {
+      setCheckoutButtonClicked(false);
+    }, 100);
+  };
+
+  const handlePlaceOrder = async () => {
+    // format orderData for orders database
+    const orderData = {
+      customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
+      phone_number: customerInfo.phoneNumber,
+      payment_method: "",
+      total_amount: parseFloat(totalPrice.toFixed(2)),
+      subtotal_amount: subtotal,
+      tip_amount: parseFloat(tipAmount.toFixed(2)),
+      taxes_amount: 0,
+      status_id: 1,
+      order_time: currentTime.toLocaleTimeString(),
+      order_date: currentTime.toLocaleDateString(),
+      pickup_time: selectedPickupDateTime?.time || '',
+      pickup_date: selectedPickupDateTime?.date || '',
+    };
+    // console.log("order: ", orderData)
+    try {
+      await createOrder(orderData, cartItems);
+      // setOrderPlaced(true);
+    } catch (error) {
+      console.error('Error placing order:', error);
+    }
   };
 
   if (cartItems.length === 0) return null;
@@ -88,16 +116,17 @@ const CheckoutPage = () => {
           checkoutButtonClicked={checkoutButtonClicked}
           errorStyling={errorStyling}
         />
-
       </div>
       <div className={styles.rightSection}>
         <div className={`web-only ${styles.bttnWrapper}`}>
-          {phoneNumberValid ? (
-            <div className="bttn bttn_red bttn_auto-width" id="checkout_stripe">
-              <span>Place Pickup Order</span>
-              <span>|</span>
-              <span>${(totalPrice ?? 0).toFixed(2)}</span>
-            </div>
+          {requiredFieldsComplete ? (
+            <Link href="/order-confirmation" className="text-decoration-none">
+              <div className="bttn bttn_red bttn_auto-width"  onClick={handlePlaceOrder}>
+                <span>Place Pickup Order</span>
+                <span>|</span>
+                <span>${(totalPrice ?? 0).toFixed(2)}</span>
+              </div>
+            </Link>
           ) : (
             <div className="bttn bttn_red bttn_auto-width">
               <span>Place Pickup Order</span>
@@ -109,15 +138,8 @@ const CheckoutPage = () => {
         <OrderSummary
           customerInfo={customerInfo}
           requiredFieldsComplete={requiredFieldsComplete}
-          onCheckoutButtonClick={() => {
-            setCheckoutButtonClicked(true);
-            setErrorStyling(true);
-
-            // Reset checkoutButtonClicked to false after the click
-            setTimeout(() => {
-              setCheckoutButtonClicked(false);
-            }, 100);
-          }}
+          onCheckoutButtonClick={handleCheckoutButtonClick}
+          handlePlaceOrder={handlePlaceOrder}
           />
       </div>
     </div>

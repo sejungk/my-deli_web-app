@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 const OrderConfirmation = () => {
   const { push } = useRouter();
   const { cartItems, selectedPickupDateTime } = useContext(CartContext);
-  console.log(cartItems)
 
   useEffect(() => {
     if (cartItems.length === 0) push('/');
@@ -41,8 +40,6 @@ const OrderConfirmation = () => {
 
   // Format the selected date
   const formattedDate = formatDate(selectedPickupDateTime.date);
-  console.log(cartItems.length)
-
 
   return (
     <div className={styles.container}>
@@ -50,8 +47,8 @@ const OrderConfirmation = () => {
           <Image className={styles.trayImg} src="/img/food-tray-outlined_icon.svg" layout="fill" alt="location icon"/>
         </div>
         <div className={styles.textContainer}>
-          <h3 class={styles.mainText}>Your pickup order is confirmed.</h3>
-          <div class={styles.descriptionText}>
+          <h3 className={styles.mainText}>Your pickup order is confirmed.</h3>
+          <div className={styles.descriptionText}>
             <p className={styles.detailsText}>We’re preparing your pickup order for {formattedDate} at {selectedPickupDateTime.time}. </p>
           </div>
         </div>

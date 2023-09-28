@@ -19,7 +19,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    console.log("heelo",process.env.NEXT_PUBLIC_SERVER_URL)
     axios
       .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/menu-items/${id}`)
       .then((response) => {
@@ -66,7 +65,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
         };
       });
     }
-    console.log(selectedOptionsPrice)
   }, [operationType, selectedOptions, menuItemData]);
 
   useEffect(() => {
@@ -89,7 +87,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
   // console selectedMenuItem
   useEffect(() => {
     if (selectedMenuItem && selectedMenuItem.selectedOptions) {
-      // console.log(selectedMenuItem);
     }
   }, [selectedMenuItem]);
 
@@ -142,7 +139,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
 
       // Calculate the total price based on the updated selected options and quantity
       const updatedTotalPrice = (parseFloat(prevItem.base_price) + newSelectedOptionsPrice) * prevItem.quantity;
-      // console.log(selectedOptions, updatedOptions)
       return { ...prevItem, selectedOptions: updatedOptions, total_price: updatedTotalPrice };
     });
   };
@@ -197,7 +193,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       }
     }
   }
-  // console.log(menuItemData.base_price, selectedOptionsPrice, quantity)
 
   return ReactDOM.createPortal(
     <div className={styles.container} onClick={handleOutsideClick}>
@@ -218,7 +213,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
         <hr />
 
         {/* name and description - end */}
-        {console.log(menuItemData, menuItemData.option_groups )}
         <div className={styles.scrollableContent} ref={scrollRef}>
           <div className={styles.optionSection}>
             {/* {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
@@ -247,7 +241,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
               ))}
           </div>
         </div>
-      {console.log(selectedOptionsPrice, menuItemData)}
+
         <hr />
         <div className={styles.addToOrderSection}>
           <div className={styles.quantity}>
