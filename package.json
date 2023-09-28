@@ -6,8 +6,8 @@
     "start": "NODE_ENV=production node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "next dev",
     "build": "npm run build --prefix frontend",
+    "dev": "next dev",
     "lint": "next lint",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
