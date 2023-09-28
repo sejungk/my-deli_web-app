@@ -128,7 +128,7 @@ const CheckoutPage = () => {
               </div>
             </Link>
           ) : (
-            <div className="bttn bttn_red bttn_auto-width">
+            <div className="bttn bttn_red bttn_auto-width" onClick={handleCheckoutButtonClick}>
               <span>Place Pickup Order</span>
               <span>|</span>
               <span>${(totalPrice ?? 0).toFixed(2)}</span>
