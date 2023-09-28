@@ -141,7 +141,7 @@ app.post('/api/orders', async (req, res) => {
 });
 
 // Route to get all menu items
-app.get("/api/menu-items", async (req, res) => {
+app.get("api/menu-items", async (req, res) => {
   try {
     const query = `
       SELECT
