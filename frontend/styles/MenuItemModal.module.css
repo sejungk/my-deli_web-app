@@ -126,6 +126,7 @@ hr.sectionDivider {
 
 @media (max-width: 750px) {
   .modalContainer {
+    position: absolute;
     display: flex;
     flex-direction: column;
     width: 100vw !important;
