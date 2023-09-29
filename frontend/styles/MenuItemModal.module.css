@@ -140,6 +140,10 @@ hr.sectionDivider {
     overflow-y: hidden;
   }
 
+  .itemName {
+    padding: 0;
+  }
+
   /* top and bottom section */
   .headerSection, .addToOrderSection {
     padding: 20px;
@@ -147,12 +151,9 @@ hr.sectionDivider {
   }
 
   .addToOrderSection {
-    /* position: absolute; */
     background-color: white;
     width: 100vw;
-    /* bottom: 0; */
     border-top: 1.5px solid var(--primary-lightest-blue);
-    /* background-color: lightpink; */
   }
 
   .scrollableContent {
@@ -162,7 +163,6 @@ hr.sectionDivider {
     overflow-y: auto;
     align-items: stretch;
     display: flex;
-    /* background-color: lightgrey; */
   }
 
   .optionSection {
@@ -170,6 +170,5 @@ hr.sectionDivider {
     width: 100vw;
     flex-grow: 1;
     margin: 0;
-    /* background-color: lightgreen; */
   }
 }

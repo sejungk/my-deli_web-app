@@ -375,13 +375,9 @@ input:focus {
     font-size: var(--small-mobile-header-font-size);
   }
 
-  .red-button > span, .bttn_outline span {
-    font-size: 1px !important;
-    font-weight: 300;
-
-  }
   .quantity  span, .bttn > span {
     font-size: 13px;
+    font-weight: 400;
   }
 
   p, a {
