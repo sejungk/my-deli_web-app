@@ -72,7 +72,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
       setSelectedMenuItem((prevItem) => ({
         ...prevItem,
         quantity: quantity,
-        // total_price: (parseFloat(menuItemData.base_price)),
         total_price: (parseFloat(menuItemData.base_price) + calculateSelectedOptionsPrice(prevItem.selectedOptions, menuItemData)) * quantity,
       }));
     }
@@ -215,8 +214,6 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
         {/* name and description - end */}
         <div className={styles.scrollableContent} ref={scrollRef}>
           <div className={styles.optionSection}>
-            {/* {menuItemData.option_groups && menuItemData.option_groups[0].id !== null &&
-              menuItemData.option_groups.map((optionGroup, index) => ( */}
               {menuItemData.option_groups && menuItemData.option_groups.map((optionGroup, index) => (
                 <React.Fragment key={optionGroup.id}>
 
@@ -244,7 +241,7 @@ const MenuItemModal = ({itemId, id, closeModal, operationType, selectedOptions, 
 
         <hr />
         <div className={styles.addToOrderSection}>
-          <div className={styles.quantity}>
+          <div className={`bttn ${styles.quantity}`}>
             <span className="pointer" onClick={decreaseQuantity}>-</span>
             {operationType === "edit" ? <span>{selectedMenuItem.quantity}</span> : <span>{quantity}</span>}
             <span  className="pointer" onClick={increaseQuantity}>+</span>

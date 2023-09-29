@@ -9,11 +9,24 @@ import axios from "axios";
 
 const MenuItems = ({ onToggleCart }) => {
   const [menuItems, setMenuItems] = useState([]);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(null); // To store the selected item
+  const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartItems } = useContext(CartContext);
   const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (isModalOpen) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
+
+      return () => {
+        document.body.classList.remove('no-scroll');
+      };
+    }
+  }, [isModalOpen]);
 
   useEffect(() => {
     console.log(process.env.NEXT_PUBLIC_SERVER_URL)

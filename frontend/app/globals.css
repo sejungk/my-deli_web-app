@@ -46,7 +46,7 @@
 
   /* padding and spacing */
   --menu-page-padding: 50px;
-  --menu-page-mobile-padding: 30px;
+  --menu-page-mobile-padding: 20px;
 
   /* modal styling*/
   --product-modal-padding: 20px;
@@ -135,6 +135,14 @@ a {
 
 .text-decoration-none {
   text-decoration: none;
+}
+
+.truncate-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pointer {
@@ -299,6 +307,10 @@ input:focus {
   outline-offset: 2px;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 /* tablet  devices */
 @media (max-width: 750px) {
   h4 {
@@ -326,6 +338,7 @@ input:focus {
 
   .checkout-card-header, h4 {
     font-size: var(--mobile-header-font-size);
+
   }
 
   .web-only, .web-only > div {
@@ -354,9 +367,23 @@ input:focus {
 
 /* mobile devices */
 @media (max-width: 480px) {
+  .bttn_small {
+    width: 55vw;
+  }
+
   h4 {
     font-size: var(--small-mobile-header-font-size);
   }
+
+  .red-button > span, .bttn_outline span {
+    font-size: 1px !important;
+    font-weight: 300;
+
+  }
+  .quantity  span, .bttn > span {
+    font-size: 13px;
+  }
+
   p, a {
     font-size: var(--p-mobile-font-size);
   }

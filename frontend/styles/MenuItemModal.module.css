@@ -117,7 +117,7 @@ hr.sectionDivider {
   border: var(--light-blue-border);
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  width: 80px;
   border-radius: 50px;
   margin: auto 0;
   padding: 10px 15px;
@@ -128,14 +128,14 @@ hr.sectionDivider {
   .modalContainer {
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    min-width: 100vw !important;
     border-radius: 0;
     border: none;
     margin: 0;
     padding: 0;
-    max-width: 100%;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     overflow-y: hidden;
   }
