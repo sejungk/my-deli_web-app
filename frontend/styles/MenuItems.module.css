@@ -43,6 +43,10 @@ h3.category {
   flex-wrap: wrap;
 }
 
+.isParentScrollDisabled {
+  overflow: hidden;
+}
+
 @media (max-width: 1100px) {
   .container {
     padding-left: var(--menu-page-padding);

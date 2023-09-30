@@ -11,15 +11,19 @@ const MenuItems = ({ onToggleCart }) => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isParentScrollDisabled, setIsParentScrollDisabled] = useState(false);
+
   const { cartItems } = useContext(CartContext);
-  const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
+  // const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (isModalOpen) {
         document.body.classList.add('no-scroll');
+        setIsParentScrollDisabled(true);
       } else {
         document.body.classList.remove('no-scroll');
+        setIsParentScrollDisabled(false);
       }
 
       return () => {
@@ -91,7 +95,7 @@ const MenuItems = ({ onToggleCart }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isParentScrollDisabled ? styles.parentScrollDisabled : ''}`}>
       {Object.keys(groupedMenuItems).map((categoryName) => (
         <div key={categoryName} id={formatId(categoryName)} className={styles.categoryText}>
           <h3 className={styles.category}>{categoryName}</h3>
