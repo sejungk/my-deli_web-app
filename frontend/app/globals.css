@@ -368,9 +368,14 @@ input:focus {
 /* mobile devices */
 @media (max-width: 480px) {
 
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
   .bttn_small {
     width: 55vw;
   }
+
 
   h4 {
     font-size: var(--small-mobile-header-font-size);
