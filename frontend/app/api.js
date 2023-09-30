@@ -22,5 +22,4 @@ export const createOrder = async (orderData, cartItems) => {
   }
 };
 
-
 export default api;

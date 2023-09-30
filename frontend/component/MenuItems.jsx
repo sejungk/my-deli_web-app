@@ -14,7 +14,6 @@ const MenuItems = ({ onToggleCart }) => {
   const [isParentScrollDisabled, setIsParentScrollDisabled] = useState(false);
 
   const { cartItems } = useContext(CartContext);
-  // const time1030 = new Date(0, 0, 0, 10, 30, 0, 0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

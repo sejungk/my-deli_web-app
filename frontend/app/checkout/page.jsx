@@ -38,7 +38,7 @@ const CheckoutPage = () => {
     setPhoneNumberValid(isValid);
   };
 
-  const handleCheckoutClick = async () => {
+  const handleStripeCheckout = async () => {
     try {
       const lineItems = cartItems.map((item) => ({
         product_id: item.id,
@@ -69,7 +69,7 @@ const CheckoutPage = () => {
     }, 100);
   };
 
-  const handlePlaceOrder = async () => {
+  const addOrderToDatabase = async () => {
     // format orderData for orders database
     const orderData = {
       customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
@@ -85,13 +85,16 @@ const CheckoutPage = () => {
       pickup_time: selectedPickupDateTime?.time || '',
       pickup_date: selectedPickupDateTime?.date || '',
     };
-    // console.log("order: ", orderData)
     try {
       await createOrder(orderData, cartItems);
-      // setOrderPlaced(true);
     } catch (error) {
       console.error('Error placing order:', error);
     }
+  };
+
+  const handlePlaceOrderAndCheckout = async () => {
+    await addOrderToDatabase();
+    // handleStripeCheckout();
   };
 
   if (cartItems.length === 0) return null;
@@ -120,13 +123,13 @@ const CheckoutPage = () => {
       <div className={styles.rightSection}>
         <div className={`web-only ${styles.bttnWrapper}`}>
           {requiredFieldsComplete ? (
-            <Link href="/order-confirmation" className="text-decoration-none">
-              <div className="bttn bttn_red bttn_auto-width"  onClick={handlePlaceOrder}>
+            // <Link href="/order-confirmation" className="text-decoration-none">
+              <div className="bttn bttn_red bttn_auto-width"  onClick={handlePlaceOrderAndCheckout}>
                 <span>Place Pickup Order</span>
                 <span>|</span>
                 <span>${(totalPrice ?? 0).toFixed(2)}</span>
               </div>
-            </Link>
+            // </Link>
           ) : (
             <div className="bttn bttn_red bttn_auto-width" onClick={handleCheckoutButtonClick}>
               <span>Place Pickup Order</span>
@@ -139,7 +142,7 @@ const CheckoutPage = () => {
           customerInfo={customerInfo}
           requiredFieldsComplete={requiredFieldsComplete}
           onCheckoutButtonClick={handleCheckoutButtonClick}
-          handlePlaceOrder={handlePlaceOrder}
+          handlePlaceOrderAndCheckout={handlePlaceOrderAndCheckout}
           />
       </div>
     </div>

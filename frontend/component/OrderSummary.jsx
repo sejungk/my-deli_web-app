@@ -6,7 +6,7 @@ import { CartContext } from '../app/CartContext';
 import CartItem from "./CartItem";
 import Link from 'next/link';
 
-const OrderSummary = ({ requiredFieldsComplete, onCheckoutButtonClick, handlePlaceOrder }) => {
+const OrderSummary = ({ requiredFieldsComplete, onCheckoutButtonClick, handlePlaceOrderAndCheckout }) => {
   const [tipPercentage, setTipPercentage] = useState(0);
   const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
 
@@ -103,7 +103,7 @@ const OrderSummary = ({ requiredFieldsComplete, onCheckoutButtonClick, handlePla
         {requiredFieldsComplete ? (
           <Link href="/order-confirmation" className="text-decoration-none">
             <div className="bttn bttn_red bttn_center bttn_auto-width"
-              onClick={handlePlaceOrder}>
+              onClick={handlePlaceOrderAndCheckout}>
                 <span>Checkout</span>
             </div>
           </Link>

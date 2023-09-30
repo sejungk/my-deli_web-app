@@ -10,8 +10,9 @@ const OrderConfirmation = () => {
   const { cartItems, selectedPickupDateTime } = useContext(CartContext);
 
   useEffect(() => {
-    if (cartItems.length === 0) push('/');
+  if (cartItems.length === 0) push('/');
   }, [cartItems, push]);
+
   if (cartItems.length === 0) return null;
 
   // Function to format the date
@@ -51,6 +52,9 @@ const OrderConfirmation = () => {
           <div className={styles.descriptionText}>
             <p className={styles.detailsText}>We’re preparing your pickup order for {formattedDate} at {selectedPickupDateTime.time}. </p>
           </div>
+        </div>
+        <div className={`${styles.returnBttn} bttn bttn_red bttn_full-width`}>
+          <span>Continue shopping</span>
         </div>
     </div>
   )
