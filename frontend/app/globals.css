@@ -367,6 +367,7 @@ input:focus {
 
 /* mobile devices */
 @media (max-width: 480px) {
+
   .bttn_small {
     width: 55vw;
   }
