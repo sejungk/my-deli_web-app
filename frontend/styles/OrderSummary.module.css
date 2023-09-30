@@ -63,30 +63,8 @@
   color: var(--primary-white);
 }
 
-@media (max-width: 110px) {
-  .flex_row {
-    flex-wrap: nowrap; /* Prevent wrapping if less than two cards fit */
-  }
-}
-/* tip - end */
-
-/* bottom section - start */
-.priceSection {
-  padding: 25px 40px;
-}
-
-.priceWrapper {
-  padding-bottom: 20px;
-}
-
-.priceRow {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
 
 /* bottom section - end */
-
 @media (max-width: 1000px) {
   .tipCard {
     flex-basis: 40%;
@@ -154,3 +132,24 @@
   }
 }
 
+@media (max-width: 110px) {
+  .flex_row {
+    flex-wrap: nowrap;
+  }
+}
+/* tip - end */
+
+/* bottom section - start */
+.priceSection {
+  padding: 25px 40px;
+}
+
+.priceWrapper {
+  padding-bottom: 20px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
