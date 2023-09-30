@@ -129,10 +129,10 @@ hr.sectionDivider {
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 100vw !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    min-width: 100vw !important;
+    width: 100vw;
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: 100vh;
+    min-width: 100vw;
     border-radius: 0;
     border: none;
     margin: 0;
